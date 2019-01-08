@@ -9,3 +9,4 @@ using System.Windows.Markup;
 )]
 [assembly: XmlnsPrefix("http://schemas.amusoft.ui.wpf.com/winfx/2006/xaml/presentation", "aui")]
 [assembly: XmlnsDefinition("http://schemas.amusoft.ui.wpf.com/winfx/2006/xaml/presentation", "Amusoft.UI.WPF.Controls")]
+[assembly: XmlnsDefinition("http://schemas.amusoft.ui.wpf.com/winfx/2006/xaml/presentation", "Amusoft.UI.WPF.Converters")]

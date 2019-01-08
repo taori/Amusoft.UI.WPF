@@ -43,8 +43,6 @@ namespace Amusoft.UI.WPF.Controls
 			foreach (var adorner in _adorners)
 			{
 				adorner.Value.InvalidateMeasure();
-				adorner.Value.InvalidateArrange();
-				adorner.Value.InvalidateVisual();
 				adorner.Value.UpdateLayout();
 			}
 		}

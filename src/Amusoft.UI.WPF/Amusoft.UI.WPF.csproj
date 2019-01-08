@@ -3,9 +3,18 @@
 		<TargetFramework>net461</TargetFramework>
 		<Platforms>AnyCPU;x64;x86</Platforms>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="Themes\Generic.xaml" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Include="Themes\Generic.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -14,5 +23,9 @@
 		<Reference Include="System.Xaml" />
 		<Reference Include="System.Windows.Forms" />
 		<Reference Include="WindowsBase" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Converters\" />
 	</ItemGroup>
 </Project>

@@ -78,6 +78,7 @@ namespace Amusoft.UI.WPF.Controls
 		protected override Size MeasureOverride(Size constraint)
 		{
 			DisplayedElement.Measure(new Size(constraint.Width, constraint.Height));
+			Debug.WriteLine($"MeasureOverride: {DisplayedElement.DesiredSize}");
 			return DisplayedElement.DesiredSize;
 		}
 
