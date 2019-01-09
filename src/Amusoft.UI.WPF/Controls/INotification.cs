@@ -1,9 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace Amusoft.UI.WPF.Controls
 {
-	public interface INotification
+	public interface INotification : INotifyPropertyChanged
 	{
 		ICommand CloseCommand { get; }
 
@@ -14,5 +15,7 @@ namespace Amusoft.UI.WPF.Controls
 		bool AutoClose { get; }
 
 		TimeSpan AutoCloseDelay { get; }
+
+		bool IsVisible { get; set; }
 	}
 }

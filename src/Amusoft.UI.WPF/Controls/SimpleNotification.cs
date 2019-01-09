@@ -1,5 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Amusoft.UI.WPF.Annotations;
 
 namespace Amusoft.UI.WPF.Controls
 {
@@ -11,10 +14,36 @@ namespace Amusoft.UI.WPF.Controls
 			Text = text;
 		}
 
-		public string Text { get; set; }
+		private string _text;
+
+		public string Text
+		{
+			get => _text;
+			set
+			{
+				if (value == _text)
+					return;
+
+				_text = value;
+				OnPropertyChanged();
+			}
+		}
+
+		private ICommand _closeCommand;
 
 		/// <inheritdoc />
-		public ICommand CloseCommand { get; }
+		public ICommand CloseCommand
+		{
+			get => _closeCommand;
+			set
+			{
+				if (Equals(value, _closeCommand))
+					return;
+
+				_closeCommand = value;
+				OnPropertyChanged();
+			}
+		}
 
 		/// <inheritdoc />
 		public event EventHandler CloseRequested;
@@ -22,10 +51,61 @@ namespace Amusoft.UI.WPF.Controls
 		/// <inheritdoc />
 		public event EventHandler Displayed;
 
-		/// <inheritdoc />
-		public bool AutoClose { get; set; }
+		private bool _autoClose;
 
 		/// <inheritdoc />
-		public TimeSpan AutoCloseDelay { get; set; }
+		public bool AutoClose
+		{
+			get => _autoClose;
+			set
+			{
+				if (value == _autoClose)
+					return;
+
+				_autoClose = value;
+				OnPropertyChanged();
+			}
+		}
+
+		private TimeSpan _autoCloseDelay;
+
+		/// <inheritdoc />
+		public TimeSpan AutoCloseDelay
+		{
+			get => _autoCloseDelay;
+			set
+			{
+				if (value.Equals(_autoCloseDelay))
+					return;
+
+				_autoCloseDelay = value;
+				OnPropertyChanged();
+			}
+		}
+
+		private bool _isVisible;
+
+		/// <inheritdoc />
+		public bool IsVisible
+		{
+			get => _isVisible;
+			set
+			{
+				if (value == _isVisible)
+					return;
+
+				_isVisible = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsVisible)));
+				OnPropertyChanged();
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		[NotifyPropertyChangedInvocator]
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
 	}
 }

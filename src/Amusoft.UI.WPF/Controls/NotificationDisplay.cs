@@ -4,15 +4,15 @@ using System.Windows.Data;
 
 namespace Amusoft.UI.WPF.Controls
 {
-	public class NotificationListView : ItemsControl
+	public class NotificationDisplay : ItemsControl
 	{
-		static NotificationListView()
+		static NotificationDisplay()
 		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(NotificationListView), new FrameworkPropertyMetadata(typeof(NotificationListView)));
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(NotificationDisplay), new FrameworkPropertyMetadata(typeof(NotificationDisplay)));
 		}
 
 		public static readonly DependencyProperty AnchorPositionProperty = DependencyProperty.Register(
-			nameof(AnchorPosition), typeof(AnchorPosition), typeof(NotificationListView), new PropertyMetadata(default(AnchorPosition)));
+			nameof(AnchorPosition), typeof(AnchorPosition), typeof(NotificationDisplay), new PropertyMetadata(default(AnchorPosition)));
 
 		public AnchorPosition AnchorPosition
 		{

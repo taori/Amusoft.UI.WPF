@@ -27,12 +27,12 @@ namespace Amusoft.UI.WPF.Playground
 
 		private async void OnLoaded(object sender, RoutedEventArgs e)
 		{
-			var host = NotificationManager.GetHostByScreen(Screen.PrimaryScreen);
-			for (int i = 0; i < 10; i++)
+			var host = NotificationHostManager.GetHostByScreen(Screen.PrimaryScreen);
+			for (int i = 0; i < 5; i++)
 			{
 				var notification = new SimpleNotification(DateTime.Now.ToString());
 				notification.AutoClose = true;
-				notification.AutoCloseDelay = TimeSpan.FromSeconds(15);
+				notification.AutoCloseDelay = TimeSpan.FromSeconds(6);
 				host.Display(notification, AnchorPosition.Left);
 				await Task.Delay(1000);
 			}

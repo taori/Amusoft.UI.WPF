@@ -5,23 +5,89 @@
 
 	<local:AnchorPositionToHorizontalAlignmentConverter x:Key="AnchorPositionToHorizontalAlignmentConverter"/>
 	<local:AnchorPositionToVerticalAlignmentConverter x:Key="AnchorPositionToVerticalAlignmentConverter"/>
-	<Style TargetType="{x:Type local:NotificationListView}">
+	<Style TargetType="{x:Type local:NotificationDisplay}">
 		<Setter Property="Template">
 			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type local:NotificationListView}">
+				<ControlTemplate TargetType="{x:Type local:NotificationDisplay}">
 					<Border Background="{TemplateBinding Background}"
 					        HorizontalAlignment="{Binding Path=AnchorPosition, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AnchorPositionToHorizontalAlignmentConverter}}"
 					        VerticalAlignment="{Binding Path=AnchorPosition, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AnchorPositionToVerticalAlignmentConverter}}"
 					        BorderBrush="{TemplateBinding BorderBrush}"
 					        BorderThickness="{TemplateBinding BorderThickness}">
-						<ItemsPresenter/>
+						<ItemsControl 
+							ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
+							AlternationCount="{TemplateBinding AlternationCount}"
+							DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
+							GroupStyleSelector="{TemplateBinding GroupStyleSelector}"
+							IsTextSearchCaseSensitive="{TemplateBinding IsTextSearchCaseSensitive}"
+							IsTextSearchEnabled="{TemplateBinding IsTextSearchEnabled}"
+							ItemTemplate="{TemplateBinding ItemTemplate}"
+							ItemsPanel="{TemplateBinding ItemsPanel}"
+							MinWidth="{TemplateBinding MinWidth}"
+							MinHeight="{TemplateBinding MinHeight}"
+							MaxHeight="{TemplateBinding MaxHeight}"
+							MaxWidth="{TemplateBinding MaxWidth}"
+							Style="{TemplateBinding Style}"
+							Padding="{TemplateBinding Padding}"
+							Margin="{TemplateBinding Margin}"
+							LayoutTransform="{TemplateBinding LayoutTransform}"
+							RenderTransform="{TemplateBinding RenderTransform}"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+							HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+							VerticalAlignment="{TemplateBinding VerticalAlignment}"
+							VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+							ItemsSource="{TemplateBinding ItemsSource}"/>
 					</Border>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
+	<Style TargetType="{x:Type ItemsPresenter}">
+	</Style>
+
+	<ScaleTransform ScaleY="0" x:Key="NoHeight"/>
+	<ScaleTransform ScaleY="1" x:Key="FullHeight"/>
 
 	<DataTemplate DataType="{x:Type local:SimpleNotification}">
-		<TextBlock Margin="0,1" Padding="5" Background="Red" Text="{Binding Path=Text}" Foreground="White"/>
+		<!-- <TextBlock Margin="0,1" Padding="5" Background="Red" Text="{Binding Path=Text}" Foreground="White"/> -->
+
+		<Border CornerRadius="5" Background="Red"
+		        Margin="0,1" Padding="10,5">
+			<Border.Style>
+				<Style TargetType="{x:Type Border}">
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding Path=IsVisible}" Value="True">
+							<DataTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard >
+										<DoubleAnimation Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
+											 To="2.0" Duration="0:0:2"/>
+									</Storyboard>
+								</BeginStoryboard>
+							</DataTrigger.EnterActions>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Path=IsVisible}" Value="False">
+							<DataTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard >
+										<DoubleAnimation Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
+										                 To="0.0" Duration="0:0:2"/>
+									</Storyboard>
+								</BeginStoryboard>
+							</DataTrigger.EnterActions>
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</Border.Style>
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="{Binding Path=IsVisible, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0"
+				           Foreground="White"/>
+				<TextBlock Text="{Binding Path=Text}"
+				           Foreground="White"/>
+			</StackPanel>
+		</Border>
 	</DataTemplate>
 </ResourceDictionary>
