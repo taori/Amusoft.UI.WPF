@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Amusoft.UI.WPF.Annotations;
+using Microsoft.Xaml.Behaviors.Core;
 
 namespace Amusoft.UI.WPF.Controls
 {
@@ -12,6 +14,12 @@ namespace Amusoft.UI.WPF.Controls
 		public SimpleNotification(string text)
 		{
 			Text = text;
+			CloseCommand = new ActionCommand(CloseExecute);
+		}
+
+		private void CloseExecute()
+		{
+			IsVisible = false;
 		}
 
 		private string _text;
@@ -95,6 +103,7 @@ namespace Amusoft.UI.WPF.Controls
 					return;
 
 				_isVisible = value;
+				Debug.WriteLine($"{nameof(IsVisible)}: {value}.");
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsVisible)));
 				OnPropertyChanged();
 			}

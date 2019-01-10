@@ -4,9 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Amusoft.UI.WPF.Playground"
+        xmlns:viewModels="clr-namespace:Amusoft.UI.WPF.Playground.ViewModels"
+        xmlns:Interactions="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behaviors="clr-namespace:Amusoft.UI.WPF.Playground.Behaviors"
         mc:Ignorable="d"
+		x:Name="Self" 
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+	<Window.DataContext>
+		<viewModels:MainViewModel/>
+	</Window.DataContext>
+	<Interactions:Interaction.Triggers>
+		<Interactions:EventTrigger EventName="Loaded">
+			<behaviors:SetPropertyAction 
+				TargetObject="{Binding ElementName=Self, Path=DataContext}" 
+				PropertyValue="{Binding ElementName=Self}" 
+				PropertyName="Window"/>
+		</Interactions:EventTrigger>
+	</Interactions:Interaction.Triggers>
+	<Grid>
+		<ItemsControl ItemsSource="{Binding Path=Commands}">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Button Content="{Binding Path=Text}" Command="{Binding Path=Command}"></Button>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</Grid>
 </Window>

@@ -45,36 +45,31 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	<Style TargetType="{x:Type ItemsPresenter}">
-	</Style>
-
-	<ScaleTransform ScaleY="0" x:Key="NoHeight"/>
-	<ScaleTransform ScaleY="1" x:Key="FullHeight"/>
 
 	<DataTemplate DataType="{x:Type local:SimpleNotification}">
-		<!-- <TextBlock Margin="0,1" Padding="5" Background="Red" Text="{Binding Path=Text}" Foreground="White"/> -->
-
-		<Border CornerRadius="5" Background="Red"
+		<Border CornerRadius="5" Background="DarkRed"
 		        Margin="0,1" Padding="10,5">
 			<Border.Style>
 				<Style TargetType="{x:Type Border}">
 					<Style.Triggers>
 						<DataTrigger Binding="{Binding Path=IsVisible}" Value="True">
+							<Setter Property="Background" Value="Yellow"/>
 							<DataTrigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard >
 										<DoubleAnimation Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
-											 To="2.0" Duration="0:0:2"/>
+											From="1" To="2.0" Duration="0:0:2"/>
 									</Storyboard>
 								</BeginStoryboard>
 							</DataTrigger.EnterActions>
 						</DataTrigger>
 						<DataTrigger Binding="{Binding Path=IsVisible}" Value="False">
+							<Setter Property="Background" Value="Green"/>
 							<DataTrigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard >
 										<DoubleAnimation Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
-										                 To="0.0" Duration="0:0:2"/>
+										           From="2" To="1.0" Duration="0:0:2"/>
 									</Storyboard>
 								</BeginStoryboard>
 							</DataTrigger.EnterActions>
@@ -82,11 +77,14 @@
 					</Style.Triggers>
 				</Style>
 			</Border.Style>
-			<StackPanel Orientation="Horizontal">
+			<StackPanel Orientation="Horizontal" IsHitTestVisible="True">
 				<TextBlock Text="{Binding Path=IsVisible, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0"
+						   VerticalAlignment="Center"
 				           Foreground="White"/>
 				<TextBlock Text="{Binding Path=Text}"
+						   VerticalAlignment="Center"
 				           Foreground="White"/>
+				<Button Content="X" Command="{Binding Path=CloseCommand}" Padding="3" Margin="5,0,0,0"/>
 			</StackPanel>
 		</Border>
 	</DataTemplate>
