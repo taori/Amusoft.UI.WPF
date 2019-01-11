@@ -61,6 +61,7 @@ namespace Amusoft.UI.WPF.Controls
 				display.ItemsSource = c;
 			}
 
+			presenter.DataContext = c;
 			presenter.Content = display;
 		}
 	}

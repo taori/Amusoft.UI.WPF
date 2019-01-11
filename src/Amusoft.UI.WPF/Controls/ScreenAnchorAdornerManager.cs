@@ -58,15 +58,12 @@ namespace Amusoft.UI.WPF.Controls
 
 			var window = new Window() { Title = "OverlayAnchorWindow" };
 			window.Background = new SolidColorBrush { Color = Colors.White, Opacity = 0 };
-			//			window.Content = new Border(){Background = new SolidColorBrush(Color.FromArgb(50, 255, 0, 0))}; ;
 			window.Content = new Border() { Background = Brushes.Transparent }; ;
 			window.LocationChanged += (sender, args) => UpdateSizes(window, true);
 			window.SizeChanged += (sender, args) => UpdateSizes(window, true);
 			window.WindowStyle = WindowStyle.None;
 			window.AllowsTransparency = true;
-			window.IsHitTestVisible = false;
 			window.Topmost = true;
-			//			window.Opacity = 0;
 			window.ShowInTaskbar = false;
 
 			UpdateSizes(window, false);
