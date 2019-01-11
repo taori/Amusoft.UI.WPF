@@ -20,6 +20,8 @@ namespace Amusoft.UI.WPF.Controls
 		{
 			DisplayedElement = ComposeGrid(displayedElement, position);
 			Position = position;
+			AddVisualChild(DisplayedElement);
+			AddLogicalChild(DisplayedElement);
 		}
 
 		private UIElement ComposeGrid(FrameworkElement displayedElement, AnchorPosition position)
@@ -144,11 +146,5 @@ namespace Amusoft.UI.WPF.Controls
 
 		/// <inheritdoc />
 		protected override int VisualChildrenCount => 1;
-		
-		/// <inheritdoc />
-		protected override IEnumerator LogicalChildren
-		{
-			get { yield return DisplayedElement; }
-		}
 	}
 }

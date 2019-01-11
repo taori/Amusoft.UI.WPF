@@ -48,34 +48,37 @@
 	<DataTemplate DataType="{x:Type local:SimpleNotification}">
 		<Border CornerRadius="5" Background="DarkRed" IsHitTestVisible="True"
 		        Margin="0,1" Padding="10,5">
-			<!-- <Border.Style> -->
-			<!-- 	<Style TargetType="{x:Type Border}"> -->
-			<!-- 		<Style.Triggers> -->
-			<!-- 			<DataTrigger Binding="{Binding Path=IsVisible, UpdateSourceTrigger=PropertyChanged}" Value="True"> -->
-			<!-- 				<Setter Property="Background" Value="Yellow"/> -->
-			<!-- 				<DataTrigger.EnterActions> -->
-			<!-- 					<BeginStoryboard> -->
-			<!-- 						<Storyboard > -->
-			<!-- 							<DoubleAnimation Storyboard.TargetProperty="(ScaleTransform.ScaleY)" -->
-			<!-- 								From="1" To="2.0" Duration="0:0:2"/> -->
-			<!-- 						</Storyboard> -->
-			<!-- 					</BeginStoryboard> -->
-			<!-- 				</DataTrigger.EnterActions> -->
-			<!-- 			</DataTrigger> -->
-			<!-- 			<DataTrigger Binding="{Binding Path=IsVisible, UpdateSourceTrigger=PropertyChanged}" Value="False"> -->
-			<!-- 				<Setter Property="Background" Value="Green"/> -->
-			<!-- 				<DataTrigger.EnterActions> -->
-			<!-- 					<BeginStoryboard> -->
-			<!-- 						<Storyboard > -->
-			<!-- 							<DoubleAnimation Storyboard.TargetProperty="(ScaleTransform.ScaleY)" -->
-			<!-- 							           From="2" To="1.0" Duration="0:0:2"/> -->
-			<!-- 						</Storyboard> -->
-			<!-- 					</BeginStoryboard> -->
-			<!-- 				</DataTrigger.EnterActions> -->
-			<!-- 			</DataTrigger> -->
-			<!-- 		</Style.Triggers> -->
-			<!-- 	</Style> -->
-			<!-- </Border.Style> -->
+			<Border.LayoutTransform>
+				<ScaleTransform/>
+			</Border.LayoutTransform>
+			<Border.Style>
+				<Style TargetType="{x:Type Border}">
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding Path=IsVisible, UpdateSourceTrigger=PropertyChanged}" Value="True">
+							<Setter Property="Background" Value="Yellow"/>
+							<DataTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard >
+										<DoubleAnimation Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
+											To="2.0" Duration="0:0:2"/>
+									</Storyboard>
+								</BeginStoryboard>
+							</DataTrigger.EnterActions>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Path=IsVisible, UpdateSourceTrigger=PropertyChanged}" Value="False">
+							<Setter Property="Background" Value="Green"/>
+							<DataTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard >
+										<DoubleAnimation Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
+											To="1.0" Duration="0:0:2"/>
+									</Storyboard>
+								</BeginStoryboard>
+							</DataTrigger.EnterActions>
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</Border.Style>
 			<StackPanel Orientation="Horizontal">
 				<TextBlock Text="{Binding Path=IsVisible, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0"
 						   VerticalAlignment="Center"
