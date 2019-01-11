@@ -104,7 +104,6 @@ namespace Amusoft.UI.WPF.Controls
 
 				_isVisible = value;
 				Debug.WriteLine($"{nameof(IsVisible)}: {value}.");
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsVisible)));
 				OnPropertyChanged();
 			}
 		}
