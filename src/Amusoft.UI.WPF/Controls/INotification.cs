@@ -8,6 +8,8 @@ namespace Amusoft.UI.WPF.Controls
 	{
 		ICommand CloseCommand { get; }
 
+		ICommand SelectCommand { get; }
+
 		event EventHandler CloseRequested;
 
 		event EventHandler Displayed;

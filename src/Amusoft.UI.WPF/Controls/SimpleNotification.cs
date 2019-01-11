@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Amusoft.UI.WPF.Annotations;
@@ -11,10 +10,19 @@ namespace Amusoft.UI.WPF.Controls
 	public class SimpleNotification : INotification
 	{
 		/// <inheritdoc />
-		public SimpleNotification(string text)
+		public SimpleNotification(string text, Action<SimpleNotification> selectedCallback = null, Action<SimpleNotification> closedCallback = null)
 		{
 			Text = text;
+			SelectedCallback = selectedCallback;
+			ClosedCallback = closedCallback;
 			CloseCommand = new ActionCommand(CloseExecute);
+			SelectCommand = new ActionCommand(SelectExecute);
+		}
+
+		private void SelectExecute(object obj)
+		{
+			SelectedCallback?.Invoke(this);
+			CloseExecute();
 		}
 
 		private void CloseExecute()
@@ -23,6 +31,7 @@ namespace Amusoft.UI.WPF.Controls
 				return;
 
 			Closed = true;
+			ClosedCallback?.Invoke(this);
 			CloseRequested?.Invoke(this, EventArgs.Empty);
 		}
 
@@ -41,6 +50,9 @@ namespace Amusoft.UI.WPF.Controls
 			}
 		}
 
+		public Action<SimpleNotification> SelectedCallback { get; }
+		public Action<SimpleNotification> ClosedCallback { get; }
+
 		private ICommand _closeCommand;
 
 		/// <inheritdoc />
@@ -53,6 +65,22 @@ namespace Amusoft.UI.WPF.Controls
 					return;
 
 				_closeCommand = value;
+				OnPropertyChanged();
+			}
+		}
+
+		private ICommand _selectCommand;
+
+		/// <inheritdoc />
+		public ICommand SelectCommand
+		{
+			get => _selectCommand;
+			set
+			{
+				if (Equals(value, _selectCommand))
+					return;
+
+				_selectCommand = value;
 				OnPropertyChanged();
 			}
 		}

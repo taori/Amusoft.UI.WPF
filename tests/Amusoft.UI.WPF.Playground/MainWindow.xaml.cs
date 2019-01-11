@@ -1,15 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using Amusoft.UI.WPF.Controls;
-using Application = System.Windows.Application;
-using HorizontalAlignment = System.Windows.HorizontalAlignment;
+﻿using System.Windows;
 
 namespace Amusoft.UI.WPF.Playground
 {
