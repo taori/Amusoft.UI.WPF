@@ -28,43 +28,43 @@ namespace Amusoft.UI.WPF.Controls
 			grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
 			grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
 			grid.Children.Add(displayedElement);
-//			switch (position)
-//			{
-//				case AnchorPosition.BottomRight:
-//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-//					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
-//					break;
-//				case AnchorPosition.Bottom:
-//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-//					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
-//					break;
-//				case AnchorPosition.BottomLeft:
-//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-//					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
-//					break;
-//				case AnchorPosition.Left:
-//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-//					displayedElement.VerticalAlignment = VerticalAlignment.Stretch;
-//					break;
-//				case AnchorPosition.TopLeft:
-//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-//					displayedElement.VerticalAlignment = VerticalAlignment.Top;
-//					break;
-//				case AnchorPosition.Top:
-//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-//					displayedElement.VerticalAlignment = VerticalAlignment.Top;
-//					break;
-//				case AnchorPosition.TopRight:
-//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-//					displayedElement.VerticalAlignment = VerticalAlignment.Top;
-//					break;
-//				case AnchorPosition.Right:
-//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-//					displayedElement.VerticalAlignment = VerticalAlignment.Stretch;
-//					break;
-//				default:
-//					throw new ArgumentOutOfRangeException(nameof(position), position, null);
-//			}
+			switch (position)
+			{
+				case AnchorPosition.BottomRight:
+					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
+					break;
+				case AnchorPosition.Bottom:
+					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
+					break;
+				case AnchorPosition.BottomLeft:
+					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
+					break;
+				case AnchorPosition.Left:
+					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+					displayedElement.VerticalAlignment = VerticalAlignment.Stretch;
+					break;
+				case AnchorPosition.TopLeft:
+					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+					displayedElement.VerticalAlignment = VerticalAlignment.Top;
+					break;
+				case AnchorPosition.Top:
+					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+					displayedElement.VerticalAlignment = VerticalAlignment.Top;
+					break;
+				case AnchorPosition.TopRight:
+					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+					displayedElement.VerticalAlignment = VerticalAlignment.Top;
+					break;
+				case AnchorPosition.Right:
+					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+					displayedElement.VerticalAlignment = VerticalAlignment.Stretch;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(position), position, null);
+			}
 
 			return grid;
 		}
@@ -78,7 +78,7 @@ namespace Amusoft.UI.WPF.Controls
 		/// <inheritdoc />
 		protected override Size MeasureOverride(Size constraint)
 		{
-			DisplayedElement.Measure(new Size(constraint.Width, constraint.Height));
+			DisplayedElement.Measure(constraint);
 			var desired = DisplayedElement.DesiredSize;
 			Debug.WriteLine($"{"Measure".PadLeft(10, ' ')}: width:{desired.Width} height:{desired.Height}");
 			return desired;
@@ -144,19 +144,7 @@ namespace Amusoft.UI.WPF.Controls
 
 		/// <inheritdoc />
 		protected override int VisualChildrenCount => 1;
-
-		/// <inheritdoc />
-		protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
-		{
-			base.OnPreviewMouseDown(e);
-		}
-
-		/// <inheritdoc />
-		protected override void OnMouseDown(MouseButtonEventArgs e)
-		{
-			base.OnMouseDown(e);
-		}
-
+		
 		/// <inheritdoc />
 		protected override IEnumerator LogicalChildren
 		{

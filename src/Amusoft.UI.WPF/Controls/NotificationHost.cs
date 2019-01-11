@@ -18,7 +18,7 @@ namespace Amusoft.UI.WPF.Controls
 			ItemsByPosition = new ConcurrentDictionary<AnchorPosition, ObservableCollection<INotification>>();
 		}
 
-		public async void Display(INotification notification, AnchorPosition position)
+		public async void DisplayAsync(INotification notification, AnchorPosition position)
 		{
 			if(!Manager.TryGetPresenter(position, out var presenter))
 				return;
@@ -31,6 +31,8 @@ namespace Amusoft.UI.WPF.Controls
 			}
 
 			collection.Add(notification);
+			// todo figure out why rendering only works correctly with task delay
+			await Task.Delay(1);
 			Manager.Update();
 			notification.IsVisible = true;
 

@@ -57,7 +57,7 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 				var notification = new SimpleNotification(DateTime.Now.ToString());
 				notification.AutoClose = true;
 				notification.AutoCloseDelay = TimeSpan.FromSeconds(6);
-				host.Display(notification, AnchorPosition);
+				host.DisplayAsync(notification, AnchorPosition);
 				await Task.Delay(1000);
 			}
 		}
@@ -70,7 +70,7 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 				var notification = new SimpleNotification(DateTime.Now.ToString());
 				notification.AutoClose = true;
 				notification.AutoCloseDelay = TimeSpan.FromSeconds(6);
-				host.Display(notification, AnchorPosition);
+				host.DisplayAsync(notification, AnchorPosition);
 				await Task.Delay(1000);
 			}
 
