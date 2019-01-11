@@ -24,7 +24,7 @@
 	</Interactions:Interaction.Triggers>
 	<DockPanel>
 		<StackPanel DockPanel.Dock="Top">
-			<ComboBox Padding="10" FontSize="20" FontWeight="Bold" 
+			<ListView Padding="10" FontSize="20" FontWeight="Bold" 
 					  HorizontalContentAlignment="Center"
 			          ItemsSource="{Binding Source={utility:EnumSource {x:Type aui:AnchorPosition}}}" 
 			          SelectedValue="{Binding Path=AnchorPosition, UpdateSourceTrigger=PropertyChanged}" 

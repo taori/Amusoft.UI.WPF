@@ -7,17 +7,28 @@ using System.Windows.Media;
 
 namespace Amusoft.UI.WPF.Controls
 {
+	public class NotificationSettings
+	{
+		public Style Style { get; private set; }
+
+		public NotificationSettings WithStyle(Style value)
+		{
+			Style = value;
+			return this;
+		}
+	}
+
 	public class NotificationHostManager
 	{
-		public static readonly DependencyProperty NotificationHostProperty = DependencyProperty.RegisterAttached(
+		internal static readonly DependencyProperty NotificationHostProperty = DependencyProperty.RegisterAttached(
 			"NotificationHost", typeof(NotificationHost), typeof(NotificationHostManager), new PropertyMetadata(default(NotificationHost)));
 
-		public static void SetNotificationHost(Visual element, NotificationHost value)
+		internal static void SetNotificationHost(Visual element, NotificationHost value)
 		{
 			element.SetValue(NotificationHostProperty, value);
 		}
 
-		public static NotificationHost GetNotificationHost(Visual element)
+		internal static NotificationHost GetNotificationHost(Visual element)
 		{
 			return (NotificationHost) element.GetValue(NotificationHostProperty);
 		}
@@ -27,7 +38,7 @@ namespace Amusoft.UI.WPF.Controls
 		}
 
 		private static readonly object _hostByVisualLock = new object();
-		public static NotificationHost GetHostByVisual(Visual target)
+		public static NotificationHost GetHostByVisual(Visual target, NotificationSettings settings = null)
 		{
 			lock (_hostByVisualLock)
 			{
@@ -35,27 +46,27 @@ namespace Amusoft.UI.WPF.Controls
 				if (oldHost != null)
 					return oldHost;
 
-				var newHost = CreateHostByVisual(target);
+				var newHost = CreateHostByVisual(target, settings);
 				SetNotificationHost(target, newHost);
 				return newHost;
 			}
 		}
 
-		private static NotificationHost CreateHostByVisual(Visual target)
+		private static NotificationHost CreateHostByVisual(Visual target, NotificationSettings settings = null)
 		{
 			var manager = new AnchorAdornerManager(target);
-			var host = new NotificationHost(manager);
+			var host = new NotificationHost(manager, settings);
 			return host;
 		}
 
 		private static readonly ConcurrentDictionary<Screen, NotificationHost> HostsByScreen = new ConcurrentDictionary<Screen, NotificationHost>();
 
-		public static NotificationHost GetHostByScreen(Screen screen)
+		public static NotificationHost GetHostByScreen(Screen screen, NotificationSettings settings = null)
 		{
 			return HostsByScreen.GetOrAdd(screen, s =>
 			{
 				var manager = ScreenAnchorAdornerManager.Instance[s];
-				var host = new NotificationHost(manager);
+				var host = new NotificationHost(manager, settings);
 				return host;
 			});
 		}

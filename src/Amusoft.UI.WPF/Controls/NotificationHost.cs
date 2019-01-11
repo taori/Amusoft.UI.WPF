@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Amusoft.UI.WPF.Controls
@@ -12,7 +13,7 @@ namespace Amusoft.UI.WPF.Controls
 
 		public ConcurrentDictionary<AnchorPosition, ObservableCollection<INotification>> ItemsByPosition { get; }
 
-		public NotificationHost(AnchorAdornerManager manager)
+		public NotificationHost(AnchorAdornerManager manager, NotificationSettings settings)
 		{
 			Manager = manager;
 			ItemsByPosition = new ConcurrentDictionary<AnchorPosition, ObservableCollection<INotification>>();
@@ -30,18 +31,19 @@ namespace Amusoft.UI.WPF.Controls
 				throw new Exception("At this point the ObservableCollection should be present.");
 			}
 
-			collection.Add(notification);
-			// todo figure out why rendering only works correctly with task delay
-			await Task.Delay(1);
-			Manager.Update();
-			notification.IsVisible = true;
+			notification.CloseRequested += (sender, args) => notification.CloseCommand?.Execute(notification);
+			notification.CloseRequested += (sender, args) => collection.Remove(notification);
 
-			if (notification.AutoClose)
+			collection.Add(notification);
+
+			notification.NotifyDisplayed();
+
+			if (notification.AutoClose && notification.AutoCloseDelay > TimeSpan.Zero)
 			{
 				await Task.Delay(notification.AutoCloseDelay);
-				notification.IsVisible = false;
-				//					collection.Remove(notification);
-				//					Manager.Update();
+
+				if (!notification.Closed)
+					notification.CloseCommand?.Execute(notification);
 			}
 		}
 
@@ -58,10 +60,10 @@ namespace Amusoft.UI.WPF.Controls
 				if (!ItemsByPosition.TryAdd(position, c))
 					c = ItemsByPosition[position];
 
+				c.CollectionChanged += (sender, args) => display.Visibility = c.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
 				display.ItemsSource = c;
 			}
 
-			presenter.DataContext = c;
 			presenter.Content = display;
 		}
 	}

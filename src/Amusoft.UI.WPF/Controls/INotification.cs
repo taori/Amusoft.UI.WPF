@@ -14,8 +14,10 @@ namespace Amusoft.UI.WPF.Controls
 
 		bool AutoClose { get; }
 
+		bool Closed { get; }
+
 		TimeSpan AutoCloseDelay { get; }
 
-		bool IsVisible { get; set; }
+		void NotifyDisplayed();
 	}
 }

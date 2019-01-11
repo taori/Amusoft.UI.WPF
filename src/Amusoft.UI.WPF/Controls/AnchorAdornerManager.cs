@@ -36,16 +36,5 @@ namespace Amusoft.UI.WPF.Controls
 		{
 			Target = target;
 		}
-
-		public void Update()
-		{
-			Debug.WriteLine($"Update called.");
-			foreach (var adorner in _adorners)
-			{
-				adorner.Value.InvalidateMeasure();
-				adorner.Value.InvalidateArrange();
-				adorner.Value.InvalidateVisual();
-			}
-		}
 	}
 }

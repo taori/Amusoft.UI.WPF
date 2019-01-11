@@ -19,7 +19,11 @@ namespace Amusoft.UI.WPF.Controls
 
 		private void CloseExecute()
 		{
-			IsVisible = false;
+			if (Closed)
+				return;
+
+			Closed = true;
+			CloseRequested?.Invoke(this, EventArgs.Empty);
 		}
 
 		private string _text;
@@ -75,6 +79,22 @@ namespace Amusoft.UI.WPF.Controls
 			}
 		}
 
+		private bool _closed;
+
+		/// <inheritdoc />
+		public bool Closed
+		{
+			get => _closed;
+			set
+			{
+				if (value == _closed)
+					return;
+
+				_closed = value;
+				OnPropertyChanged();
+			}
+		}
+
 		private TimeSpan _autoCloseDelay;
 
 		/// <inheritdoc />
@@ -91,21 +111,10 @@ namespace Amusoft.UI.WPF.Controls
 			}
 		}
 
-		private bool _isVisible;
-
 		/// <inheritdoc />
-		public bool IsVisible
+		public void NotifyDisplayed()
 		{
-			get => _isVisible;
-			set
-			{
-				if (value == _isVisible)
-					return;
-
-				_isVisible = value;
-//				Debug.WriteLine($"{nameof(IsVisible)}: {value}.");
-				OnPropertyChanged();
-			}
+			this.Displayed?.Invoke(this, EventArgs.Empty);
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
