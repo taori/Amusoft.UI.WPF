@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Amusoft.UI.WPF.Controls
@@ -27,43 +28,43 @@ namespace Amusoft.UI.WPF.Controls
 			grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
 			grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
 			grid.Children.Add(displayedElement);
-			switch (position)
-			{
-				case AnchorPosition.BottomRight:
-					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
-					break;
-				case AnchorPosition.Bottom:
-					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
-					break;
-				case AnchorPosition.BottomLeft:
-					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
-					break;
-				case AnchorPosition.Left:
-					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-					displayedElement.VerticalAlignment = VerticalAlignment.Stretch;
-					break;
-				case AnchorPosition.TopLeft:
-					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-					displayedElement.VerticalAlignment = VerticalAlignment.Top;
-					break;
-				case AnchorPosition.Top:
-					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-					displayedElement.VerticalAlignment = VerticalAlignment.Top;
-					break;
-				case AnchorPosition.TopRight:
-					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-					displayedElement.VerticalAlignment = VerticalAlignment.Top;
-					break;
-				case AnchorPosition.Right:
-					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-					displayedElement.VerticalAlignment = VerticalAlignment.Stretch;
-					break;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(position), position, null);
-			}
+//			switch (position)
+//			{
+//				case AnchorPosition.BottomRight:
+//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+//					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
+//					break;
+//				case AnchorPosition.Bottom:
+//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+//					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
+//					break;
+//				case AnchorPosition.BottomLeft:
+//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+//					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
+//					break;
+//				case AnchorPosition.Left:
+//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+//					displayedElement.VerticalAlignment = VerticalAlignment.Stretch;
+//					break;
+//				case AnchorPosition.TopLeft:
+//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+//					displayedElement.VerticalAlignment = VerticalAlignment.Top;
+//					break;
+//				case AnchorPosition.Top:
+//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+//					displayedElement.VerticalAlignment = VerticalAlignment.Top;
+//					break;
+//				case AnchorPosition.TopRight:
+//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+//					displayedElement.VerticalAlignment = VerticalAlignment.Top;
+//					break;
+//				case AnchorPosition.Right:
+//					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+//					displayedElement.VerticalAlignment = VerticalAlignment.Stretch;
+//					break;
+//				default:
+//					throw new ArgumentOutOfRangeException(nameof(position), position, null);
+//			}
 
 			return grid;
 		}
@@ -79,7 +80,7 @@ namespace Amusoft.UI.WPF.Controls
 		{
 			DisplayedElement.Measure(new Size(constraint.Width, constraint.Height));
 			var desired = DisplayedElement.DesiredSize;
-			Debug.WriteLine($"MeasureOverride: width:{desired.Width} height:{desired.Height}");
+			Debug.WriteLine($"{"Measure".PadLeft(10, ' ')}: width:{desired.Width} height:{desired.Height}");
 			return desired;
 		}
 
@@ -88,7 +89,7 @@ namespace Amusoft.UI.WPF.Controls
 		{
 			var calculateSize = CalculateSize(measured);
 			var calculatePosition = CalculatePosition(measured);
-			Debug.WriteLine($"Arrange: position:{calculatePosition} size:{calculateSize}");
+			Debug.WriteLine($"{"Arrange".PadLeft(10, ' ')} ({Position.ToString().PadLeft(8, ' ')}): position:{calculatePosition.X:0}x{calculatePosition.Y:0} size:{calculateSize.Width:0}x{calculateSize.Height:0}");
 			DisplayedElement.Arrange(new Rect(calculatePosition, calculateSize));
 			return measured;
 		}
@@ -143,6 +144,18 @@ namespace Amusoft.UI.WPF.Controls
 
 		/// <inheritdoc />
 		protected override int VisualChildrenCount => 1;
+
+		/// <inheritdoc />
+		protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
+		{
+			base.OnPreviewMouseDown(e);
+		}
+
+		/// <inheritdoc />
+		protected override void OnMouseDown(MouseButtonEventArgs e)
+		{
+			base.OnMouseDown(e);
+		}
 
 		/// <inheritdoc />
 		protected override IEnumerator LogicalChildren

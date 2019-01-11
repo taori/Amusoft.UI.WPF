@@ -45,7 +45,8 @@ namespace Amusoft.UI.WPF.Controls
 				adorner.Value.InvalidateMeasure();
 				adorner.Value.InvalidateArrange();
 				adorner.Value.InvalidateVisual();
-				adorner.Value.UpdateLayout();
+//				adorner.Value.InvalidateProperty(FrameworkElement.WidthProperty);
+//				adorner.Value.UpdateLayout();
 			}
 		}
 	}

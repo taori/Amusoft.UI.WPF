@@ -103,7 +103,7 @@ namespace Amusoft.UI.WPF.Controls
 					return;
 
 				_isVisible = value;
-				Debug.WriteLine($"{nameof(IsVisible)}: {value}.");
+//				Debug.WriteLine($"{nameof(IsVisible)}: {value}.");
 				OnPropertyChanged();
 			}
 		}
