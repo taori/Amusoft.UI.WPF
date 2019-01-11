@@ -2,10 +2,11 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using Amusoft.UI.WPF.Controls;
 
-namespace Amusoft.UI.WPF.Controls
+namespace Amusoft.UI.WPF.Converters
 {
-	public class AnchorPositionToVerticalAlignmentConverter : IValueConverter
+	public class AnchorPositionToHorizontalAlignmentConverter : IValueConverter
 	{
 		/// <inheritdoc />
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -15,21 +16,21 @@ namespace Amusoft.UI.WPF.Controls
 				switch (position)
 				{
 					case AnchorPosition.BottomRight:
-						return VerticalAlignment.Bottom;
+						return HorizontalAlignment.Right;
 					case AnchorPosition.Bottom:
-						return VerticalAlignment.Bottom;
+						return HorizontalAlignment.Center;
 					case AnchorPosition.BottomLeft:
-						return VerticalAlignment.Bottom;
+						return HorizontalAlignment.Left;
 					case AnchorPosition.Left:
-						return VerticalAlignment.Center;
+						return HorizontalAlignment.Left;
 					case AnchorPosition.TopLeft:
-						return VerticalAlignment.Top;
+						return HorizontalAlignment.Left;
 					case AnchorPosition.Top:
-						return VerticalAlignment.Top;
+						return HorizontalAlignment.Center;
 					case AnchorPosition.TopRight:
-						return VerticalAlignment.Top;
+						return HorizontalAlignment.Right;
 					case AnchorPosition.Right:
-						return VerticalAlignment.Center;
+						return HorizontalAlignment.Right;
 					default:
 						throw new ArgumentOutOfRangeException();
 				}

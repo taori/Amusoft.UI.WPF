@@ -16,6 +16,7 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 		{
 			Commands.Add(new TextCommandViewModel(new ActionCommand(DisplayGlobalNotifactionsExecute), "Display global notifications"));
 			Commands.Add(new TextCommandViewModel(new ActionCommand(DisplayWindowNotifactionsExecute), "Display window notifications"));
+			Commands.Add(new TextCommandViewModel(new ActionCommand(DisplayAlignmentTestWindowExecute), "Display aligntment test window"));
 		}
 
 		private Window _window;
@@ -34,6 +35,20 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 			set => SetValue(ref _commands, value, nameof(Commands));
 		}
 
+		private AnchorPosition _anchorPosition;
+
+		public AnchorPosition AnchorPosition
+		{
+			get => _anchorPosition;
+			set => SetValue(ref _anchorPosition, value, nameof(AnchorPosition));
+		}
+
+		private void DisplayAlignmentTestWindowExecute()
+		{
+			var testWindow = new AlignmentTestWindow();
+			testWindow.Show();
+		}
+
 		private async void DisplayWindowNotifactionsExecute()
 		{
 			var host = NotificationHostManager.GetHostByVisual(Window.Content as Visual);
@@ -42,21 +57,20 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 				var notification = new SimpleNotification(DateTime.Now.ToString());
 				notification.AutoClose = true;
 				notification.AutoCloseDelay = TimeSpan.FromSeconds(6);
-				host.Display(notification, AnchorPosition.Left);
+				host.Display(notification, AnchorPosition);
 				await Task.Delay(1000);
 			}
 		}
 
 		private async void DisplayGlobalNotifactionsExecute(object obj)
 		{
-
 			var host = NotificationHostManager.GetHostByScreen(Screen.PrimaryScreen);
 			for (int i = 0; i < 5; i++)
 			{
 				var notification = new SimpleNotification(DateTime.Now.ToString());
 				notification.AutoClose = true;
 				notification.AutoCloseDelay = TimeSpan.FromSeconds(6);
-				host.Display(notification, AnchorPosition.Left);
+				host.Display(notification, AnchorPosition);
 				await Task.Delay(1000);
 			}
 
@@ -107,6 +121,7 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 		}
 
 		//		private static DockPanel CreateSampleControl(string text, Action<DockPanel> mod = null)
+
 		//		{
 		//			var control = new DockPanel()
 		//			{

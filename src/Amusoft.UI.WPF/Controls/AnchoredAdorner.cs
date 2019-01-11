@@ -78,16 +78,18 @@ namespace Amusoft.UI.WPF.Controls
 		protected override Size MeasureOverride(Size constraint)
 		{
 			DisplayedElement.Measure(new Size(constraint.Width, constraint.Height));
-			Debug.WriteLine($"MeasureOverride: {DisplayedElement.DesiredSize}");
-			return DisplayedElement.DesiredSize;
+			var desired = DisplayedElement.DesiredSize;
+			Debug.WriteLine($"MeasureOverride: width:{desired.Width} height:{desired.Height}");
+			return desired;
 		}
 
 		/// <inheritdoc />
 		protected override Size ArrangeOverride(Size measured)
 		{
 			var calculateSize = CalculateSize(measured);
-			Debug.WriteLine($"Arrange: {Position} {calculateSize}");
-			DisplayedElement.Arrange(new Rect(CalculatePosition(measured), calculateSize));
+			var calculatePosition = CalculatePosition(measured);
+			Debug.WriteLine($"Arrange: position:{calculatePosition} size:{calculateSize}");
+			DisplayedElement.Arrange(new Rect(calculatePosition, calculateSize));
 			return measured;
 		}
 
