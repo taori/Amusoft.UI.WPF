@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 using Amusoft.UI.WPF.Controls;
+using Amusoft.UI.WPF.Notifications;
 using Microsoft.Xaml.Behaviors.Core;
 using MessageBox = System.Windows.MessageBox;
 
@@ -58,7 +59,6 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 			{
 				var notification = new SimpleNotification(DateTime.Now.ToString());
 				notification.AutoClose = true;
-				notification.AutoCloseDelay = TimeSpan.FromSeconds(6);
 				if (random.Next(0, 2) == 1)
 					notification.AutoCloseDelay = TimeSpan.FromSeconds(6);
 				host.DisplayAsync(notification, AnchorPosition);
@@ -73,7 +73,7 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 			for (int i = 0; i < 5; i++)
 			{
 				var notification = new SimpleNotification(DateTime.Now.ToString(), SelectedCallback, ClosedCallback);
-				notification.AutoClose = true;
+                notification.CloseOnSelect = true;
 				if (random.Next(0, 2) == 1)
 					notification.AutoCloseDelay = TimeSpan.FromSeconds(6);
 				host.DisplayAsync(notification, AnchorPosition);

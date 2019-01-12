@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Input;
 
-namespace Amusoft.UI.WPF.Controls
+namespace Amusoft.UI.WPF.Notifications
 {
 	public interface INotification : INotifyPropertyChanged
 	{

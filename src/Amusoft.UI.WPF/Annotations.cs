@@ -30,7 +30,7 @@ using System;
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
 
-namespace Amusoft.UI.WPF.Annotations
+namespace Amusoft.UI.WPF
 {
   /// <summary>
   /// Indicates that the value of the marked element could be <c>null</c> sometimes,

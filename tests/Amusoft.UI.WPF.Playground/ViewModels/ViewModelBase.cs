@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Amusoft.UI.WPF.Playground.Annotations;
+using Amusoft.UI.WPF.Playground.Properties;
 
 namespace Amusoft.UI.WPF.Playground.ViewModels
 {

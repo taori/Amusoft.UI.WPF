@@ -2,8 +2,9 @@
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
+using Amusoft.UI.WPF.Adorners;
 
-namespace Amusoft.UI.WPF.Controls
+namespace Amusoft.UI.WPF.Notifications
 {
 	public class NotificationSettings
 	{

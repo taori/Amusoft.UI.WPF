@@ -4,29 +4,30 @@
 		<Platforms>AnyCPU;x64;x86</Platforms>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Resources\close.png" />
-	  <None Remove="Resources\done.png" />
-	  <None Remove="Resources\error.png" />
-	  <None Remove="Resources\info.png" />
-	  <None Remove="Resources\warning.png" />
-	  <None Remove="Themes\Generic.xaml" />
+		<None Remove="Resources\close.png" />
+		<None Remove="Resources\done.png" />
+		<None Remove="Resources\error.png" />
+		<None Remove="Resources\info.png" />
+		<None Remove="Resources\warning.png" />
+		<None Remove="Themes\Generic.xaml" />
 	</ItemGroup>
 	<ItemGroup>
-	  <EmbeddedResource Include="Resources\close.png" />
-	  <EmbeddedResource Include="Resources\done.png" />
-	  <EmbeddedResource Include="Resources\error.png" />
-	  <EmbeddedResource Include="Resources\info.png" />
-	  <EmbeddedResource Include="Resources\warning.png" />
+		<Resource Include="Resources\close.png" />
+		<Resource Include="Resources\done.png" />
+		<Resource Include="Resources\error.png" />
+		<Resource Include="Resources\info.png" />
+		<Resource Include="Resources\warning.png" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Page Include="Themes\Generic.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </Page>
+		<Page Include="Themes\Generic.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 
 	<ItemGroup>

@@ -4,8 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using Amusoft.UI.WPF.Notifications;
 
-namespace Amusoft.UI.WPF.Controls
+namespace Amusoft.UI.WPF.Adorners
 {
 	public class AnchoredAdorner : Adorner
 	{

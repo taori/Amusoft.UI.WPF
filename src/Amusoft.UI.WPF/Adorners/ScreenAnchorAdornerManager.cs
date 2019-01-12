@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 
-namespace Amusoft.UI.WPF.Controls
+namespace Amusoft.UI.WPF.Adorners
 {
 	public class ScreenAnchorAdornerManager
 	{

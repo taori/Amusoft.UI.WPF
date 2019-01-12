@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Amusoft.UI.WPF.Controls
+namespace Amusoft.UI.WPF.Notifications
 {
 	public enum AnchorPosition
 	{

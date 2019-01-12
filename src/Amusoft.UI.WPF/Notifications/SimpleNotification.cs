@@ -2,11 +2,9 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Amusoft.UI.WPF.Annotations;
-using Microsoft.Xaml.Behaviors;
 using Microsoft.Xaml.Behaviors.Core;
 
-namespace Amusoft.UI.WPF.Controls
+namespace Amusoft.UI.WPF.Notifications
 {
 	public class SimpleNotification : INotification
 	{

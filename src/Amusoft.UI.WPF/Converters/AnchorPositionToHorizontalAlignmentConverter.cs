@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using Amusoft.UI.WPF.Controls;
+using Amusoft.UI.WPF.Notifications;
 
 namespace Amusoft.UI.WPF.Converters
 {
