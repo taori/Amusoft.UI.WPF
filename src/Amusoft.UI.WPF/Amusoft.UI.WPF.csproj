@@ -14,7 +14,7 @@
 		<RepositoryUrl>https://github.com/taori/Amusoft.UI.WPF</RepositoryUrl>
 		<AssemblyVersion>1.0.0.0</AssemblyVersion>
 		<FileVersion>1.0.0.0</FileVersion>
-		<Version>0.1.1-alpha</Version>
+		<Version>0.1.2-alpha</Version>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Resources\close.png" />
