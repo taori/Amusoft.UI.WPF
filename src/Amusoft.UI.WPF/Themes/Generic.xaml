@@ -11,6 +11,7 @@
 	<converters:AnchorPositionToVerticalAlignmentConverter x:Key="AnchorPositionToVerticalAlignmentConverter" />
 	<converters:SimpleNotificationToIconConverter x:Key="SimpleNotificationToIconConverter" />
 	<converters:SimpleNotificationToColorConverter x:Key="SimpleNotificationToColorConverter" />
+	<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
 	<Style TargetType="{x:Type local:NotificationDisplay}">
 		<Setter Property="Background" Value="#333333" />
@@ -108,7 +109,7 @@
 		<Setter Property="CloseTemplate">
 			<Setter.Value>
 				<DataTemplate>
-					<Image Source="/Amusoft.UI.WPF;component/Resources/close.png" Height="36" />
+					<local:TintedImage Source="/Amusoft.UI.WPF;component/Resources/close.png" Height="36" Brush="Yellow" />
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>
@@ -159,8 +160,15 @@
 							</VisualStateGroup>
 						</VisualStateManager.VisualStateGroups>
 						<DockPanel>
-							<ContentPresenter x:Name="PART_Icon" Content="{TemplateBinding DataContext}" ContentTemplate="{Binding Path=NotificationIconTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" DockPanel.Dock="Left" />
-							<ContentPresenter x:Name="PART_Close" Content="{TemplateBinding DataContext}" ContentTemplate="{Binding Path=CloseTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" DockPanel.Dock="Right" />
+							<ContentPresenter x:Name="PART_Icon"
+							                  Content="{TemplateBinding DataContext}" 
+							                  ContentTemplate="{Binding Path=NotificationIconTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" 
+							                  DockPanel.Dock="Left" />
+							<ContentPresenter x:Name="PART_Close" 
+											  Visibility="{Binding Converter={StaticResource BooleanToVisibilityConverter}, Path=IsCloseButtonVisible, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}"
+							                  Content="{TemplateBinding DataContext}" 
+							                  ContentTemplate="{Binding Path=CloseTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" 
+							                  DockPanel.Dock="Right" />
 							<ContentPresenter x:Name="PART_Content" Content="{TemplateBinding DataContext}" Margin="10,0"/>
 						</DockPanel>
 					</Border>

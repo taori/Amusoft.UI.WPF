@@ -100,6 +100,15 @@ namespace Amusoft.UI.WPF.Controls
 			set { SetValue(NotificationIconTemplateProperty, value); }
 		}
 
+		public static readonly DependencyProperty IsCloseButtonVisibleProperty = DependencyProperty.Register(
+			nameof(IsCloseButtonVisible), typeof(bool), typeof(NotificationDisplayItem), new PropertyMetadata(default(bool)));
+
+		public bool IsCloseButtonVisible
+		{
+			get { return (bool) GetValue(IsCloseButtonVisibleProperty); }
+			set { SetValue(IsCloseButtonVisibleProperty, value); }
+		}
+
 		/// <inheritdoc />
 		public override void OnApplyTemplate()
 		{

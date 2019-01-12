@@ -18,7 +18,7 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 		{
 			Commands.Add(new TextCommandViewModel(new ActionCommand(DisplayGlobalNotifactionsExecute), "Display global notifications"));
 			Commands.Add(new TextCommandViewModel(new ActionCommand(DisplayWindowNotifactionsExecute), "Display window notifications"));
-			Commands.Add(new TextCommandViewModel(new ActionCommand(DisplayAlignmentTestWindowExecute), "Display aligntment test window"));
+			Commands.Add(new TextCommandViewModel(new ActionCommand(DisplayAlignmentTestWindowExecute), "Display alignment test window"));
 		}
 
 		private Window _window;

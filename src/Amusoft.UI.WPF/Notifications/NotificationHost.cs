@@ -37,7 +37,11 @@ namespace Amusoft.UI.WPF.Notifications
 
 			notification.CloseRequested += (sender, args) => notification.CloseCommand?.Execute(notification);
 
-			var displayItem = new NotificationDisplayItem(){DataContext = notification };
+			var displayItem = new NotificationDisplayItem()
+			{
+				DataContext = notification,
+				IsCloseButtonVisible = !notification.CloseOnSelect
+			};
 			displayItem.Closed += (sender, args) => 
 				collection.Remove(displayItem);
 
