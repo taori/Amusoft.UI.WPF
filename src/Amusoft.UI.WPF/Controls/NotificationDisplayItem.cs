@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using Amusoft.UI.WPF.Notifications;
+using Amusoft.UI.WPF.Utility;
 using TriggerAction = Microsoft.Xaml.Behaviors.TriggerAction;
 using TriggerBase = Microsoft.Xaml.Behaviors.TriggerBase;
 
@@ -14,9 +14,9 @@ namespace Amusoft.UI.WPF.Controls
 {
 
 	[TemplatePart(Name = "PART_SelectControl", Type = typeof(FrameworkElement))]
-	[TemplatePart(Name = "PART_Close", Type = typeof(ContentPresenter))]
-	[TemplatePart(Name = "PART_Content", Type = typeof(ContentPresenter))]
-	[TemplatePart(Name = "PART_Icon", Type = typeof(ContentPresenter))]
+	[TemplatePart(Name = "PART_Close", Type = typeof(UIElement))]
+	[TemplatePart(Name = "PART_Content", Type = typeof(UIElement))]
+	[TemplatePart(Name = "PART_Icon", Type = typeof(UIElement))]
 	[TemplateVisualState(GroupName = "CommonStates", Name = "Pressed")]
 	[TemplateVisualState(GroupName = "CommonStates", Name = "Normal")]
 	[TemplateVisualState(GroupName = "CommonStates", Name = "MouseOver")]
@@ -42,8 +42,8 @@ namespace Amusoft.UI.WPF.Controls
 		{
 			if (oldValue is INotification oldNotification)
 			{
-
-			}
+				oldNotification.CloseRequested -= NewNotificationOnCloseRequested;
+            }
 			if (newValue is INotification newNotification)
 			{
 				newNotification.CloseRequested += NewNotificationOnCloseRequested;
@@ -92,11 +92,11 @@ namespace Amusoft.UI.WPF.Controls
 		}
 
 		public static readonly DependencyProperty NotificationIconTemplateProperty = DependencyProperty.Register(
-			nameof(NotificationIconTemplate), typeof(ControlTemplate), typeof(NotificationDisplayItem), new PropertyMetadata(default(ControlTemplate)));
+			nameof(NotificationIconTemplate), typeof(DataTemplate), typeof(NotificationDisplayItem), new PropertyMetadata(default(DataTemplate)));
 
-		public ControlTemplate NotificationIconTemplate
+		public DataTemplate NotificationIconTemplate
 		{
-			get { return (ControlTemplate) GetValue(NotificationIconTemplateProperty); }
+			get { return (DataTemplate) GetValue(NotificationIconTemplateProperty); }
 			set { SetValue(NotificationIconTemplateProperty, value); }
 		}
 
@@ -170,39 +170,5 @@ namespace Amusoft.UI.WPF.Controls
 		}
 
 		public FrameworkElement SelectControl { get; set; }
-	}
-
-	public static class VisualStateManagerHelper
-	{
-		public static Dictionary<VisualStateGroup, IEnumerable<VisualState>> GetVisualStateMap([JetBrains.Annotations.NotNull] FrameworkElement element)
-		{
-			if (element == null)
-				throw new ArgumentNullException(nameof(element));
-
-			var groups = VisualStateManager.GetVisualStateGroups(element);
-			return groups.Cast<VisualStateGroup>().ToDictionary(d => d, group => group.States.Count > 0 ? group.States.Cast<VisualState>() : Enumerable.Empty<VisualState>());
-		}
-
-		public static async Task GoToStateAsync(FrameworkElement control, string stateName, bool useTransition)
-		{
-			var tcs = new TaskCompletionSource<object>();
-			var group = GetVisualStateMap(control).FirstOrDefault(d => d.Value.Any(state => string.Equals(state.Name, stateName, StringComparison.OrdinalIgnoreCase)));
-			EventHandler<VisualStateChangedEventArgs> handler = null;
-			handler = (sender, args) =>
-			{
-				group.Key.CurrentStateChanged -= handler;
-                tcs.TrySetResult(null);
-			};
-			if (group.Key != null)
-			{
-				group.Key.CurrentStateChanged += handler;
-				VisualStateManager.GoToState(control, stateName, useTransition);
-				await tcs.Task;
-            }
-			else
-			{
-				VisualStateManager.GoToState(control, stateName, useTransition);
-			}
-		}
 	}
 }

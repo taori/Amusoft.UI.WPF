@@ -9,6 +9,9 @@
 
 	<converters:AnchorPositionToHorizontalAlignmentConverter x:Key="AnchorPositionToHorizontalAlignmentConverter" />
 	<converters:AnchorPositionToVerticalAlignmentConverter x:Key="AnchorPositionToVerticalAlignmentConverter" />
+	<converters:SimpleNotificationToIconConverter x:Key="SimpleNotificationToIconConverter" />
+	<converters:SimpleNotificationToColorConverter x:Key="SimpleNotificationToColorConverter" />
+
 	<Style TargetType="{x:Type local:NotificationDisplay}">
 		<Setter Property="Background" Value="#333333" />
 		<Setter Property="Padding" Value="0,10" />
@@ -62,13 +65,53 @@
 	</Style>
 
 	<DataTemplate DataType="{x:Type notifications:SimpleNotification}">
-		<StackPanel Orientation="Horizontal">
-			<Image Source="/Amusoft.UI.WPF;component/Resources/info.png" Height="24" />
-			<TextBlock Text="{Binding Path=Text}" VerticalAlignment="Center" Foreground="White" />
-		</StackPanel>
+		<TextBlock Text="{Binding Path=Text}" VerticalAlignment="Center" Foreground="White" />
 	</DataTemplate>
 
+	<Style TargetType="{x:Type local:TintedImage}">
+		<Setter Property="Brush" Value="Red"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Grid >
+						<Image
+							Margin="{TemplateBinding Padding}"
+							Source="{Binding Path=Source, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"
+							Width="{TemplateBinding Width}"
+							Height="{TemplateBinding Height}" />
+						<Rectangle 
+							Margin="{TemplateBinding Padding}"
+							Fill="{Binding Path=Brush, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"
+							Width="{TemplateBinding Width}" 
+							Height="{TemplateBinding Height}">
+							<Rectangle.OpacityMask>
+								<ImageBrush ImageSource="{Binding Path=Source, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"/>
+							</Rectangle.OpacityMask>
+						</Rectangle>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<Style TargetType="{x:Type local:NotificationDisplayItem}">
+		<Setter Property="NotificationIconTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<local:TintedImage
+						Source="{Binding Path=., Converter={StaticResource SimpleNotificationToIconConverter}}"
+						Brush="{Binding Path=., Converter={StaticResource SimpleNotificationToColorConverter}}"
+						Height="36"/>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="CloseTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<Image Source="/Amusoft.UI.WPF;component/Resources/close.png" Height="36" />
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate>
@@ -116,10 +159,9 @@
 							</VisualStateGroup>
 						</VisualStateManager.VisualStateGroups>
 						<DockPanel>
-							<ContentPresenter x:Name="PART_Icon" DockPanel.Dock="Left" />
-							<ContentPresenter x:Name="PART_Close" DockPanel.Dock="Right" />
-							<!-- <ContentControl x:Name="PART_Close" Template="{TemplateBinding CloseTemplate}" DockPanel.Dock="Right" /> -->
-							<ContentPresenter x:Name="PART_Content" Content="{TemplateBinding DataContext}" />
+							<ContentPresenter x:Name="PART_Icon" Content="{TemplateBinding DataContext}" ContentTemplate="{Binding Path=NotificationIconTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" DockPanel.Dock="Left" />
+							<ContentPresenter x:Name="PART_Close" Content="{TemplateBinding DataContext}" ContentTemplate="{Binding Path=CloseTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" DockPanel.Dock="Right" />
+							<ContentPresenter x:Name="PART_Content" Content="{TemplateBinding DataContext}" Margin="10,0"/>
 						</DockPanel>
 					</Border>
 				</ControlTemplate>

@@ -6,6 +6,15 @@ using Microsoft.Xaml.Behaviors.Core;
 
 namespace Amusoft.UI.WPF.Notifications
 {
+	public enum SimpleNotificationType
+	{
+		None,
+		Info,
+		Warning,
+		Error,
+		Done,
+	}
+
 	public class SimpleNotification : INotification
 	{
 		/// <inheritdoc />
@@ -51,7 +60,10 @@ namespace Amusoft.UI.WPF.Notifications
 			}
 		}
 
+		public SimpleNotificationType Type { get; set; }
+
 		public Action<SimpleNotification> SelectedCallback { get; }
+
 		public Action<SimpleNotification> ClosedCallback { get; }
 
 		private ICommand _closeCommand;
