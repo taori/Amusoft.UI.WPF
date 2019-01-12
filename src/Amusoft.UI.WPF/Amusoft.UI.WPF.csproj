@@ -2,6 +2,19 @@
 	<PropertyGroup>
 		<TargetFramework>net461</TargetFramework>
 		<Platforms>AnyCPU;x64;x86</Platforms>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>Andreas Müller</Authors>
+		<Company>Andreas Müller</Company>
+		<Product>Amusoft.UI.WPF</Product>
+		<Description>Controls, converters and other useful classes for wpf.</Description>
+		<Copyright>2019</Copyright>
+		<PackageLicenseUrl>https://github.com/taori/Amusoft.UI.WPF/blob/master/LICENSE</PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/taori/Amusoft.UI.WPF</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/taori/Amusoft.UI.WPF</RepositoryUrl>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+		<Version>0.1.1-alpha</Version>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Resources\close.png" />
