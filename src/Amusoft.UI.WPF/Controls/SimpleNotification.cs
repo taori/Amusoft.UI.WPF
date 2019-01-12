@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Amusoft.UI.WPF.Annotations;
+using Microsoft.Xaml.Behaviors;
 using Microsoft.Xaml.Behaviors.Core;
 
 namespace Amusoft.UI.WPF.Controls
@@ -17,13 +18,15 @@ namespace Amusoft.UI.WPF.Controls
 			ClosedCallback = closedCallback;
 			CloseCommand = new ActionCommand(CloseExecute);
 			SelectCommand = new ActionCommand(SelectExecute);
-		}
+        }
 
-		private void SelectExecute(object obj)
+        private void SelectExecute(object obj)
 		{
 			SelectedCallback?.Invoke(this);
-			CloseExecute();
-		}
+
+            if (CloseOnSelect)
+                CloseExecute();
+        }
 
 		private void CloseExecute()
 		{
@@ -123,7 +126,23 @@ namespace Amusoft.UI.WPF.Controls
 			}
 		}
 
-		private TimeSpan _autoCloseDelay;
+        private bool _closeOnSelect;
+
+        /// <inheritdoc />
+        public bool CloseOnSelect
+        {
+            get => _closeOnSelect;
+            set
+            {
+                if (value == _closeOnSelect)
+                    return;
+
+                _closeOnSelect = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private TimeSpan _autoCloseDelay;
 
 		/// <inheritdoc />
 		public TimeSpan AutoCloseDelay

@@ -18,6 +18,8 @@ namespace Amusoft.UI.WPF.Controls
 
 		bool Closed { get; }
 
+		bool CloseOnSelect { get; }
+
 		TimeSpan AutoCloseDelay { get; }
 
 		void NotifyDisplayed();

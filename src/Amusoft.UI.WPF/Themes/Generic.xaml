@@ -5,19 +5,21 @@
     xmlns:converters="clr-namespace:Amusoft.UI.WPF.Converters"
     xmlns:Interactions="http://schemas.microsoft.com/xaml/behaviors">
 
-	<converters:AnchorPositionToHorizontalAlignmentConverter x:Key="AnchorPositionToHorizontalAlignmentConverter"/>
-	<converters:AnchorPositionToVerticalAlignmentConverter x:Key="AnchorPositionToVerticalAlignmentConverter"/>
-	<Style TargetType="{x:Type local:NotificationDisplay}">
-		<Setter Property="Padding" Value="10"/>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type local:NotificationDisplay}">
-					<Border Background="{TemplateBinding Background}"
+    <converters:AnchorPositionToHorizontalAlignmentConverter x:Key="AnchorPositionToHorizontalAlignmentConverter"/>
+    <converters:AnchorPositionToVerticalAlignmentConverter x:Key="AnchorPositionToVerticalAlignmentConverter"/>
+    <Style TargetType="{x:Type local:NotificationDisplay}">
+        <Setter Property="Background" Value="#333333"/>
+        <Setter Property="Padding" Value="0,10"/>
+        <Setter Property="MinWidth" Value="200"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:NotificationDisplay}">
+                    <Border Background="{TemplateBinding Background}"
 					        HorizontalAlignment="{Binding Path=AnchorPosition, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AnchorPositionToHorizontalAlignmentConverter}}"
 					        VerticalAlignment="{Binding Path=AnchorPosition, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AnchorPositionToVerticalAlignmentConverter}}"
 					        BorderBrush="{TemplateBinding BorderBrush}"
 					        BorderThickness="{TemplateBinding BorderThickness}">
-						<ItemsControl 
+                        <ItemsControl 
 							ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
 							AlternationCount="{TemplateBinding AlternationCount}"
 							DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
@@ -39,32 +41,69 @@
 							BorderBrush="{TemplateBinding BorderBrush}"
 							BorderThickness="{TemplateBinding BorderThickness}"
 							ItemsSource="{TemplateBinding ItemsSource}"/>
-					</Border>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-	<DataTemplate DataType="{x:Type local:SimpleNotification}">
-		<Border CornerRadius="5" Background="DarkRed" IsHitTestVisible="True" x:Name="Border"
+    <DataTemplate DataType="{x:Type local:SimpleNotification}">
+        <Border Background="#333" 
+                x:Name="Border"
 				Cursor="Hand"
-		        Margin="0,1" Padding="10,5">
-			<Border.LayoutTransform>
-				<ScaleTransform ScaleY="1" ScaleX="1"/>
-			</Border.LayoutTransform>
-			<Interactions:Interaction.Triggers>
-				<Interactions:EventTrigger EventName="MouseUp">
-					<Interactions:InvokeCommandAction 
+                MinWidth="400" 
+                RenderTransformOrigin="0.5,0.5"
+                Opacity="1"
+                Padding="10,5">
+            <Border.RenderTransform>
+                <ScaleTransform ScaleY="1" ScaleX="1"/>
+            </Border.RenderTransform>
+            <Interactions:Interaction.Triggers>
+                <Interactions:EventTrigger EventName="MouseUp">
+                    <Interactions:InvokeCommandAction 
 						Command="{Binding Path=SelectCommand}" 
 						CommandParameter="{Binding Path=.}"/>
-				</Interactions:EventTrigger>
-			</Interactions:Interaction.Triggers>
-			<StackPanel Orientation="Horizontal">
-				<TextBlock Text="{Binding Path=Text}"
+                </Interactions:EventTrigger>
+            </Interactions:Interaction.Triggers>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Path=Text}"
 						   VerticalAlignment="Center"
 				           Foreground="White"/>
-				<Button Content="X" Command="{Binding Path=CloseCommand, Mode=OneWay}" Padding="10" Margin="5,0,0,0"/>
-			</StackPanel>
-		</Border>
-	</DataTemplate>
+                <Button Content="X" Command="{Binding Path=CloseCommand, Mode=OneWay}" Padding="10" Margin="5,0,0,0"/>
+            </StackPanel>
+            <Border.Triggers>
+                <EventTrigger RoutedEvent="Border.MouseEnter" SourceName="Border">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#555" Duration="0:0:0.5" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Border.MouseLeave" SourceName="Border">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#333" Duration="0:0:0.5" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Border.Triggers>
+            <Border.Style>
+                <Style TargetType="{x:Type Border}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Closed}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation To="0" Duration="0:0:0.4" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"/>
+                                        <DoubleAnimation To="0" Duration="0:0:0.4" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"/>
+                                        <DoubleAnimation To="0" Duration="0:0:0.4" Storyboard.TargetProperty="(UIElement.Opacity)"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
+    </DataTemplate>
 </ResourceDictionary>

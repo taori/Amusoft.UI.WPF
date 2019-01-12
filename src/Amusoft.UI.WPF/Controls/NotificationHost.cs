@@ -32,7 +32,7 @@ namespace Amusoft.UI.WPF.Controls
 			}
 
 			notification.CloseRequested += (sender, args) => notification.CloseCommand?.Execute(notification);
-			notification.CloseRequested += (sender, args) => collection.Remove(notification);
+//			notification.CloseRequested += (sender, args) => collection.Remove(notification);
 
 			collection.Add(notification);
 

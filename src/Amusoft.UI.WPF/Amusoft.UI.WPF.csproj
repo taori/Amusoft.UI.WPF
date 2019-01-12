@@ -4,7 +4,19 @@
 		<Platforms>AnyCPU;x64;x86</Platforms>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Resources\close.png" />
+	  <None Remove="Resources\done.png" />
+	  <None Remove="Resources\error.png" />
+	  <None Remove="Resources\info.png" />
+	  <None Remove="Resources\warning.png" />
 	  <None Remove="Themes\Generic.xaml" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\close.png" />
+	  <EmbeddedResource Include="Resources\done.png" />
+	  <EmbeddedResource Include="Resources\error.png" />
+	  <EmbeddedResource Include="Resources\info.png" />
+	  <EmbeddedResource Include="Resources\warning.png" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -82,12 +83,12 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 
 		private void ClosedCallback(SimpleNotification obj)
 		{
-			MessageBox.Show($"Closed {obj.Text}.");
+            Debug.WriteLine($"Closed {obj.Text}.");
 		}
 
 		private void SelectedCallback(SimpleNotification obj)
-		{
-			MessageBox.Show($"Selected {obj.Text}.");
+        {
+            Debug.WriteLine($"Selected {obj.Text}.");
 		}
 	}
 }
