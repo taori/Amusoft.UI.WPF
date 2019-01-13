@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -40,7 +41,7 @@ namespace Amusoft.UI.WPF.Notifications
 			var displayItem = new NotificationDisplayItem()
 			{
 				DataContext = notification,
-				IsCloseButtonVisible = !notification.CloseOnSelect
+				IsCloseButtonVisible = !notification.CloseOnSelect || (notification.AutoClose && notification.AutoCloseDelay > TimeSpan.Zero)
 			};
 			displayItem.Closed += (sender, args) => 
 				collection.Remove(displayItem);

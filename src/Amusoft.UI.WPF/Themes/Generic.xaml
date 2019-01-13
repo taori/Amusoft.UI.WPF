@@ -3,9 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:local="clr-namespace:Amusoft.UI.WPF.Controls"
 	xmlns:converters="clr-namespace:Amusoft.UI.WPF.Converters"
-	xmlns:Interactions="http://schemas.microsoft.com/xaml/behaviors"
-	xmlns:notifications="clr-namespace:Amusoft.UI.WPF.Notifications"
-	xmlns:triggerActions="clr-namespace:Amusoft.UI.WPF.TriggerActions">
+	xmlns:notifications="clr-namespace:Amusoft.UI.WPF.Notifications">
 
 	<converters:AnchorPositionToHorizontalAlignmentConverter x:Key="AnchorPositionToHorizontalAlignmentConverter" />
 	<converters:AnchorPositionToVerticalAlignmentConverter x:Key="AnchorPositionToVerticalAlignmentConverter" />
@@ -17,19 +15,6 @@
 		<Setter Property="Background" Value="#333333" />
 		<Setter Property="Padding" Value="0,10" />
 		<Setter Property="MinWidth" Value="200" />
-		<Setter Property="ItemContainerStyle">
-			<Setter.Value>
-				<Style TargetType="{x:Type local:NotificationDisplayItem}">
-					<Setter Property="CloseTemplate">
-						<Setter.Value>
-							<DataTemplate>
-								<Image Source="/Amusoft.UI.WPF;component/Resources/close.png" Height="24" />
-							</DataTemplate>
-						</Setter.Value>
-					</Setter>
-				</Style>
-			</Setter.Value>
-		</Setter>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:NotificationDisplay}">
@@ -70,26 +55,29 @@
 	</DataTemplate>
 
 	<Style TargetType="{x:Type local:TintedImage}">
-		<Setter Property="Brush" Value="Red"/>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate>
-					<Grid >
-						<Image
-							Margin="{TemplateBinding Padding}"
-							Source="{Binding Path=Source, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"
-							Width="{TemplateBinding Width}"
-							Height="{TemplateBinding Height}" />
-						<Rectangle 
-							Margin="{TemplateBinding Padding}"
-							Fill="{Binding Path=Brush, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"
-							Width="{TemplateBinding Width}" 
-							Height="{TemplateBinding Height}">
-							<Rectangle.OpacityMask>
-								<ImageBrush ImageSource="{Binding Path=Source, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"/>
-							</Rectangle.OpacityMask>
-						</Rectangle>
-					</Grid>
+					<Border 
+						BorderThickness="{TemplateBinding BorderThickness}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						Background="{TemplateBinding Background}" 
+						Padding="{TemplateBinding Padding}">
+						<Grid>
+							<Image
+								Source="{Binding Path=Source, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"
+								Width="{TemplateBinding Width}"
+								Height="{TemplateBinding Height}" />
+							<Rectangle 
+								Fill="{Binding Path=Brush, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"
+								Width="{TemplateBinding Width}" 
+								Height="{TemplateBinding Height}">
+								<Rectangle.OpacityMask>
+									<ImageBrush ImageSource="{Binding Path=Source, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"/>
+								</Rectangle.OpacityMask>
+							</Rectangle>
+						</Grid>
+					</Border>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -109,7 +97,38 @@
 		<Setter Property="CloseTemplate">
 			<Setter.Value>
 				<DataTemplate>
-					<local:TintedImage Source="/Amusoft.UI.WPF;component/Resources/close.png" Height="36" Brush="Yellow" />
+					<local:TintedImage Source="/Amusoft.UI.WPF;component/Resources/close.png" Height="24" Brush="DarkGray">
+						<local:TintedImage.Style>
+							<Style TargetType="{x:Type local:TintedImage}">
+								<Style.Triggers>
+									<EventTrigger RoutedEvent="MouseEnter">
+										<EventTrigger.Actions>
+											<BeginStoryboard>
+												<Storyboard >
+													<ColorAnimation
+														To="White"
+														Duration="0:0:0.2"
+														Storyboard.TargetProperty="(local:TintedImage.Brush).(SolidColorBrush.Color)"/>
+												</Storyboard>
+											</BeginStoryboard>
+										</EventTrigger.Actions>
+									</EventTrigger>
+									<EventTrigger RoutedEvent="MouseLeave">
+										<EventTrigger.Actions>
+											<BeginStoryboard>
+												<Storyboard >
+													<ColorAnimation
+														To="DarkGray"
+														Duration="0:0:0.2"
+														Storyboard.TargetProperty="(local:TintedImage.Brush).(SolidColorBrush.Color)"/>
+												</Storyboard>
+											</BeginStoryboard>
+										</EventTrigger.Actions>
+									</EventTrigger>
+								</Style.Triggers>
+							</Style>
+						</local:TintedImage.Style>
+					</local:TintedImage>
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>
@@ -122,7 +141,7 @@
 					        MinWidth="400"
 					        RenderTransformOrigin="0.5,0.5"
 					        Opacity="1"
-					        Padding="10,5">
+					        Padding="0,5">
 						<Border.RenderTransform>
 							<ScaleTransform ScaleY="1" ScaleX="1" />
 						</Border.RenderTransform>
@@ -161,14 +180,19 @@
 						</VisualStateManager.VisualStateGroups>
 						<DockPanel>
 							<ContentPresenter x:Name="PART_Icon"
+											  Margin="10,0,0,0"
 							                  Content="{TemplateBinding DataContext}" 
 							                  ContentTemplate="{Binding Path=NotificationIconTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" 
 							                  DockPanel.Dock="Left" />
-							<ContentPresenter x:Name="PART_Close" 
-											  Visibility="{Binding Converter={StaticResource BooleanToVisibilityConverter}, Path=IsCloseButtonVisible, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}"
-							                  Content="{TemplateBinding DataContext}" 
-							                  ContentTemplate="{Binding Path=CloseTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" 
-							                  DockPanel.Dock="Right" />
+							<Border DockPanel.Dock="Right"
+							        Padding="10,0"
+							        x:Name="PART_Close" 
+							        Visibility="{Binding Converter={StaticResource BooleanToVisibilityConverter}, Path=IsCloseButtonVisible, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}">
+								<ContentPresenter 
+								                  Content="{TemplateBinding DataContext}" 
+								                  ContentTemplate="{Binding Path=CloseTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" 
+								                   />
+							</Border>
 							<ContentPresenter x:Name="PART_Content" Content="{TemplateBinding DataContext}" Margin="10,0"/>
 						</DockPanel>
 					</Border>

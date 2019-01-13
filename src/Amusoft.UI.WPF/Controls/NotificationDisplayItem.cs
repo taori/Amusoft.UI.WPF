@@ -126,7 +126,7 @@ namespace Amusoft.UI.WPF.Controls
 				throw new Exception($"Template part \"PART_SelectControl\" missing.");
 			}
 
-			if (GetTemplateChild("PART_Close") is ContentPresenter closeControl)
+			if (GetTemplateChild("PART_Close") is FrameworkElement closeControl)
 			{
 				closeControl.MouseLeftButtonUp += CloseExecute;
 			}

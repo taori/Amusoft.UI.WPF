@@ -72,7 +72,7 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 			var random = new Random();
 			for (int i = 0; i < 5; i++)
 			{
-				var notification = new SimpleNotification(DateTime.Now.ToString()+"\r\ntest", SelectedCallback, ClosedCallback);
+				var notification = new SimpleNotification(DateTime.Now.ToString()+"\r\ntest", selectedCallback : SelectedCallback, closedCallback : ClosedCallback);
                 notification.CloseOnSelect = random.Next(0, 2) == 1;
                 notification.Type = (SimpleNotificationType) random.Next(0, 6);
 				if (random.Next(0, 2) == 1)

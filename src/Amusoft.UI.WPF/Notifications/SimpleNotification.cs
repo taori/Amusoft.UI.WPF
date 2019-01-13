@@ -18,22 +18,26 @@ namespace Amusoft.UI.WPF.Notifications
 	public class SimpleNotification : INotification
 	{
 		/// <inheritdoc />
-		public SimpleNotification(string text, Action<SimpleNotification> selectedCallback = null, Action<SimpleNotification> closedCallback = null)
+		public SimpleNotification(string text, 
+			SimpleNotificationType type = SimpleNotificationType.Done, 
+			Action<SimpleNotification> selectedCallback = null, 
+			Action<SimpleNotification> closedCallback = null)
 		{
+			Type = type;
 			Text = text;
 			SelectedCallback = selectedCallback;
 			ClosedCallback = closedCallback;
 			CloseCommand = new ActionCommand(CloseExecute);
 			SelectCommand = new ActionCommand(SelectExecute);
-        }
+		}
 
-        private void SelectExecute(object obj)
+		private void SelectExecute(object obj)
 		{
 			SelectedCallback?.Invoke(this);
 
-            if (CloseOnSelect)
-                CloseExecute();
-        }
+			if (CloseOnSelect)
+				CloseExecute();
+		}
 
 		private void CloseExecute()
 		{
@@ -45,20 +49,7 @@ namespace Amusoft.UI.WPF.Notifications
 			CloseRequested?.Invoke(this, EventArgs.Empty);
 		}
 
-		private string _text;
-
-		public string Text
-		{
-			get => _text;
-			set
-			{
-				if (value == _text)
-					return;
-
-				_text = value;
-				OnPropertyChanged();
-			}
-		}
+		public string Text { get; set; }
 
 		public SimpleNotificationType Type { get; set; }
 
@@ -66,37 +57,11 @@ namespace Amusoft.UI.WPF.Notifications
 
 		public Action<SimpleNotification> ClosedCallback { get; }
 
-		private ICommand _closeCommand;
+		/// <inheritdoc />
+		public ICommand CloseCommand { get; set; }
 
 		/// <inheritdoc />
-		public ICommand CloseCommand
-		{
-			get => _closeCommand;
-			set
-			{
-				if (Equals(value, _closeCommand))
-					return;
-
-				_closeCommand = value;
-				OnPropertyChanged();
-			}
-		}
-
-		private ICommand _selectCommand;
-
-		/// <inheritdoc />
-		public ICommand SelectCommand
-		{
-			get => _selectCommand;
-			set
-			{
-				if (Equals(value, _selectCommand))
-					return;
-
-				_selectCommand = value;
-				OnPropertyChanged();
-			}
-		}
+		public ICommand SelectCommand { get; set; }
 
 		/// <inheritdoc />
 		public event EventHandler CloseRequested;
@@ -104,69 +69,17 @@ namespace Amusoft.UI.WPF.Notifications
 		/// <inheritdoc />
 		public event EventHandler Displayed;
 
-		private bool _autoClose;
+		/// <inheritdoc />
+		public bool AutoClose { get; set; }
 
 		/// <inheritdoc />
-		public bool AutoClose
-		{
-			get => _autoClose;
-			set
-			{
-				if (value == _autoClose)
-					return;
-
-				_autoClose = value;
-				OnPropertyChanged();
-			}
-		}
-
-		private bool _closed;
+		public bool Closed { get; set; }
 
 		/// <inheritdoc />
-		public bool Closed
-		{
-			get => _closed;
-			set
-			{
-				if (value == _closed)
-					return;
-
-				_closed = value;
-				OnPropertyChanged();
-			}
-		}
-
-        private bool _closeOnSelect;
-
-        /// <inheritdoc />
-        public bool CloseOnSelect
-        {
-            get => _closeOnSelect;
-            set
-            {
-                if (value == _closeOnSelect)
-                    return;
-
-                _closeOnSelect = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private TimeSpan _autoCloseDelay;
+		public bool CloseOnSelect { get; set; }
 
 		/// <inheritdoc />
-		public TimeSpan AutoCloseDelay
-		{
-			get => _autoCloseDelay;
-			set
-			{
-				if (value.Equals(_autoCloseDelay))
-					return;
-
-				_autoCloseDelay = value;
-				OnPropertyChanged();
-			}
-		}
+		public TimeSpan AutoCloseDelay { get; set; }
 
 		/// <inheritdoc />
 		public void NotifyDisplayed()
