@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using Amusoft.UI.WPF.Controls;
 
 namespace Amusoft.UI.WPF.Utility
 {
@@ -20,7 +24,8 @@ namespace Amusoft.UI.WPF.Utility
 		public static async Task GoToStateAsync(FrameworkElement control, string stateName, bool useTransition)
 		{
 			var tcs = new TaskCompletionSource<object>();
-			var group = GetVisualStateMap(control).FirstOrDefault(d => d.Value.Any(state => string.Equals(state.Name, stateName, StringComparison.OrdinalIgnoreCase)));
+			var root = GetRoot(control);
+			var group = GetVisualStateMap(root).FirstOrDefault(d => d.Value.Any(state => string.Equals(state.Name, stateName, StringComparison.OrdinalIgnoreCase)));
 			EventHandler<VisualStateChangedEventArgs> handler = null;
 			handler = (sender, args) =>
 			{
@@ -30,13 +35,20 @@ namespace Amusoft.UI.WPF.Utility
 			if (group.Key != null)
 			{
 				group.Key.CurrentStateChanged += handler;
-				VisualStateManager.GoToState(control, stateName, useTransition);
+				VisualStateManager.GoToState(control, stateName, true);
 				await tcs.Task;
 			}
 			else
 			{
-				VisualStateManager.GoToState(control, stateName, useTransition);
+				VisualStateManager.GoToState(control, stateName, true);
 			}
+		}
+
+		private static FrameworkElement GetRoot(FrameworkElement control)
+		{
+			var property = typeof(FrameworkElement).GetProperty("StateGroupsRoot", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+			var root = property.GetGetMethod(true).Invoke(control, null);
+			return root as FrameworkElement;
 		}
 	}
 }

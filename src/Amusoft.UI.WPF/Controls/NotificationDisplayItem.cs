@@ -109,6 +109,8 @@ namespace Amusoft.UI.WPF.Controls
 			set { SetValue(IsCloseButtonVisibleProperty, value); }
 		}
 
+		public FrameworkElement SelectControl { get; set; }
+
 		/// <inheritdoc />
 		public override void OnApplyTemplate()
 		{
@@ -153,15 +155,22 @@ namespace Amusoft.UI.WPF.Controls
 
 		private async Task CloseExecute(bool raiseEvent)
 		{
+			await HandleCloseInternal(raiseEvent);
+		}
+
+		private async Task HandleCloseInternal(bool raiseEvent)
+		{
 			if (raiseEvent)
 				RaiseEvent(new RoutedEventArgs(ClosingEvent));
-			
-            if (DataContext is INotification notification)
-				notification.CloseCommand?.Execute(notification);
-            await VisualStateManagerHelper.GoToStateAsync(this, "Closing", true);
 
-            await Task.Delay(500);
-            RaiseEvent(new RoutedEventArgs(ClosedEvent));
+			if (DataContext is INotification notification)
+			{
+				notification.CloseCommand?.Execute(notification);
+			}
+
+			await VisualStateManagerHelper.GoToStateAsync(this, "Closing", true);
+
+			RaiseEvent(new RoutedEventArgs(ClosedEvent));
 		}
 
 		private void SelectControlMouseDown(object sender, MouseButtonEventArgs e)
@@ -169,15 +178,25 @@ namespace Amusoft.UI.WPF.Controls
 			VisualStateManager.GoToState(this, "Pressed", true);
 		}
 
-		private void SelectControlMouseUp(object sender, MouseButtonEventArgs e)
+		private async void SelectControlMouseUp(object sender, MouseButtonEventArgs e)
+		{
+			await HandleSelectInternal();
+		}
+
+		private async Task HandleSelectInternal()
 		{
 			RaiseEvent(new RoutedEventArgs(SelectedEvent));
+
 			if (DataContext is INotification notification)
+			{
 				notification.SelectCommand?.Execute(notification);
+				if (notification.CloseOnSelect)
+				{
+					await HandleCloseInternal(true);
+				}
+			}
 
 			VisualStateManager.GoToState(this, "MouseOver", true);
 		}
-
-		public FrameworkElement SelectControl { get; set; }
 	}
 }

@@ -87,6 +87,12 @@ namespace Amusoft.UI.WPF.Notifications
 			this.Displayed?.Invoke(this, EventArgs.Empty);
 		}
 
+		/// <inheritdoc />
+		public void RequestClose()
+		{
+			this.CloseRequested?.Invoke(this, EventArgs.Empty);
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		[NotifyPropertyChangedInvocator]

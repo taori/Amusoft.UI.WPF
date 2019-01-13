@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Amusoft.UI.WPF.Adorners;
 using Amusoft.UI.WPF.Controls;
 
@@ -12,10 +13,11 @@ namespace Amusoft.UI.WPF.Notifications
 {
 	public class NotificationHost
 	{
-		public AnchorAdornerManager Manager { get; }
-		public NotificationSettings Settings { get; }
+		private AnchorAdornerManager Manager { get; }
 
-		public ConcurrentDictionary<AnchorPosition, ObservableCollection<object>> ItemsByPosition { get; }
+		private NotificationSettings Settings { get; }
+
+		private ConcurrentDictionary<AnchorPosition, ObservableCollection<object>> ItemsByPosition { get; }
 
 		public NotificationHost(AnchorAdornerManager manager, NotificationSettings settings)
 		{
@@ -35,9 +37,7 @@ namespace Amusoft.UI.WPF.Notifications
 			{
 				throw new Exception("At this point the ObservableCollection should be present.");
 			}
-
-			notification.CloseRequested += (sender, args) => notification.CloseCommand?.Execute(notification);
-
+			
 			var displayItem = new NotificationDisplayItem()
 			{
 				DataContext = notification,
@@ -54,7 +54,10 @@ namespace Amusoft.UI.WPF.Notifications
 			{
 				await Task.Delay(notification.AutoCloseDelay);
 				if (!notification.Closed)
-					notification.CloseCommand?.Execute(notification);
+				{
+					notification.Closed = true;
+					notification.RequestClose();
+				}
 			}
 		}
 
@@ -64,7 +67,9 @@ namespace Amusoft.UI.WPF.Notifications
 				return;
 			
 			var display = new NotificationDisplay();
-			display.Style = Settings?.Style;
+			if (Settings?.Style is Style displayStyle)
+				display.Style = displayStyle;
+
 			display.AnchorPosition = position;
 			if (!ItemsByPosition.TryGetValue(position, out var c))
 			{

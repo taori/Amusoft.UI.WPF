@@ -16,12 +16,14 @@ namespace Amusoft.UI.WPF.Notifications
 
 		bool AutoClose { get; }
 
-		bool Closed { get; }
+		bool Closed { get; set; }
 
 		bool CloseOnSelect { get; }
 
 		TimeSpan AutoCloseDelay { get; }
 
 		void NotifyDisplayed();
+
+		void RequestClose();
 	}
 }

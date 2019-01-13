@@ -11,79 +11,8 @@
 	<converters:SimpleNotificationToColorConverter x:Key="SimpleNotificationToColorConverter" />
 	<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
-	<Style TargetType="{x:Type local:NotificationDisplay}">
-		<Setter Property="Background" Value="#333333" />
-		<Setter Property="Padding" Value="0,10" />
-		<Setter Property="MinWidth" Value="200" />
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type local:NotificationDisplay}">
-					<Border Background="{TemplateBinding Background}"
-					        HorizontalAlignment="{Binding Path=AnchorPosition, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AnchorPositionToHorizontalAlignmentConverter}}"
-					        VerticalAlignment="{Binding Path=AnchorPosition, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AnchorPositionToVerticalAlignmentConverter}}"
-					        BorderBrush="{TemplateBinding BorderBrush}"
-					        BorderThickness="{TemplateBinding BorderThickness}">
-						<ItemsControl
-							ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
-							AlternationCount="{TemplateBinding AlternationCount}"
-							DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
-							GroupStyleSelector="{TemplateBinding GroupStyleSelector}"
-							IsTextSearchCaseSensitive="{TemplateBinding IsTextSearchCaseSensitive}"
-							IsTextSearchEnabled="{TemplateBinding IsTextSearchEnabled}"
-							ItemsPanel="{TemplateBinding ItemsPanel}"
-							MinWidth="{TemplateBinding MinWidth}"
-							MinHeight="{TemplateBinding MinHeight}"
-							MaxHeight="{TemplateBinding MaxHeight}"
-							MaxWidth="{TemplateBinding MaxWidth}"
-							Style="{TemplateBinding Style}"
-							Padding="{TemplateBinding Padding}"
-							Margin="{TemplateBinding Margin}"
-							LayoutTransform="{TemplateBinding LayoutTransform}"
-							RenderTransform="{TemplateBinding RenderTransform}"
-							Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}"
-							ItemsSource="{TemplateBinding ItemsSource}" />
-					</Border>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
 
-	<DataTemplate DataType="{x:Type notifications:SimpleNotification}">
-		<TextBlock Text="{Binding Path=Text}" VerticalAlignment="Center" Foreground="White" />
-	</DataTemplate>
-
-	<Style TargetType="{x:Type local:TintedImage}">
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate>
-					<Border 
-						BorderThickness="{TemplateBinding BorderThickness}"
-						BorderBrush="{TemplateBinding BorderBrush}"
-						Background="{TemplateBinding Background}" 
-						Padding="{TemplateBinding Padding}">
-						<Grid>
-							<Image
-								Source="{Binding Path=Source, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"
-								Width="{TemplateBinding Width}"
-								Height="{TemplateBinding Height}" />
-							<Rectangle 
-								Fill="{Binding Path=Brush, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"
-								Width="{TemplateBinding Width}" 
-								Height="{TemplateBinding Height}">
-								<Rectangle.OpacityMask>
-									<ImageBrush ImageSource="{Binding Path=Source, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"/>
-								</Rectangle.OpacityMask>
-							</Rectangle>
-						</Grid>
-					</Border>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
-	<Style TargetType="{x:Type local:NotificationDisplayItem}">
+	<Style TargetType="{x:Type local:NotificationDisplayItem}" x:Key="DefaultNotificationDisplayItem">
 		<Setter Property="NotificationIconTemplate">
 			<Setter.Value>
 				<DataTemplate>
@@ -150,7 +79,7 @@
 								<VisualStateGroup.Transitions>
 									<VisualTransition To="Pressed" GeneratedDuration="0:0:0.1" />
 									<VisualTransition To="Normal" GeneratedDuration="0:0:0.1" />
-									<VisualTransition To="MouseOver" GeneratedDuration="0:0:0.2" />
+									<VisualTransition To="MouseOver" GeneratedDuration="0:0:0.1" />
 								</VisualStateGroup.Transitions>
 								<VisualState x:Name="Normal" />
 								<VisualState x:Name="Pressed">
@@ -180,7 +109,7 @@
 						</VisualStateManager.VisualStateGroups>
 						<DockPanel>
 							<ContentPresenter x:Name="PART_Icon"
-											  Margin="10,0,0,0"
+							                  Margin="10,0,0,0"
 							                  Content="{TemplateBinding DataContext}" 
 							                  ContentTemplate="{Binding Path=NotificationIconTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" 
 							                  DockPanel.Dock="Left" />
@@ -189,12 +118,93 @@
 							        x:Name="PART_Close" 
 							        Visibility="{Binding Converter={StaticResource BooleanToVisibilityConverter}, Path=IsCloseButtonVisible, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}">
 								<ContentPresenter 
-								                  Content="{TemplateBinding DataContext}" 
-								                  ContentTemplate="{Binding Path=CloseTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" 
-								                   />
+									Content="{TemplateBinding DataContext}" 
+									ContentTemplate="{Binding Path=CloseTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" 
+								/>
 							</Border>
 							<ContentPresenter x:Name="PART_Content" Content="{TemplateBinding DataContext}" Margin="10,0"/>
 						</DockPanel>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style TargetType="{x:Type local:NotificationDisplayItem}" BasedOn="{StaticResource DefaultNotificationDisplayItem}"/>
+
+	<Style TargetType="{x:Type local:NotificationDisplay}" x:Key="DefaultNotificationDisplay">
+		<Setter Property="ItemContainerStyle">
+			<Setter.Value>
+				<Style TargetType="{x:Type local:NotificationDisplayItem}"></Style>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Background" Value="#333333" />
+		<Setter Property="Padding" Value="0,10" />
+		<Setter Property="MinWidth" Value="200" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type local:NotificationDisplay}">
+					<Border Background="{TemplateBinding Background}"
+					        HorizontalAlignment="{Binding Path=AnchorPosition, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AnchorPositionToHorizontalAlignmentConverter}}"
+					        VerticalAlignment="{Binding Path=AnchorPosition, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AnchorPositionToVerticalAlignmentConverter}}"
+					        BorderBrush="{TemplateBinding BorderBrush}"
+					        BorderThickness="{TemplateBinding BorderThickness}">
+						<ItemsControl
+							ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
+							AlternationCount="{TemplateBinding AlternationCount}"
+							DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
+							GroupStyleSelector="{TemplateBinding GroupStyleSelector}"
+							IsTextSearchCaseSensitive="{TemplateBinding IsTextSearchCaseSensitive}"
+							IsTextSearchEnabled="{TemplateBinding IsTextSearchEnabled}"
+							ItemsPanel="{TemplateBinding ItemsPanel}"
+							MinWidth="{TemplateBinding MinWidth}"
+							MinHeight="{TemplateBinding MinHeight}"
+							MaxHeight="{TemplateBinding MaxHeight}"
+							MaxWidth="{TemplateBinding MaxWidth}"
+							Style="{TemplateBinding Style}"
+							Padding="{TemplateBinding Padding}"
+							Margin="{TemplateBinding Margin}"
+							LayoutTransform="{TemplateBinding LayoutTransform}"
+							RenderTransform="{TemplateBinding RenderTransform}"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							ItemsSource="{TemplateBinding ItemsSource}" />
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style TargetType="{x:Type local:NotificationDisplay}" BasedOn="{StaticResource DefaultNotificationDisplay}"/>
+
+	<DataTemplate DataType="{x:Type notifications:SimpleNotification}">
+		<TextBlock Text="{Binding Path=Text}" VerticalAlignment="Center" Foreground="White" />
+	</DataTemplate>
+
+	<Style TargetType="{x:Type local:TintedImage}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Border 
+						BorderThickness="{TemplateBinding BorderThickness}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						Background="{TemplateBinding Background}" 
+						Padding="{TemplateBinding Padding}">
+						<Grid>
+							<Image
+								Source="{Binding Path=Source, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"
+								Width="{TemplateBinding Width}"
+								Height="{TemplateBinding Height}" />
+							<Rectangle 
+								Fill="{Binding Path=Brush, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"
+								Width="{TemplateBinding Width}" 
+								Height="{TemplateBinding Height}">
+								<Rectangle.OpacityMask>
+									<ImageBrush ImageSource="{Binding Path=Source, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TintedImage}}}"/>
+								</Rectangle.OpacityMask>
+							</Rectangle>
+						</Grid>
 					</Border>
 				</ControlTemplate>
 			</Setter.Value>
