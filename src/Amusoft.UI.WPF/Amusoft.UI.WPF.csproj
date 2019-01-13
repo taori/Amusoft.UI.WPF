@@ -3,7 +3,7 @@
 		<TargetFramework>net461</TargetFramework>
 		<Platforms>AnyCPU;x64;x86</Platforms>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<Authors>Andreas Müller</Authors>
 		<Company>Andreas Müller</Company>
 		<Product>Amusoft.UI.WPF</Product>
@@ -14,7 +14,7 @@
 		<RepositoryUrl>https://github.com/taori/Amusoft.UI.WPF</RepositoryUrl>
 		<AssemblyVersion>1.0.0.0</AssemblyVersion>
 		<FileVersion>1.0.0.0</FileVersion>
-		<VersionPrefix>0.1.2</VersionPrefix>
+		<VersionPrefix>0.2.0</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 	</PropertyGroup>
 	<ItemGroup>
