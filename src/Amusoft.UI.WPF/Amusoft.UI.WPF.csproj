@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net461</TargetFramework>
+		<TargetFrameworks>net45;net46;net471</TargetFrameworks>
 		<Platforms>AnyCPU;x64;x86</Platforms>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -11,13 +11,14 @@
 		<Copyright>2019</Copyright>
 		<PackageLicenseUrl>https://github.com/taori/Amusoft.UI.WPF/blob/master/LICENSE</PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/taori/Amusoft.UI.WPF</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/taori/Amusoft.UI.WPF</RepositoryUrl>
+		<RepositoryUrl>https://github.com/taori/Amusoft.UI.WPF.git</RepositoryUrl>
 		<AssemblyVersion>1.0.0.0</AssemblyVersion>
 		<FileVersion>1.0.0.0</FileVersion>
 		<VersionPrefix>0.2.1</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<PackageReleaseNotes />
 		<NeutralLanguage>en</NeutralLanguage>
+		<RepositoryType>git</RepositoryType>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Resources\close.png" />

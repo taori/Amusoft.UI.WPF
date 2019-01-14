@@ -29,7 +29,7 @@ namespace Amusoft.UI.WPF.Notifications
 		public async void DisplayAsync(INotification notification, AnchorPosition position)
 		{
 			if(!Manager.TryGetPresenter(position, out var presenter))
-				return;
+				throw new Exception($"There should be a {nameof(ContentPresenter)} present for {position}.");
 
 			EnsureBuildNotificationDisplayExists(position, presenter);
 
