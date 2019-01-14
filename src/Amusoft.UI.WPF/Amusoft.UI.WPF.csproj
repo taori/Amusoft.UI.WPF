@@ -24,7 +24,7 @@
 	<PropertyGroup>
 		<DisableImplicitFrameworkReferences Condition="'$(TargetFramework)' != 'netcoreapp3.0'">true</DisableImplicitFrameworkReferences>
 		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
+		<DebugType>portable</DebugType>
 	</PropertyGroup>
 
 	<!-- SourceLink -->
