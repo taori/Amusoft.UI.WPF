@@ -17,7 +17,6 @@
 		<VersionPrefix>0.2.1</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<PackageReleaseNotes />
-		<NeutralLanguage>en</NeutralLanguage>
 		<RepositoryType>git</RepositoryType>
 	</PropertyGroup>
 	<ItemGroup>

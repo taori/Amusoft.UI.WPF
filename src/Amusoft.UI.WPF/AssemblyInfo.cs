@@ -1,8 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Reflection;
+using System.Resources;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Markup;
 
 [assembly: ComVisible(false)]
+[assembly: NeutralResourcesLanguage("en")]
+[assembly: AssemblyCulture("en")]
 [assembly: ThemeInfo(
 	ResourceDictionaryLocation.None,
 	ResourceDictionaryLocation.SourceAssembly
