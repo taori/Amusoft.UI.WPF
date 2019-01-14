@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
+		<!-- <TargetFrameworks>net45;net46;net471;netcoreapp3.0</TargetFrameworks> -->
 		<TargetFrameworks>net45;net46;net471</TargetFrameworks>
 		<Platforms>AnyCPU;x64;x86</Platforms>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -14,7 +15,7 @@
 		<RepositoryUrl>https://github.com/taori/Amusoft.UI.WPF.git</RepositoryUrl>
 		<AssemblyVersion>1.0.0.0</AssemblyVersion>
 		<FileVersion>1.0.0.0</FileVersion>
-		<VersionPrefix>0.2.1</VersionPrefix>
+		<VersionPrefix>0.2.2</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<PackageReleaseNotes />
 		<RepositoryType>git</RepositoryType>
@@ -40,16 +41,24 @@
 
 	<!-- Set the reference for the other targets -->
 	<ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
-		<Reference Include="Microsoft.CSharp"/>
-		<Reference Include="PresentationCore"/>
-		<Reference Include="PresentationFramework"/>
-		<Reference Include="System"/>
-		<Reference Include="System.ComponentModel.DataAnnotations"/>
-		<Reference Include="System.Configuration"/>
-		<Reference Include="System.Core"/>
-		<Reference Include="System.Xaml"/>
-		<Reference Include="WindowsBase"/>
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+		<Reference Include="System" />
+		<Reference Include="System.Core" />
+		<Reference Include="System.Xaml" />
+		<Reference Include="WindowsBase" />
+		<Reference Include="System.Windows.Forms" />
+		<Reference Include="System.Windows" />
+		<Reference Include="System.Drawing" />
 	</ItemGroup>
+
+	<!-- <ItemGroup> -->
+	<!-- 	<Reference Include="PresentationCore" /> -->
+	<!-- 	<Reference Include="PresentationFramework" /> -->
+	<!-- 	<Reference Include="System.Xaml" /> -->
+	<!-- 	<Reference Include="System.Windows.Forms" /> -->
+	<!-- 	<Reference Include="WindowsBase" /> -->
+	<!-- </ItemGroup> -->
 
 	<ItemGroup>
 		<None Remove="Resources\close.png" />
@@ -76,13 +85,5 @@
 		<Page Include="Themes\Generic.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</Page>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Reference Include="PresentationCore" />
-		<Reference Include="PresentationFramework" />
-		<Reference Include="System.Xaml" />
-		<Reference Include="System.Windows.Forms" />
-		<Reference Include="WindowsBase" />
 	</ItemGroup>
 </Project>

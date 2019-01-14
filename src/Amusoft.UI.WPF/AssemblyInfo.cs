@@ -6,7 +6,6 @@ using System.Windows.Markup;
 
 [assembly: ComVisible(false)]
 [assembly: NeutralResourcesLanguage("en")]
-[assembly: AssemblyCulture("en")]
 [assembly: ThemeInfo(
 	ResourceDictionaryLocation.None,
 	ResourceDictionaryLocation.SourceAssembly
