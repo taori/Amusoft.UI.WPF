@@ -1,3 +1,4 @@
+version: CI {VERSION_NAME} Build {build}
 image: Visual Studio 2019 Preview
 configuration: Release
 platform: Any CPU
@@ -19,7 +20,9 @@ for:
   branches:
     only:
       - dev
-version: CI Dev Build {build}
+      
+environment:
+    VERSION_NAME: Dev
 artifacts:
 - path: '**\*.snupkg'
   name: ReleaseSnu
@@ -46,8 +49,10 @@ deploy:
 -
   branches:
     only:
-      - release      
-version: CI Release Build {build}
+      - release  
+      
+environment:
+    VERSION_NAME: Release
 artifacts:
 - path: '**\*.snupkg'
   name: ReleaseSnu
@@ -75,8 +80,9 @@ deploy:
 -
   branches:
     only:
-      - master
-  version: CI Master Build {build}
+      - master      
+environment:
+    VERSION_NAME: Master
   build_script:
 - cmd: >-
     dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj
