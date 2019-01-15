@@ -1,4 +1,4 @@
-version: CI {APPVEYOR_REPO_BRANCH} Build {build}
+version: CI {branch} Build {build}
 image: Visual Studio 2019 Preview
 configuration: Release
 platform: Any CPU
