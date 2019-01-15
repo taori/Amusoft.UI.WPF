@@ -17,14 +17,6 @@ artifacts:
   name: ReleaseSnu
 - path: '**\*.nupkg'
   name: Release
-  
-for:
-
-
--
-  branches:
-    only:
-      - dev
       
 deploy:
 - provider: NuGet
@@ -36,6 +28,14 @@ deploy:
   api_key:
     secure: cM8uuOzvNOaDyTnb9fRQbRi5sm5Tc/NqcpvscOA798nT7qAS16nfxqFGHFNTr3EG
   artifact: ReleaseSnu  
+  
+for:
+
+
+-
+  branches:
+    only:
+      - dev
   build_script:
 - cmd: >-
     dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj
@@ -47,17 +47,7 @@ deploy:
 -
   branches:
     only:
-      - release        
-deploy:
-- provider: NuGet
-  api_key:
-    secure: cM8uuOzvNOaDyTnb9fRQbRi5sm5Tc/NqcpvscOA798nT7qAS16nfxqFGHFNTr3EG
-  artifact: Release
-- provider: NuGet
-  server: https://api.nuget.org/v3/package
-  api_key:
-    secure: cM8uuOzvNOaDyTnb9fRQbRi5sm5Tc/NqcpvscOA798nT7qAS16nfxqFGHFNTr3EG
-  artifact: ReleaseSnu
+      - release 
   build_script:
 - cmd: >-
     dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj
