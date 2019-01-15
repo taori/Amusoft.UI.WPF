@@ -30,19 +30,10 @@ namespace Amusoft.UI.WPF.NugetIntegration
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-//            if (ScreenAnchorAdornerManager.Instance[Screen.PrimaryScreen].TryGetPresenter(AnchorPosition.Left, out var presenter))
-//            {
-//                presenter.Content = new Border()
-//                {
-//                    Width = 400,
-//                    Height = 400,
-//                    Background = Brushes.Red
-//                };
-//            }
 
-            var manager = NotificationHostManager.GetHostByScreen(Screen.PrimaryScreen);
-//
-//            var manager = NotificationHostManager.GetHostByVisual(this.Content as Visual);
+//            var manager = NotificationHostManager.GetHostByScreen(Screen.PrimaryScreen);
+            
+            var manager = NotificationHostManager.GetHostByVisual(this);
             foreach (AnchorPosition value in Enum.GetValues(typeof(AnchorPosition)))
             {
                 manager.DisplayAsync(new SimpleNotification($"Test notification {value}."), value);
