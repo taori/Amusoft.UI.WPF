@@ -45,10 +45,10 @@
         We need to unify TargetFramework between empty, net45, netcoreapp3.0 etc.-->
 		<!-- <MSBuild Projects="$(MSBuildProjectFile)" Targets="GenerateXamlFilesInner" Properties="TargetFramework=once" /> -->
 	<!-- </Target> -->
-	<ItemGroup>
-		<Compile DependentUpon="%(Filename)" SubType="Code" Update="**\obj\**\*.g$(DefaultLanguageSourceExtension)" />
-		<Compile DependentUpon="%(Filename)" SubType="Designer" Update="**\*.xaml$(DefaultLanguageSourceExtension)" />
-	</ItemGroup>
+	<!-- <ItemGroup> -->
+	<!-- 	<Compile DependentUpon="%(Filename)" SubType="Code" Update="**\obj\**\*.g$(DefaultLanguageSourceExtension)" /> -->
+	<!-- 	<Compile DependentUpon="%(Filename)" SubType="Designer" Update="**\*.xaml$(DefaultLanguageSourceExtension)" /> -->
+	<!-- </ItemGroup> -->
 
 	<!-- Set the reference for the other targets -->
 	<ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
@@ -93,12 +93,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Page Include="Themes\Generic.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</Page>
-	</ItemGroup>
-
-	<ItemGroup>
 		<Compile Update="Properties\Resources.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -112,5 +106,11 @@
 			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
 			<!-- <LogicalName>$(RootNamespace).g.resources</LogicalName> -->
 		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Page Include="Themes\Generic.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
 	</ItemGroup>
 </Project>
