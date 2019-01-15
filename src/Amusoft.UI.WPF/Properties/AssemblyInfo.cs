@@ -7,7 +7,7 @@ using System.Windows.Markup;
 [assembly: ComVisible(false)]
 [assembly: NeutralResourcesLanguage("en")]
 [assembly: ThemeInfo(
-	ResourceDictionaryLocation.SourceAssembly,
+	ResourceDictionaryLocation.None,
 	ResourceDictionaryLocation.SourceAssembly
 )]
 [assembly: XmlnsPrefix("http://schemas.amusoft.ui.wpf.com/winfx/2006/xaml/presentation", "aui")]
