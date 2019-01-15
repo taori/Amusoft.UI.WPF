@@ -1,4 +1,4 @@
-version: CI {VERSION_NAME} Build {build}
+version: CI {APPVEYOR_REPO_BRANCH} Build {build}
 image: Visual Studio 2019 Preview
 configuration: Release
 platform: Any CPU
@@ -21,8 +21,6 @@ for:
     only:
       - dev
       
-environment:
-    VERSION_NAME: Dev
 artifacts:
 - path: '**\*.snupkg'
   name: ReleaseSnu
@@ -51,8 +49,6 @@ deploy:
     only:
       - release  
       
-environment:
-    VERSION_NAME: Release
 artifacts:
 - path: '**\*.snupkg'
   name: ReleaseSnu
@@ -81,8 +77,6 @@ deploy:
   branches:
     only:
       - master      
-environment:
-    VERSION_NAME: Master
   build_script:
 - cmd: >-
     dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj
