@@ -40,9 +40,9 @@ namespace Amusoft.UI.WPF.NugetIntegration
 //                };
 //            }
 
-//            var manager = NotificationHostManager.GetHostByScreen(Screen.PrimaryScreen);
-
-            var manager = NotificationHostManager.GetHostByVisual(this.Content as Visual);
+            var manager = NotificationHostManager.GetHostByScreen(Screen.PrimaryScreen);
+//
+//            var manager = NotificationHostManager.GetHostByVisual(this.Content as Visual);
             foreach (AnchorPosition value in Enum.GetValues(typeof(AnchorPosition)))
             {
                 manager.DisplayAsync(new SimpleNotification($"Test notification {value}."), value);
