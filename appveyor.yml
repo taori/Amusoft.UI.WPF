@@ -37,7 +37,7 @@ for:
     only:
       - dev
   build_script:
-    - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj
+    - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m
     - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%APPVEYOR_BUILD_NUMBER% -v m -p:SymbolPackageFormat=snupkg
     - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%APPVEYOR_BUILD_NUMBER% -v m
 
@@ -48,7 +48,7 @@ for:
     only:
       - release 
   build_script:
-   - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj    
+   - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m
    - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix %APPVEYOR_BUILD_NUMBER% -v m -p:SymbolPackageFormat=snupkg
    - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix %APPVEYOR_BUILD_NUMBER% -v m
 
@@ -60,5 +60,6 @@ for:
     only:
       - master 
   deploy: off
+  artifacts: off
   build_script:
-  - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj
+  - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m
