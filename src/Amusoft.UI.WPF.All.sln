@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.UI.WPF.NugetIntegration", "..\tests\Amusoft.UI.WPF.NugetIntegration\Amusoft.UI.WPF.NugetIntegration.csproj", "{A07D908E-37E3-437C-9760-36B313581B8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.UI.Tests", "..\tests\Amusoft.UI.Tests\Amusoft.UI.Tests.csproj", "{5957A600-1881-4249-9BAF-DB31077B10CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{A07D908E-37E3-437C-9760-36B313581B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A07D908E-37E3-437C-9760-36B313581B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A07D908E-37E3-437C-9760-36B313581B8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5957A600-1881-4249-9BAF-DB31077B10CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5957A600-1881-4249-9BAF-DB31077B10CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5957A600-1881-4249-9BAF-DB31077B10CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5957A600-1881-4249-9BAF-DB31077B10CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
