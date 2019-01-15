@@ -49,8 +49,8 @@ for:
       - release 
   build_script:
    - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m
-   - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix %APPVEYOR_BUILD_NUMBER% -v m -p:SymbolPackageFormat=snupkg
-   - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix %APPVEYOR_BUILD_NUMBER% -v m
+   - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m -p:SymbolPackageFormat=snupkg
+   - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m
 
   
   
