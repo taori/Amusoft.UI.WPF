@@ -1,0 +1,65 @@
+version: CI {branch} Build {build}
+image: Visual Studio 2019 Preview
+configuration: Release
+platform: Any CPU
+init:
+- ps: ''
+install:
+- ps: >-
+    #nuget sources
+    #dotnet nuget --version
+    #appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+nuget:
+  disable_publish_on_pr: true
+  disable_publish_octopus: true  
+artifacts:
+- path: '**\*.snupkg'
+  name: ReleaseSnu
+- path: '**\*.nupkg'
+  name: Release
+      
+deploy:
+- provider: NuGet
+  api_key:
+    secure: cM8uuOzvNOaDyTnb9fRQbRi5sm5Tc/NqcpvscOA798nT7qAS16nfxqFGHFNTr3EG
+  artifact: Release
+- provider: NuGet
+  server: https://api.nuget.org/v3/package
+  api_key:
+    secure: cM8uuOzvNOaDyTnb9fRQbRi5sm5Tc/NqcpvscOA798nT7qAS16nfxqFGHFNTr3EG
+  artifact: ReleaseSnu  
+  
+for:
+
+
+-
+  branches:
+    only:
+      - dev
+  build_script:
+    - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m
+    - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%APPVEYOR_BUILD_NUMBER% -v m -p:SymbolPackageFormat=snupkg
+    - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%APPVEYOR_BUILD_NUMBER% -v m
+
+  
+  
+-
+  branches:
+    only:
+      - release 
+  build_script:
+   - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m
+   - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix %APPVEYOR_BUILD_NUMBER% -v m -p:SymbolPackageFormat=snupkg
+   - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix %APPVEYOR_BUILD_NUMBER% -v m
+
+  
+  
+  
+-
+  branches:
+    only:
+      - master 
+  deploy: off
+  artifacts: off
+  build_script:
+  - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m
