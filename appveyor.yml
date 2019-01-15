@@ -11,7 +11,12 @@ install:
     #appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 nuget:
   disable_publish_on_pr: true
-  disable_publish_octopus: true
+  disable_publish_octopus: true  
+artifacts:
+- path: '**\*.snupkg'
+  name: ReleaseSnu
+- path: '**\*.nupkg'
+  name: Release
   
 for:
 
@@ -21,11 +26,6 @@ for:
     only:
       - dev
       
-artifacts:
-- path: '**\*.snupkg'
-  name: ReleaseSnu
-- path: '**\*.nupkg'
-  name: Release
 deploy:
 - provider: NuGet
   api_key:
@@ -47,13 +47,7 @@ deploy:
 -
   branches:
     only:
-      - release  
-      
-artifacts:
-- path: '**\*.snupkg'
-  name: ReleaseSnu
-- path: '**\*.nupkg'
-  name: Release
+      - release        
 deploy:
 - provider: NuGet
   api_key:
