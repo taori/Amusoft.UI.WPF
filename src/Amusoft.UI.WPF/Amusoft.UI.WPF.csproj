@@ -23,7 +23,7 @@
 	<PropertyGroup>
 		<DisableImplicitFrameworkReferences Condition="'$(TargetFramework)' != 'netcoreapp3.0'">true</DisableImplicitFrameworkReferences>
 		<DebugSymbols>true</DebugSymbols>
-		<DebugType>portable</DebugType>
+		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
 	<!-- SourceLink -->
@@ -37,6 +37,9 @@
 		<!-- https://github.com/dotnet/sourcelink/blob/master/docs/README.md#embedallsources -->
 		<!-- <EmbedAllSources>true</EmbedAllSources>-->
 	</PropertyGroup>
+	<ItemGroup> 
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
+	</ItemGroup> 
 
 	<!-- Set the reference for the other targets -->
 	<ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
