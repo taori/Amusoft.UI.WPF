@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 	<PropertyGroup>
-		<TargetFrameworks>net45;net46;net471;netcoreapp3.0</TargetFrameworks>
+		<TargetFrameworks>net45;net461;net471;netcoreapp3.0</TargetFrameworks>
 		<Platforms>AnyCPU;x64;x86</Platforms>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -14,7 +14,7 @@
 		<RepositoryUrl>https://github.com/taori/Amusoft.UI.WPF.git</RepositoryUrl>
 		<AssemblyVersion>1.0.0.0</AssemblyVersion>
 		<FileVersion>1.0.0.0</FileVersion>
-		<VersionPrefix>0.2.2</VersionPrefix>
+		<VersionPrefix>0.3.0</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<PackageReleaseNotes />
 		<RepositoryType>git</RepositoryType>
@@ -23,7 +23,7 @@
 	<PropertyGroup>
 		<DisableImplicitFrameworkReferences Condition="'$(TargetFramework)' != 'netcoreapp3.0'">true</DisableImplicitFrameworkReferences>
 		<DebugSymbols>true</DebugSymbols>
-		<DebugType>portable</DebugType>
+		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
 	<!-- SourceLink -->
@@ -65,11 +65,6 @@
 		<Resource Include="Resources\error.png" />
 		<Resource Include="Resources\info.png" />
 		<Resource Include="Resources\warning.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
-		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

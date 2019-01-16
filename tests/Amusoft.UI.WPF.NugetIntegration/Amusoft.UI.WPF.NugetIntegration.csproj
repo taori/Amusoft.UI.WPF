@@ -99,7 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Amusoft.UI.WPF">
-      <Version>0.2.2-alpha88</Version>
+      <Version>0.2.5-alpha00112</Version>
     </PackageReference>
     <PackageReference Include="JetBrains.Annotations">
       <Version>2018.2.1</Version>
