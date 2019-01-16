@@ -7,10 +7,10 @@ pull_requests:
 init:
 - ps: ''
 install:
-- ps: >-
-    #nuget sources
-    #dotnet nuget --version
-    #appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+- ps: #nuget sources
+- ps: #dotnet nuget --version
+- ps: #appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+- ps: $env:PADDED_BUILD_NUMBER = ([int]$env:appveyor_build_number).ToString("00000")
 nuget:
   disable_publish_on_pr: true
   disable_publish_octopus: true  
@@ -40,8 +40,8 @@ for:
       - dev
   build_script:
     - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m
-    - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%APPVEYOR_BUILD_NUMBER% -v m -p:SymbolPackageFormat=snupkg
-    - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%APPVEYOR_BUILD_NUMBER% -v m
+    - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -v m -p:SymbolPackageFormat=snupkg
+    - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -v m
 
   
   
