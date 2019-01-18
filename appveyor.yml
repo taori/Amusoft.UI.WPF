@@ -21,6 +21,8 @@ nuget:
 artifacts:
 - path: '.\snupkg\**\*.snupkg'
   name: ReleaseSnu
+- path: '.\snupkg\**\*.nupkg'
+  name: ReleaseSnu
 - path: '.\nupkg\**\*.nupkg'
   name: Release
       
