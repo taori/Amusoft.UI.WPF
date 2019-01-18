@@ -3,7 +3,7 @@ image: Visual Studio 2019 Preview
 configuration: Release
 platform: Any CPU
 environment:
- PADDED_BUILD_NUMBER:
+ NUGET_DEPLOY_SECRET:
   secure: cM8uuOzvNOaDyTnb9fRQbRi5sm5Tc/NqcpvscOA798nT7qAS16nfxqFGHFNTr3EG
  
 pull_requests:
@@ -14,6 +14,7 @@ install:
 - ps: #nuget sources
 - ps: #dotnet nuget --version
 - ps: #appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+- ps: $env:PADDED_BUILD_NUMBER = ([int]$env:appveyor_build_number).ToString("00000")
 nuget:
   disable_publish_on_pr: true
   disable_publish_octopus: true  
@@ -29,7 +30,7 @@ deploy:
     secure: cM8uuOzvNOaDyTnb9fRQbRi5sm5Tc/NqcpvscOA798nT7qAS16nfxqFGHFNTr3EG
   artifact: Release
 after_deploy:
- - cmd : nuget push ReleaseSnu {build} -Source https://api.nuget.org/v3/index.json -ApiKey %PADDED_BUILD_NUMBER%
+ - ps : Get-ChildItem .\artifacts\*.snupkg | % { nuget push $_.FullName -Source https://api.nuget.org/v3/index.json -ApiKey $env:NUGET_DEPLOY_SECRET }
   
 for:
 
@@ -40,7 +41,7 @@ for:
       - dev
   build_script:
     - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m
-    - cmd: dotnet pack -c Release --no-build --include-symbols .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -v m -p:SymbolPackageFormat=snupkg
+    - cmd: dotnet pack -c Release --no-build --include-symbols .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -v m -p:SymbolPackageFormat=snupkg -o .\artifacts\
     - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -v m
 
   
@@ -51,7 +52,7 @@ for:
       - release 
   build_script:
    - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m
-   - cmd: dotnet pack -c Release --no-build --include-symbols .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m -p:SymbolPackageFormat=snupkg
+   - cmd: dotnet pack -c Release --no-build --include-symbols .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m -p:SymbolPackageFormat=snupkg -o .\artifacts\
    - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m
 
   
