@@ -2,6 +2,10 @@ version: CI {branch} Build {build}
 image: Visual Studio 2019 Preview
 configuration: Release
 platform: Any CPU
+environment:
+ PADDED_BUILD_NUMBER:
+  secure: cM8uuOzvNOaDyTnb9fRQbRi5sm5Tc/NqcpvscOA798nT7qAS16nfxqFGHFNTr3EG
+ 
 pull_requests:
   do_not_increment_build_number: true
 init:
@@ -10,7 +14,6 @@ install:
 - ps: #nuget sources
 - ps: #dotnet nuget --version
 - ps: #appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
-- ps: $env:PADDED_BUILD_NUMBER = ([int]$env:appveyor_build_number).ToString("00000")
 nuget:
   disable_publish_on_pr: true
   disable_publish_octopus: true  
@@ -25,11 +28,8 @@ deploy:
   api_key:
     secure: cM8uuOzvNOaDyTnb9fRQbRi5sm5Tc/NqcpvscOA798nT7qAS16nfxqFGHFNTr3EG
   artifact: Release
-- provider: NuGet
-  server: https://api.nuget.org/v3/package
-  api_key:
-    secure: cM8uuOzvNOaDyTnb9fRQbRi5sm5Tc/NqcpvscOA798nT7qAS16nfxqFGHFNTr3EG
-  artifact: ReleaseSnu  
+after_deploy:
+ - cmd : nuget push ReleaseSnu {build} -Source https://api.nuget.org/v3/index.json -ApiKey %PADDED_BUILD_NUMBER%
   
 for:
 
