@@ -30,7 +30,7 @@ deploy:
     secure: cM8uuOzvNOaDyTnb9fRQbRi5sm5Tc/NqcpvscOA798nT7qAS16nfxqFGHFNTr3EG
   artifact: Release
 after_deploy:
- - ps : Get-ChildItem .\artifacts\*.snupkg | % { nuget push $_.FullName -SymbolSource https://api.nuget.org/v3/index.json -SymbolApiKey $env:NUGET_DEPLOY_SECRET }
+ - ps : Get-ChildItem .\snupkg\*.nupkg | % { dotnet nuget push $_.FullName -s https://api.nuget.org/v3/index.json -k $env:NUGET_DEPLOY_SECRET }
   
 for:
 
