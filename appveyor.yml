@@ -65,7 +65,7 @@ for:
      
      Write-Host "Packing with version $($env:combinedVersion)"
     
-     dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -p:DebugType=embedded -p:EmbedAllSources=true -p:Version=$env:combinedVersion  
+     dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -p:Version=$env:combinedVersion  -p:DebugType=embedded -p:EmbedAllSources=true  
 -
   branches:
     only:
