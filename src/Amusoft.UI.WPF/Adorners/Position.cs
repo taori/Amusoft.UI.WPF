@@ -1,8 +1,10 @@
-﻿using System.ComponentModel;
+﻿
 
-namespace Amusoft.UI.WPF.Notifications
+using System.ComponentModel;
+
+namespace Amusoft.UI.WPF.Adorners
 {
-	public enum AnchorPosition
+	public enum Position
 	{
 		[Description("Bottom right")]
 		BottomRight,

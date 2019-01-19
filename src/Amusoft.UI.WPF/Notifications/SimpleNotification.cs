@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Microsoft.Xaml.Behaviors.Core;
+using Amusoft.UI.WPF.Commands;
 
 namespace Amusoft.UI.WPF.Notifications
 {
@@ -95,7 +95,6 @@ namespace Amusoft.UI.WPF.Notifications
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

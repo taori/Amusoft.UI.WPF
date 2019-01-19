@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
-using Amusoft.UI.WPF.Controls;
+using Amusoft.UI.WPF.Adorners;
 using Amusoft.UI.WPF.Notifications;
 using Microsoft.Xaml.Behaviors.Core;
-using MessageBox = System.Windows.MessageBox;
 
 namespace Amusoft.UI.WPF.Playground.ViewModels
 {
@@ -37,9 +36,9 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 			set => SetValue(ref _commands, value, nameof(Commands));
 		}
 
-		private AnchorPosition _anchorPosition;
+		private Position _anchorPosition;
 
-		public AnchorPosition AnchorPosition
+		public Position AnchorPosition
 		{
 			get => _anchorPosition;
 			set => SetValue(ref _anchorPosition, value, nameof(AnchorPosition));

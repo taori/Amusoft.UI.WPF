@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,10 +14,10 @@ namespace Amusoft.UI.WPF.Adorners
 	{
 		public UIElement DisplayedElement { get; }
 
-		public AnchorPosition Position { get; }
+		public Position Position { get; }
 
 		/// <inheritdoc />
-		public AnchoredAdorner(UIElement adornedElement, FrameworkElement displayedElement, AnchorPosition position) : base(adornedElement)
+		public AnchoredAdorner(UIElement adornedElement, FrameworkElement displayedElement, Position position) : base(adornedElement)
 		{
 			DisplayedElement = ComposeGrid(displayedElement, position);
 			Position = position;
@@ -23,7 +25,7 @@ namespace Amusoft.UI.WPF.Adorners
 			AddLogicalChild(DisplayedElement);
 		}
 
-		private UIElement ComposeGrid(FrameworkElement displayedElement, AnchorPosition position)
+		private UIElement ComposeGrid(FrameworkElement displayedElement, Position position)
 		{
 			var grid = new Grid();
 			grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
@@ -31,35 +33,35 @@ namespace Amusoft.UI.WPF.Adorners
 			grid.Children.Add(displayedElement);
 			switch (position)
 			{
-				case AnchorPosition.BottomRight:
+				case Position.BottomRight:
 					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
 					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
 					break;
-				case AnchorPosition.Bottom:
+				case Position.Bottom:
 					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
 					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
 					break;
-				case AnchorPosition.BottomLeft:
+				case Position.BottomLeft:
 					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
 					displayedElement.VerticalAlignment = VerticalAlignment.Bottom;
 					break;
-				case AnchorPosition.Left:
+				case Position.Left:
 					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
 					displayedElement.VerticalAlignment = VerticalAlignment.Stretch;
 					break;
-				case AnchorPosition.TopLeft:
+				case Position.TopLeft:
 					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
 					displayedElement.VerticalAlignment = VerticalAlignment.Top;
 					break;
-				case AnchorPosition.Top:
+				case Position.Top:
 					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
 					displayedElement.VerticalAlignment = VerticalAlignment.Top;
 					break;
-				case AnchorPosition.TopRight:
+				case Position.TopRight:
 					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
 					displayedElement.VerticalAlignment = VerticalAlignment.Top;
 					break;
-				case AnchorPosition.Right:
+				case Position.Right:
 					displayedElement.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
 					displayedElement.VerticalAlignment = VerticalAlignment.Stretch;
 					break;
@@ -99,18 +101,18 @@ namespace Amusoft.UI.WPF.Adorners
 		{
 			switch (Position)
 			{
-				case AnchorPosition.TopLeft:
-				case AnchorPosition.TopRight:
-				case AnchorPosition.BottomRight:
-				case AnchorPosition.BottomLeft:
+				case Position.TopLeft:
+				case Position.TopRight:
+				case Position.BottomRight:
+				case Position.BottomLeft:
 					return new Size(measured.Width, measured.Height);
 
-				case AnchorPosition.Bottom:
-				case AnchorPosition.Top:
+				case Position.Bottom:
+				case Position.Top:
 					return new Size(AdornedElement.RenderSize.Width, measured.Height);
 
-				case AnchorPosition.Left:
-				case AnchorPosition.Right:
+				case Position.Left:
+				case Position.Right:
 					return new Size(measured.Width, AdornedElement.RenderSize.Height);
 
 				default:
@@ -122,21 +124,21 @@ namespace Amusoft.UI.WPF.Adorners
 		{
 			switch (Position)
 			{
-				case AnchorPosition.BottomRight:
+				case Position.BottomRight:
 					return new Point(AdornedElement.RenderSize.Width - measured.Width, AdornedElement.RenderSize.Height - measured.Height);
-				case AnchorPosition.Bottom:
+				case Position.Bottom:
 					return new Point(0, AdornedElement.RenderSize.Height - measured.Height);
-				case AnchorPosition.BottomLeft:
+				case Position.BottomLeft:
 					return new Point(0, AdornedElement.RenderSize.Height - measured.Height);
-				case AnchorPosition.Left:
+				case Position.Left:
 					return new Point(0, 0);
-				case AnchorPosition.TopLeft:
+				case Position.TopLeft:
 					return new Point(0, 0);
-				case AnchorPosition.Top:
+				case Position.Top:
 					return new Point(0, 0);
-				case AnchorPosition.TopRight:
+				case Position.TopRight:
 					return new Point(AdornedElement.RenderSize.Width - measured.Width, 0);
-				case AnchorPosition.Right:
+				case Position.Right:
 					return new Point(AdornedElement.RenderSize.Width - measured.Width, 0);
 				default:
 					throw new ArgumentOutOfRangeException();

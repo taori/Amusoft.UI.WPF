@@ -7,8 +7,6 @@ using System.Windows.Data;
 using System.Windows.Input;
 using Amusoft.UI.WPF.Notifications;
 using Amusoft.UI.WPF.Utility;
-using TriggerAction = Microsoft.Xaml.Behaviors.TriggerAction;
-using TriggerBase = Microsoft.Xaml.Behaviors.TriggerBase;
 
 namespace Amusoft.UI.WPF.Controls
 {

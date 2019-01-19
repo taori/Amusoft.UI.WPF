@@ -12,7 +12,7 @@ namespace Amusoft.UI.WPF.Utility
 {
 	public static class VisualStateManagerHelper
 	{
-		public static Dictionary<VisualStateGroup, IEnumerable<VisualState>> GetVisualStateMap([JetBrains.Annotations.NotNull] FrameworkElement element)
+		public static Dictionary<VisualStateGroup, IEnumerable<VisualState>> GetVisualStateMap(FrameworkElement element)
 		{
 			if (element == null)
 				throw new ArgumentNullException(nameof(element));
