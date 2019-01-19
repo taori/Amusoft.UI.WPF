@@ -19,10 +19,10 @@ nuget:
   disable_publish_on_pr: true
   disable_publish_octopus: true  
 artifacts:
-- path: '.\snupkg\**\*.snupkg'
-  name: ReleaseSnu
-- path: '.\snupkg\**\*.nupkg'
-  name: ReleaseSnu
+#- path: '.\snupkg\**\*.snupkg'
+#  name: ReleaseSnu
+#- path: '.\snupkg\**\*.nupkg'
+#  name: ReleaseSnu
 - path: '.\nupkg\**\*.nupkg'
   name: Release
       
@@ -31,8 +31,8 @@ deploy:
   api_key:
     secure: cM8uuOzvNOaDyTnb9fRQbRi5sm5Tc/NqcpvscOA798nT7qAS16nfxqFGHFNTr3EG
   artifact: Release
-after_deploy:
- - ps : Get-ChildItem .\snupkg\*.snupkg | % { dotnet nuget push $_.FullName -s https://api.nuget.org/v3/index.json -k $env:NUGET_DEPLOY_SECRET }
+#after_deploy:
+# - ps : Get-ChildItem .\snupkg\*.snupkg | % { dotnet nuget push $_.FullName -s https://api.nuget.org/v3/index.json -k $env:NUGET_DEPLOY_SECRET }
   
 for:
 
@@ -42,8 +42,14 @@ for:
     only:
       - dev
   build_script:
-    - cmd: dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -p:DebugType=embedded -p:EmbedAllSources=true 
-    - cmd: dotnet pack -c Release --include-symbols -v m -o .\snupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -p:SymbolPackageFormat=snupkg 
+   - ps: >-
+      $env:csprojVersionPrefix = Select-Xml -Path .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -XPath //Project/PropertyGroup/VersionPrefix | Select -ExpandProperty Node | Select -Expand '#text'
+      $env:combinedVersion = "$($env:csprojVersionPrefix).$($env:PADDED_BUILD_NUMBER)"
+      Write-Host "Packing with version $(combinedVersion)"
+    
+      dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha$env:PADDED_BUILD_NUMBER -p:DebugType=embedded -p:EmbedAllSources=true 
+   # - cmd: dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -p:DebugType=embedded -p:EmbedAllSources=true 
+   # - cmd: dotnet pack -c Release --include-symbols -v m -o .\snupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -p:SymbolPackageFormat=snupkg 
 
   
   
@@ -52,8 +58,17 @@ for:
     only:
       - release 
   build_script:
-    - cmd: dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --include-source -p:DebugType=embedded
-    - cmd: dotnet pack -c Release --include-symbols -v m -o .\snupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -p:SymbolPackageFormat=snupkg 
+  
+  - ps: >-
+  
+     $csprojVersionPrefix = Select-Xml -Path .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -XPath //Project/PropertyGroup/VersionPrefix | Select -ExpandProperty Node | Select -Expand '#text'    
+     $combinedVersion = "$(csprojVersionPrefix).$($env:PADDED_BUILD_NUMBER)"    
+     Write-Host "Packing with version $(combinedVersion)"
+    
+     dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -p:DebugType=embedded -p:EmbedAllSources=true -p:Version=$env:combinedVersion
+  
+   # - cmd: 
+   # - cmd: dotnet pack -c Release --include-symbols -v m -o .\snupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -p:SymbolPackageFormat=snupkg 
 
   
   
