@@ -42,10 +42,8 @@ for:
     only:
       - dev
   build_script:
-    - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m
-    - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -v m -o .\nupkg\    
-    - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m -p:DebugType=portable
-    - cmd: dotnet pack -c Release --no-build --include-symbols .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -v m -p:SymbolPackageFormat=snupkg -o .\snupkg\
+    - cmd: dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% --include-source 
+    - cmd: dotnet pack -c Release --include-symbols -v m -o .\snupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -p:SymbolPackageFormat=snupkg 
 
   
   
@@ -54,10 +52,8 @@ for:
     only:
       - release 
   build_script:
-   - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m
-   - cmd: dotnet pack -c Release --no-build --include-symbols --include-source .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m -o .\nupkg\
-   - cmd: dotnet build -c Release .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m -p:DebugType=portable
-   - cmd: dotnet pack -c Release --no-build --include-symbols .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -v m -p:SymbolPackageFormat=snupkg -o .\snupkg\
+    - cmd: dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --include-source 
+    - cmd: dotnet pack -c Release --include-symbols -v m -o .\snupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -p:SymbolPackageFormat=snupkg 
 
   
   

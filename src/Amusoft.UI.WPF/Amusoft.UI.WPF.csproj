@@ -23,7 +23,7 @@
 	<PropertyGroup>
 		<DisableImplicitFrameworkReferences Condition="'$(TargetFramework)' != 'netcoreapp3.0'">true</DisableImplicitFrameworkReferences>
 		<DebugSymbols>true</DebugSymbols>
-		<DebugType>embedded</DebugType>
+		<DebugType>portable</DebugType>
 	</PropertyGroup>
 
 	<!-- SourceLink -->
@@ -33,9 +33,9 @@
 		<!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<!-- Optional: Include PDB in the built .nupkg -->
-		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+		<!-- <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder> -->
 		<!-- https://github.com/dotnet/sourcelink/blob/master/docs/README.md#embedallsources -->
-		<!-- <EmbedAllSources>true</EmbedAllSources>-->
+		<!-- <EmbedAllSources>true</EmbedAllSources> -->
 	</PropertyGroup>
 	<ItemGroup> 
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
