@@ -46,11 +46,11 @@ for:
    
       $env:csprojVersionPrefix = Select-Xml -Path .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -XPath //Project/PropertyGroup/VersionPrefix | Select -ExpandProperty Node | Select -Expand '#text'
       
-      $env:combinedVersion = "$($env:csprojVersionPrefix).$($env:PADDED_BUILD_NUMBER)"
+      $env:combinedVersion = "$($env:csprojVersionPrefix).alpha$($env:PADDED_BUILD_NUMBER)"
       
       Write-Host "Packing with version $($env:combinedVersion)"
     
-      dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha$env:PADDED_BUILD_NUMBER -p:DebugType=embedded -p:EmbedAllSources=true 
+      dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -p:Version=$env:combinedVersion -p:DebugType=embedded -p:EmbedAllSources=true 
    # - cmd: dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -p:DebugType=embedded -p:EmbedAllSources=true 
    # - cmd: dotnet pack -c Release --include-symbols -v m -o .\snupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -p:SymbolPackageFormat=snupkg 
 
