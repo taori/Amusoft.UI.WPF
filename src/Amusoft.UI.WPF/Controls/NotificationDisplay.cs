@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Amusoft.UI.WPF.Adorners;
 using Amusoft.UI.WPF.Notifications;
 
 namespace Amusoft.UI.WPF.Controls
@@ -11,13 +12,13 @@ namespace Amusoft.UI.WPF.Controls
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(NotificationDisplay), new FrameworkPropertyMetadata(typeof(NotificationDisplay)));
 		}
 
-		public static readonly DependencyProperty AnchorPositionProperty = DependencyProperty.Register(
-			nameof(AnchorPosition), typeof(AnchorPosition), typeof(NotificationDisplay), new PropertyMetadata(default(AnchorPosition)));
+		public static readonly DependencyProperty PositionProperty = DependencyProperty.Register(
+			nameof(Position), typeof(Position), typeof(NotificationDisplay), new PropertyMetadata(default(Position)));
 
-		public AnchorPosition AnchorPosition
+		public Position Position
 		{
-			get { return (AnchorPosition) GetValue(AnchorPositionProperty); }
-			set { SetValue(AnchorPositionProperty, value); }
+			get { return (Position) GetValue(PositionProperty); }
+			set { SetValue(PositionProperty, value); }
 		}
 
 		public static readonly DependencyProperty IconTemplateProperty = DependencyProperty.Register(

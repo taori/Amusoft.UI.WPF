@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using Amusoft.UI.WPF.Adorners;
 using Amusoft.UI.WPF.Controls;
 
@@ -17,16 +15,16 @@ namespace Amusoft.UI.WPF.Notifications
 
 		private NotificationSettings Settings { get; }
 
-		private ConcurrentDictionary<AnchorPosition, ObservableCollection<object>> ItemsByPosition { get; }
+		private ConcurrentDictionary<Position, ObservableCollection<object>> ItemsByPosition { get; }
 
 		public NotificationHost(AnchorAdornerManager manager, NotificationSettings settings)
 		{
 			Manager = manager;
 			Settings = settings;
-			ItemsByPosition = new ConcurrentDictionary<AnchorPosition, ObservableCollection<object>>();
+			ItemsByPosition = new ConcurrentDictionary<Position, ObservableCollection<object>>();
 		}
 
-		public async void DisplayAsync(INotification notification, AnchorPosition position)
+		public async void DisplayAsync(INotification notification, Position position)
 		{
 			if(!Manager.TryGetPresenter(position, out var presenter))
 				throw new Exception($"There should be a {nameof(ContentPresenter)} present for {position}.");
@@ -61,7 +59,7 @@ namespace Amusoft.UI.WPF.Notifications
 			}
 		}
 
-		private void EnsureBuildNotificationDisplayExists(AnchorPosition position, ContentPresenter presenter)
+		private void EnsureBuildNotificationDisplayExists(Position position, ContentPresenter presenter)
 		{
 			if (presenter.Content != null)
 				return;
@@ -70,7 +68,7 @@ namespace Amusoft.UI.WPF.Notifications
 			if (Settings?.Style is Style displayStyle)
 				display.Style = displayStyle;
 
-			display.AnchorPosition = position;
+			display.Position = position;
 			if (!ItemsByPosition.TryGetValue(position, out var c))
 			{
 				c = new ObservableCollection<object>();

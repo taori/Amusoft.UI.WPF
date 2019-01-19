@@ -27,7 +27,7 @@
 		<StackPanel DockPanel.Dock="Top">
 			<ListView Padding="10" FontSize="20" FontWeight="Bold" 
 					  HorizontalContentAlignment="Center"
-			          ItemsSource="{Binding Source={utility:EnumSource {x:Type notifications:AnchorPosition}}}" 
+			          ItemsSource="{Binding Source={utility:EnumSource {x:Type aui:Position}}}" 
 			          SelectedValue="{Binding Path=AnchorPosition, UpdateSourceTrigger=PropertyChanged}" 
 			          IsSynchronizedWithCurrentItem="True" 
 					  DisplayMemberPath="Description"
