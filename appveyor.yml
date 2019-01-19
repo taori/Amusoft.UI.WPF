@@ -43,8 +43,11 @@ for:
       - dev
   build_script:
    - ps: >-
+   
       $env:csprojVersionPrefix = Select-Xml -Path .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -XPath //Project/PropertyGroup/VersionPrefix | Select -ExpandProperty Node | Select -Expand '#text'
+      
       $env:combinedVersion = "$($env:csprojVersionPrefix).$($env:PADDED_BUILD_NUMBER)"
+      
       Write-Host "Packing with version $(combinedVersion)"
     
       dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha$env:PADDED_BUILD_NUMBER -p:DebugType=embedded -p:EmbedAllSources=true 
@@ -62,7 +65,9 @@ for:
   - ps: >-
   
      $csprojVersionPrefix = Select-Xml -Path .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -XPath //Project/PropertyGroup/VersionPrefix | Select -ExpandProperty Node | Select -Expand '#text'    
+     
      $combinedVersion = "$(csprojVersionPrefix).$($env:PADDED_BUILD_NUMBER)"    
+     
      Write-Host "Packing with version $(combinedVersion)"
     
      dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -p:DebugType=embedded -p:EmbedAllSources=true -p:Version=$env:combinedVersion
