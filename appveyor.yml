@@ -15,6 +15,7 @@ install:
 - ps: #dotnet nuget --version
 - ps: #appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 - ps: $env:PADDED_BUILD_NUMBER = ([int]$env:appveyor_build_number).ToString("00000")
+- ps: dotnet tool install --global NugetUnlister --version 0.1.0-beta00013
 nuget:
   disable_publish_on_pr: true
   disable_publish_octopus: true  
@@ -52,9 +53,14 @@ for:
     
       dotnet pack -c Release -v m -o .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -p:Version=$env:combinedVersion -p:DebugType=embedded -p:EmbedAllSources=true  
 -
+
+
   branches:
     only:
       - release 
+  after_deploy:
+    nuget-unlist drop PrereleaseBefore -p Amusoft.UI.WPF --sv $env:combinedVersion -k $env:NUGET_DEPLOY_SECRET
+
   build_script:
   
   - ps: >-
@@ -67,6 +73,8 @@ for:
     
      dotnet pack -c Release -v m -o .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -p:Version=$env:combinedVersion  -p:DebugType=embedded -p:EmbedAllSources=true  
 -
+
+
   branches:
     only:
       - master 
