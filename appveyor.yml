@@ -42,7 +42,7 @@ for:
     only:
       - dev
   build_script:
-    - cmd: dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% --include-source -p:DebugType=embedded -p:EmbedAllSources=true 
+    - cmd: dotnet pack -c Release --include-symbols -v m -o  .\nupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -p:DebugType=embedded -p:EmbedAllSources=true 
     - cmd: dotnet pack -c Release --include-symbols -v m -o .\snupkg\ .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj --version-suffix alpha%PADDED_BUILD_NUMBER% -p:SymbolPackageFormat=snupkg 
 
   
