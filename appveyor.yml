@@ -59,9 +59,9 @@ for:
   
   - ps: >-
   
-     $csprojVersionPrefix = Select-Xml -Path .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -XPath //Project/PropertyGroup/VersionPrefix | Select -ExpandProperty Node | Select -Expand '#text'    
+     $env:csprojVersionPrefix = Select-Xml -Path .\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj -XPath //Project/PropertyGroup/VersionPrefix | Select -ExpandProperty Node | Select -Expand '#text'    
      
-     $combinedVersion = "$($env:csprojVersionPrefix).$($env:PADDED_BUILD_NUMBER)"    
+     $env:combinedVersion = "$($env:csprojVersionPrefix).$($env:PADDED_BUILD_NUMBER)"    
      
      Write-Host -ForegroundColor Green "Packing with version $($env:combinedVersion)"
     
