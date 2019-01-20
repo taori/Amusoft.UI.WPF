@@ -26,6 +26,16 @@ namespace Amusoft.UI.WPF.Controls
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(NotificationDisplayItem), new FrameworkPropertyMetadata(typeof(NotificationDisplayItem)));
 		}
 
+		internal void SetDefaultStyleKey(object key)
+		{
+			this.DefaultStyleKey = key;
+		}
+
+		internal void ClearDefaultStyleKey()
+		{
+			this.ClearValue(FrameworkElement.DefaultStyleKeyProperty);
+		}
+
 		/// <inheritdoc />
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
 		{

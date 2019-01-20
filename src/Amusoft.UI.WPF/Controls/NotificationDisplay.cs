@@ -1,10 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using Amusoft.UI.WPF.Adorners;
 using Amusoft.UI.WPF.Notifications;
 
 namespace Amusoft.UI.WPF.Controls
 {
+	[StyleTypedProperty(Property = nameof(NotificationDisplay.ItemContainerStyle), StyleTargetType = typeof(NotificationDisplayItem))]
 	public class NotificationDisplay : ItemsControl
 	{
 		static NotificationDisplay()
@@ -37,6 +39,43 @@ namespace Amusoft.UI.WPF.Controls
 		{
 			get { return (DataTemplate) GetValue(CloseTemplateProperty); }
 			set { SetValue(CloseTemplateProperty, value); }
+		}
+
+		/// <inheritdoc />
+		protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
+		{
+			base.PrepareContainerForItemOverride(element, item);
+			var listItem = element as NotificationDisplayItem;
+			if (listItem == null)
+				return;
+
+			listItem.Style = ItemContainerStyle;
+
+			////			if(this is IGeneratorH generator)
+			////			{ }
+			//
+			//			ViewBase view = this.View;
+			//			if (view != null)
+			//			{
+			////				listItem.Style = 
+			//				listItem.SetDefaultStyleKey(view.ItemContainerDefaultStyleKey);
+			//				view.PrepareItem(listItem);
+			//			}
+			//			else
+			//				listItem.ClearDefaultStyleKey();
+//			var d = typeof(ListView);
+		}
+
+		/// <inheritdoc />
+		protected override bool IsItemItsOwnContainerOverride(object item)
+		{
+			return item is NotificationDisplayItem;
+		}
+
+		/// <inheritdoc />
+		protected override DependencyObject GetContainerForItemOverride()
+		{
+			return new NotificationDisplayItem();
 		}
 	}
 }
