@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:aui="http://schemas.amusoft.ui.wpf.com/winfx/2006/xaml/presentation">
+
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="pack://application:,,,/Amusoft.UI.WPF;component/Themes/Generic.xaml"></ResourceDictionary>
+	</ResourceDictionary.MergedDictionaries>
+
+	<Style TargetType="{x:Type aui:NotificationDisplayItem}" BasedOn="{StaticResource DefaultNotificationDisplayItem}"></Style>
+</ResourceDictionary>

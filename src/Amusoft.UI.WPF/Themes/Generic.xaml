@@ -1,4 +1,4 @@
- <ResourceDictionary
+<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:local="clr-namespace:Amusoft.UI.WPF.Controls"
@@ -13,6 +13,12 @@
 
 
 	<Style TargetType="{x:Type local:NotificationDisplayItem}" x:Key="DefaultNotificationDisplayItem">
+		<Setter Property="MinWidth" Value="400" />
+		<Setter Property="Background" Value="#333" />
+		<Setter Property="Padding" Value="0,5" />
+		<Setter Property="VerticalContentAlignment" Value="Stretch" />
+		<Setter Property="VerticalIconAlignment" Value="Stretch" />
+		<Setter Property="VerticalCloseAlignment" Value="Stretch" />
 		<Setter Property="NotificationIconTemplate">
 			<Setter.Value>
 				<DataTemplate>
@@ -63,14 +69,14 @@
 		</Setter>
 		<Setter Property="Template">
 			<Setter.Value>
-				<ControlTemplate>
-					<Border Background="#333"
+				<ControlTemplate TargetType="{x:Type local:NotificationDisplayItem}">
+					<Border Background="{TemplateBinding Background}"
 					        x:Name="PART_SelectControl"
 					        Cursor="Hand"
-					        MinWidth="400"
+					        MinWidth="{TemplateBinding MinWidth}"
 					        RenderTransformOrigin="0.5,0.5"
 					        Opacity="1"
-					        Padding="0,5">
+					        Padding="{TemplateBinding Padding}">
 						<Border.RenderTransform>
 							<TransformGroup>
 								<ScaleTransform ScaleY="1" ScaleX="1" />
@@ -114,6 +120,7 @@
 						<DockPanel>
 							<ContentPresenter x:Name="PART_Icon"
 							                  Margin="10,0,0,0"
+							                  VerticalAlignment="{TemplateBinding VerticalIconAlignment}"
 							                  Content="{TemplateBinding DataContext}" 
 							                  ContentTemplate="{Binding Path=NotificationIconTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" 
 							                  DockPanel.Dock="Left" />
@@ -122,11 +129,15 @@
 							        x:Name="PART_Close" 
 							        Visibility="{Binding Converter={StaticResource BooleanToVisibilityConverter}, Path=IsCloseButtonVisible, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}">
 								<ContentPresenter 
+									VerticalAlignment="{TemplateBinding VerticalCloseAlignment}"
 									Content="{TemplateBinding DataContext}" 
 									ContentTemplate="{Binding Path=CloseTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" 
 								/>
 							</Border>
-							<ContentPresenter x:Name="PART_Content" Content="{TemplateBinding DataContext}" Margin="10,0"/>
+							<ContentPresenter x:Name="PART_Content" 
+							                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+							                  ContentTemplate="{Binding Path=ContentTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" 
+							                  Content="{TemplateBinding DataContext}" Margin="10,0"/>
 						</DockPanel>
 					</Border>
 				</ControlTemplate>
@@ -139,7 +150,7 @@
 	<Style TargetType="{x:Type local:NotificationDisplay}" x:Key="DefaultNotificationDisplay">
 		<Setter Property="ItemContainerStyle">
 			<Setter.Value>
-				<Style TargetType="{x:Type local:NotificationDisplayItem}"></Style>
+				<Style TargetType="{x:Type local:NotificationDisplayItem}"/>
 			</Setter.Value>
 		</Setter>
 		<Setter Property="Background" Value="#333333" />
@@ -149,31 +160,11 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:NotificationDisplay}">
 					<Border Background="{TemplateBinding Background}"
-					        HorizontalAlignment="{Binding Path=AnchorPosition, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AnchorPositionToHorizontalAlignmentConverter}}"
-					        VerticalAlignment="{Binding Path=AnchorPosition, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AnchorPositionToVerticalAlignmentConverter}}"
+					        HorizontalAlignment="{Binding Path=Position, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AnchorPositionToHorizontalAlignmentConverter}}"
+					        VerticalAlignment="{Binding Path=Position, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AnchorPositionToVerticalAlignmentConverter}}"
 					        BorderBrush="{TemplateBinding BorderBrush}"
 					        BorderThickness="{TemplateBinding BorderThickness}">
-						<ItemsControl
-							ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
-							AlternationCount="{TemplateBinding AlternationCount}"
-							DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
-							GroupStyleSelector="{TemplateBinding GroupStyleSelector}"
-							IsTextSearchCaseSensitive="{TemplateBinding IsTextSearchCaseSensitive}"
-							IsTextSearchEnabled="{TemplateBinding IsTextSearchEnabled}"
-							ItemsPanel="{TemplateBinding ItemsPanel}"
-							MinWidth="{TemplateBinding MinWidth}"
-							MinHeight="{TemplateBinding MinHeight}"
-							MaxHeight="{TemplateBinding MaxHeight}"
-							MaxWidth="{TemplateBinding MaxWidth}"
-							Style="{TemplateBinding Style}"
-							Padding="{TemplateBinding Padding}"
-							Margin="{TemplateBinding Margin}"
-							LayoutTransform="{TemplateBinding LayoutTransform}"
-							RenderTransform="{TemplateBinding RenderTransform}"
-							Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}"
-							ItemsSource="{TemplateBinding ItemsSource}" />
+						<ItemsPresenter />
 					</Border>
 				</ControlTemplate>
 			</Setter.Value>
@@ -189,7 +180,7 @@
 	<Style TargetType="{x:Type local:TintedImage}">
 		<Setter Property="Template">
 			<Setter.Value>
-				<ControlTemplate>
+				<ControlTemplate TargetType="{x:Type local:TintedImage}">
 					<Border 
 						BorderThickness="{TemplateBinding BorderThickness}"
 						BorderBrush="{TemplateBinding BorderBrush}"

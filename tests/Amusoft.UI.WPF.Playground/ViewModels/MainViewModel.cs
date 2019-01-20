@@ -18,6 +18,7 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 			Commands.Add(new TextCommandViewModel(new ActionCommand(DisplayGlobalNotifactionsExecute), "Display global notifications"));
 			Commands.Add(new TextCommandViewModel(new ActionCommand(DisplayWindowNotifactionsExecute), "Display window notifications"));
 			Commands.Add(new TextCommandViewModel(new ActionCommand(DisplayAlignmentTestWindowExecute), "Display alignment test window"));
+			Commands.Add(new TextCommandViewModel(new ActionCommand(VerifyAlternatingStyleExecute), "Verify alternating style."));
 		}
 
 		private Window _window;
@@ -48,6 +49,12 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 		{
 			var testWindow = new AlignmentTestWindow();
 			testWindow.Show();
+		}
+
+		private void VerifyAlternatingStyleExecute()
+		{
+			var window = new AlternateStyleWindow();
+			window.Show();
 		}
 
 		private async void DisplayWindowNotifactionsExecute()

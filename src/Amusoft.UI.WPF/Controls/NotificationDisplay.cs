@@ -45,25 +45,8 @@ namespace Amusoft.UI.WPF.Controls
 		protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
 		{
 			base.PrepareContainerForItemOverride(element, item);
-			var listItem = element as NotificationDisplayItem;
-			if (listItem == null)
-				return;
-
-			listItem.Style = ItemContainerStyle;
-
-			////			if(this is IGeneratorH generator)
-			////			{ }
-			//
-			//			ViewBase view = this.View;
-			//			if (view != null)
-			//			{
-			////				listItem.Style = 
-			//				listItem.SetDefaultStyleKey(view.ItemContainerDefaultStyleKey);
-			//				view.PrepareItem(listItem);
-			//			}
-			//			else
-			//				listItem.ClearDefaultStyleKey();
-//			var d = typeof(ListView);
+			if (element is NotificationDisplayItem listItem)
+				listItem.Style = ItemContainerStyle;
 		}
 
 		/// <inheritdoc />

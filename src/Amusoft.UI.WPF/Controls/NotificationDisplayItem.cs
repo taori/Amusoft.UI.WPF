@@ -26,16 +26,6 @@ namespace Amusoft.UI.WPF.Controls
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(NotificationDisplayItem), new FrameworkPropertyMetadata(typeof(NotificationDisplayItem)));
 		}
 
-		internal void SetDefaultStyleKey(object key)
-		{
-			this.DefaultStyleKey = key;
-		}
-
-		internal void ClearDefaultStyleKey()
-		{
-			this.ClearValue(FrameworkElement.DefaultStyleKeyProperty);
-		}
-
 		/// <inheritdoc />
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
 		{
@@ -115,6 +105,24 @@ namespace Amusoft.UI.WPF.Controls
 		{
 			get { return (bool) GetValue(IsCloseButtonVisibleProperty); }
 			set { SetValue(IsCloseButtonVisibleProperty, value); }
+		}
+
+		public static readonly DependencyProperty VerticalIconAlignmentProperty = DependencyProperty.Register(
+			nameof(VerticalIconAlignment), typeof(VerticalAlignment), typeof(NotificationDisplayItem), new PropertyMetadata(default(VerticalAlignment)));
+
+		public VerticalAlignment VerticalIconAlignment
+		{
+			get { return (VerticalAlignment) GetValue(VerticalIconAlignmentProperty); }
+			set { SetValue(VerticalIconAlignmentProperty, value); }
+		}
+
+		public static readonly DependencyProperty VerticalCloseAlignmentProperty = DependencyProperty.Register(
+			nameof(VerticalCloseAlignment), typeof(VerticalAlignment), typeof(NotificationDisplayItem), new PropertyMetadata(default(VerticalAlignment)));
+
+		public VerticalAlignment VerticalCloseAlignment
+		{
+			get { return (VerticalAlignment) GetValue(VerticalCloseAlignmentProperty); }
+			set { SetValue(VerticalCloseAlignmentProperty, value); }
 		}
 
 		public FrameworkElement SelectControl { get; set; }
