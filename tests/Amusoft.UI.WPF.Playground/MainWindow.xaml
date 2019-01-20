@@ -11,6 +11,7 @@
         xmlns:notifications="clr-namespace:Amusoft.UI.WPF.Notifications;assembly=Amusoft.UI.WPF"
         mc:Ignorable="d"
 		x:Name="Self" 
+		SizeToContent="Height"
         Title="MainWindow" Height="450" Width="800">
 	<Window.DataContext>
 		<viewModels:MainViewModel/>

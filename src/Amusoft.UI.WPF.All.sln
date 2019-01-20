@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		Amusoft.UI.WPF.All.ruleset = Amusoft.UI.WPF.All.ruleset
+		..\appveyor.yml = ..\appveyor.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amusoft.UI.WPF.NugetIntegration", "..\tests\Amusoft.UI.WPF.NugetIntegration\Amusoft.UI.WPF.NugetIntegration.csproj", "{A07D908E-37E3-437C-9760-36B313581B8F}"
