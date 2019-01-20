@@ -11,6 +11,7 @@
         xmlns:notifications="clr-namespace:Amusoft.UI.WPF.Notifications;assembly=Amusoft.UI.WPF"
         mc:Ignorable="d"
 		x:Name="Self" 
+		SizeToContent="Height"
         Title="MainWindow" Height="450" Width="800">
 	<Window.DataContext>
 		<viewModels:MainViewModel/>
@@ -27,7 +28,7 @@
 		<StackPanel DockPanel.Dock="Top">
 			<ListView Padding="10" FontSize="20" FontWeight="Bold" 
 					  HorizontalContentAlignment="Center"
-			          ItemsSource="{Binding Source={utility:EnumSource {x:Type notifications:AnchorPosition}}}" 
+			          ItemsSource="{Binding Source={utility:EnumSource {x:Type aui:Position}}}" 
 			          SelectedValue="{Binding Path=AnchorPosition, UpdateSourceTrigger=PropertyChanged}" 
 			          IsSynchronizedWithCurrentItem="True" 
 					  DisplayMemberPath="Description"

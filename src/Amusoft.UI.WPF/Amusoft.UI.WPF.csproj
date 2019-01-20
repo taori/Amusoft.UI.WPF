@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 	<PropertyGroup>
-		<TargetFrameworks>net45;net46;net471;netcoreapp3.0</TargetFrameworks>
+		<TargetFrameworks>net45;net461;net471;netcoreapp3.0</TargetFrameworks>
 		<Platforms>AnyCPU;x64;x86</Platforms>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -12,9 +12,9 @@
 		<PackageLicenseUrl>https://github.com/taori/Amusoft.UI.WPF/blob/master/LICENSE</PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/taori/Amusoft.UI.WPF</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/taori/Amusoft.UI.WPF.git</RepositoryUrl>
-		<AssemblyVersion>1.0.0.0</AssemblyVersion>
-		<FileVersion>1.0.0.0</FileVersion>
-		<VersionPrefix>0.2.5</VersionPrefix>
+		<AssemblyVersion>0.4.0.0</AssemblyVersion>
+		<FileVersion>0.4.0.0</FileVersion>
+		<VersionPrefix>0.4.0</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<PackageReleaseNotes />
 		<RepositoryType>git</RepositoryType>
@@ -23,7 +23,7 @@
 	<PropertyGroup>
 		<DisableImplicitFrameworkReferences Condition="'$(TargetFramework)' != 'netcoreapp3.0'">true</DisableImplicitFrameworkReferences>
 		<DebugSymbols>true</DebugSymbols>
-		<DebugType>embedded</DebugType>
+		<DebugType>portable</DebugType>
 	</PropertyGroup>
 
 	<!-- SourceLink -->
@@ -33,9 +33,9 @@
 		<!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<!-- Optional: Include PDB in the built .nupkg -->
-		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+		<!-- <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder> -->
 		<!-- https://github.com/dotnet/sourcelink/blob/master/docs/README.md#embedallsources -->
-		<!-- <EmbedAllSources>true</EmbedAllSources>-->
+		<!-- <EmbedAllSources>true</EmbedAllSources> -->
 	</PropertyGroup>
 	<ItemGroup> 
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
@@ -68,11 +68,6 @@
 		<Resource Include="Resources\error.png" />
 		<Resource Include="Resources\info.png" />
 		<Resource Include="Resources\warning.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
-		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

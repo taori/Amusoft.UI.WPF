@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Amusoft.UI.WPF.All" Description=" " ToolsVersion="15.0">
+  <Include Path="amusoft.ui.wpf.all.ruleset" Action="Default" />
+</RuleSet>

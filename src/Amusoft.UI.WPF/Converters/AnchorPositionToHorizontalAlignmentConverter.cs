@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using Amusoft.UI.WPF.Adorners;
 using Amusoft.UI.WPF.Controls;
 using Amusoft.UI.WPF.Notifications;
 
@@ -12,25 +13,25 @@ namespace Amusoft.UI.WPF.Converters
 		/// <inheritdoc />
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (value is AnchorPosition position)
+			if (value is Position position)
 			{
 				switch (position)
 				{
-					case AnchorPosition.BottomRight:
+					case Position.BottomRight:
 						return HorizontalAlignment.Right;
-					case AnchorPosition.Bottom:
+					case Position.Bottom:
 						return HorizontalAlignment.Center;
-					case AnchorPosition.BottomLeft:
+					case Position.BottomLeft:
 						return HorizontalAlignment.Left;
-					case AnchorPosition.Left:
+					case Position.Left:
 						return HorizontalAlignment.Left;
-					case AnchorPosition.TopLeft:
+					case Position.TopLeft:
 						return HorizontalAlignment.Left;
-					case AnchorPosition.Top:
+					case Position.Top:
 						return HorizontalAlignment.Center;
-					case AnchorPosition.TopRight:
+					case Position.TopRight:
 						return HorizontalAlignment.Right;
-					case AnchorPosition.Right:
+					case Position.Right:
 						return HorizontalAlignment.Right;
 					default:
 						throw new ArgumentOutOfRangeException();
