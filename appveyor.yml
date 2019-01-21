@@ -15,7 +15,7 @@ install:
 - ps: #dotnet nuget --version
 - ps: #appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 - ps: $env:PADDED_BUILD_NUMBER = ([int]$env:appveyor_build_number).ToString("00000")
-- ps: dotnet tool install --global NugetUnlister --version 0.1.0.15
+- ps: dotnet tool install --global NugetUnlister --version 0.1.0.18
 nuget:
   disable_publish_on_pr: true
   disable_publish_octopus: true  
