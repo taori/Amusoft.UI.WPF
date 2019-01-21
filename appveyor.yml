@@ -59,7 +59,7 @@ for:
     only:
       - release 
   after_deploy:
-    nuget-unlist drop PrereleaseBefore -p Amusoft.UI.WPF --sv $env:combinedVersion -k $env:NUGET_DEPLOY_SECRET
+  - ps: nuget-unlist drop PrereleaseBefore -p Amusoft.UI.WPF --sv $env:combinedVersion -k $env:NUGET_DEPLOY_SECRET
 
   build_script:
   
