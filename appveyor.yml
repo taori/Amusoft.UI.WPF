@@ -4,7 +4,7 @@ configuration: Release
 platform: Any CPU
 environment:
  NUGET_DEPLOY_SECRET:
-  secure: cM8uuOzvNOaDyTnb9fRQbRi5sm5Tc/NqcpvscOA798nT7qAS16nfxqFGHFNTr3EG
+  secure: ozR9OxQlYJFAZfT0+WgueGhAZAoCrcAnn5VN8iPsiqGee+E7zJ6rPuUqQgsdJuNT
  
 pull_requests:
   do_not_increment_build_number: true
@@ -15,7 +15,7 @@ install:
 - ps: #dotnet nuget --version
 - ps: #appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 - ps: $env:PADDED_BUILD_NUMBER = ([int]$env:appveyor_build_number).ToString("00000")
-- ps: dotnet tool install --global NugetUnlister --version 0.1.0-beta00013
+- ps: dotnet tool install --global NugetUnlister
 nuget:
   disable_publish_on_pr: true
   disable_publish_octopus: true  
@@ -30,7 +30,7 @@ artifacts:
 deploy:
 - provider: NuGet
   api_key:
-    secure: cM8uuOzvNOaDyTnb9fRQbRi5sm5Tc/NqcpvscOA798nT7qAS16nfxqFGHFNTr3EG
+    secure: ozR9OxQlYJFAZfT0+WgueGhAZAoCrcAnn5VN8iPsiqGee+E7zJ6rPuUqQgsdJuNT
   artifact: Release
 #after_deploy:
 # - ps : Get-ChildItem .\snupkg\*.snupkg | % { dotnet nuget push $_.FullName -s https://api.nuget.org/v3/index.json -k $env:NUGET_DEPLOY_SECRET }
@@ -59,7 +59,7 @@ for:
     only:
       - release 
   after_deploy:
-    nuget-unlist drop PrereleaseBefore -p Amusoft.UI.WPF --sv $env:combinedVersion -k $env:NUGET_DEPLOY_SECRET
+  - ps: nuget-unlist drop PrereleaseBefore -p Amusoft.UI.WPF --sv $env:combinedVersion -k $env:NUGET_DEPLOY_SECRET
 
   build_script:
   
