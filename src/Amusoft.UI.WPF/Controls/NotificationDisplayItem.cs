@@ -136,6 +136,7 @@ namespace Amusoft.UI.WPF.Controls
 				SelectControl = selectControl;
 				selectControl.MouseLeftButtonUp += SelectControlMouseUp;
 				selectControl.MouseLeftButtonDown += SelectControlMouseDown;
+				selectControl.MouseUp += SelectControlOnMouseUp;
 				selectControl.MouseEnter += SelectControlOnMouseEnter;
 				selectControl.MouseLeave += SelectControlOnMouseLeave;
 			}
@@ -199,14 +200,19 @@ namespace Amusoft.UI.WPF.Controls
 			await HandleSelectInternal();
 		}
 
-		private async Task HandleSelectInternal()
+		private async void SelectControlOnMouseUp(object sender, MouseButtonEventArgs e)
+		{
+			await HandleSelectInternal(true);
+		}
+
+		private async Task HandleSelectInternal(bool forceClose = false)
 		{
 			RaiseEvent(new RoutedEventArgs(SelectedEvent));
 
 			if (DataContext is INotification notification)
 			{
 				notification.SelectCommand?.Execute(notification);
-				if (notification.CloseOnSelect)
+				if (notification.CloseOnSelect || forceClose)
 				{
 					await HandleCloseInternal(true);
 				}
