@@ -14,7 +14,6 @@ namespace Amusoft.UI.WPF.Controls
 	[TemplatePart(Name = "PART_SelectControl", Type = typeof(FrameworkElement))]
 	[TemplatePart(Name = "PART_Close", Type = typeof(UIElement))]
 	[TemplatePart(Name = "PART_Content", Type = typeof(UIElement))]
-	[TemplatePart(Name = "PART_Icon", Type = typeof(UIElement))]
 	[TemplateVisualState(GroupName = "CommonStates", Name = "Pressed")]
 	[TemplateVisualState(GroupName = "CommonStates", Name = "Normal")]
 	[TemplateVisualState(GroupName = "CommonStates", Name = "MouseOver")]
@@ -89,15 +88,6 @@ namespace Amusoft.UI.WPF.Controls
 			set { SetValue(CloseTemplateProperty, value); }
 		}
 
-		public static readonly DependencyProperty NotificationIconTemplateProperty = DependencyProperty.Register(
-			nameof(NotificationIconTemplate), typeof(DataTemplate), typeof(NotificationDisplayItem), new PropertyMetadata(default(DataTemplate)));
-
-		public DataTemplate NotificationIconTemplate
-		{
-			get { return (DataTemplate) GetValue(NotificationIconTemplateProperty); }
-			set { SetValue(NotificationIconTemplateProperty, value); }
-		}
-
 		public static readonly DependencyProperty IsCloseButtonVisibleProperty = DependencyProperty.Register(
 			nameof(IsCloseButtonVisible), typeof(bool), typeof(NotificationDisplayItem), new PropertyMetadata(default(bool)));
 
@@ -136,7 +126,7 @@ namespace Amusoft.UI.WPF.Controls
 				SelectControl = selectControl;
 				selectControl.MouseLeftButtonUp += SelectControlMouseUp;
 				selectControl.MouseLeftButtonDown += SelectControlMouseDown;
-				selectControl.MouseUp += SelectControlOnMouseUp;
+				selectControl.MouseUp += SelectControlOnAnyMouseUp;
 				selectControl.MouseEnter += SelectControlOnMouseEnter;
 				selectControl.MouseLeave += SelectControlOnMouseLeave;
 			}
@@ -200,9 +190,10 @@ namespace Amusoft.UI.WPF.Controls
 			await HandleSelectInternal();
 		}
 
-		private async void SelectControlOnMouseUp(object sender, MouseButtonEventArgs e)
+		private async void SelectControlOnAnyMouseUp(object sender, MouseButtonEventArgs e)
 		{
-			await HandleSelectInternal(true);
+			if (e.ChangedButton == MouseButton.Middle)
+				await HandleSelectInternal(true);
 		}
 
 		private async Task HandleSelectInternal(bool forceClose = false)

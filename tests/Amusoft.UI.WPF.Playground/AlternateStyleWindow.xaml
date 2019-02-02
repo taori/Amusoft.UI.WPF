@@ -12,11 +12,6 @@
 		<Style TargetType="{x:Type aui:NotificationDisplayItem}" x:Key="NotificationDisplayItemOverride">
 			<Setter Property="Padding" Value="3"/>
 			<Setter Property="MinWidth" Value="300"/>
-			<Setter Property="NotificationIconTemplate">
-				<Setter.Value>
-					<DataTemplate><TextBlock Text="hi"></TextBlock></DataTemplate>
-				</Setter.Value>
-			</Setter>
 		</Style>
 	</Window.Resources>
 	<DockPanel Background="Green">

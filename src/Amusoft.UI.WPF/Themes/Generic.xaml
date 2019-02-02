@@ -19,16 +19,6 @@
 		<Setter Property="VerticalContentAlignment" Value="Stretch" />
 		<Setter Property="VerticalIconAlignment" Value="Stretch" />
 		<Setter Property="VerticalCloseAlignment" Value="Stretch" />
-		<Setter Property="NotificationIconTemplate">
-			<Setter.Value>
-				<DataTemplate>
-					<local:TintedImage
-						Source="{Binding Path=., Converter={StaticResource SimpleNotificationToIconConverter}}"
-						Brush="{Binding Path=., Converter={StaticResource SimpleNotificationToColorConverter}}"
-						Height="36"/>
-				</DataTemplate>
-			</Setter.Value>
-		</Setter>
 		<Setter Property="CloseTemplate">
 			<Setter.Value>
 				<DataTemplate>
@@ -118,12 +108,13 @@
 							</VisualStateGroup>
 						</VisualStateManager.VisualStateGroups>
 						<DockPanel>
-							<ContentPresenter x:Name="PART_Icon"
-							                  Margin="10,0,0,0"
-							                  VerticalAlignment="{TemplateBinding VerticalIconAlignment}"
-							                  Content="{TemplateBinding DataContext}" 
-							                  ContentTemplate="{Binding Path=NotificationIconTemplate, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NotificationDisplayItem}}}" 
-							                  DockPanel.Dock="Left" />
+							<local:TintedImage
+								DockPanel.Dock="Left"
+								Margin="10,0,0,0"
+								VerticalAlignment="{TemplateBinding VerticalIconAlignment}"
+								Source="{Binding Path=., Converter={StaticResource SimpleNotificationToIconConverter}}"
+								Brush="{Binding Path=., Converter={StaticResource SimpleNotificationToColorConverter}}"
+								Height="36"/>
 							<Border DockPanel.Dock="Right"
 							        Padding="10,0"
 							        x:Name="PART_Close" 
