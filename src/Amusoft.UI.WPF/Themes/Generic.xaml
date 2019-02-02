@@ -151,6 +151,9 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:NotificationDisplay}">
 					<Border Background="{TemplateBinding Background}"
+							Padding="{TemplateBinding Padding}"
+							MinWidth="{TemplateBinding MinWidth}"
+							MinHeight="{TemplateBinding MinHeight}"
 					        HorizontalAlignment="{Binding Path=Position, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AnchorPositionToHorizontalAlignmentConverter}}"
 					        VerticalAlignment="{Binding Path=Position, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource AnchorPositionToVerticalAlignmentConverter}}"
 					        BorderBrush="{TemplateBinding BorderBrush}"
