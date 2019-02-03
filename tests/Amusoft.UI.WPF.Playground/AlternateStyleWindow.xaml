@@ -12,16 +12,11 @@
 		<Style TargetType="{x:Type aui:NotificationDisplayItem}" x:Key="NotificationDisplayItemOverride">
 			<Setter Property="Padding" Value="3"/>
 			<Setter Property="MinWidth" Value="300"/>
-			<Setter Property="NotificationIconTemplate">
-				<Setter.Value>
-					<DataTemplate><TextBlock Text="hi"></TextBlock></DataTemplate>
-				</Setter.Value>
-			</Setter>
 		</Style>
 	</Window.Resources>
 	<DockPanel Background="Green">
 		<TextBlock Text="{Binding ElementName=Self, Path=Items.Count}" DockPanel.Dock="Top" Background="Brown" Foreground="White"></TextBlock>
 		<!-- <ListView Margin="10" ItemsSource="{Binding ElementName=Self, Path=Items, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"  Background="CornflowerBlue"/> -->
-		<aui:NotificationDisplay Margin="10" ItemsSource="{Binding ElementName=Self, Path=Items}" ItemContainerStyle="{StaticResource NotificationDisplayItemOverride}"></aui:NotificationDisplay>
+		<aui:NotificationDisplay Margin="30" Padding="0,30" ItemsSource="{Binding ElementName=Self, Path=Items}" ItemContainerStyle="{StaticResource NotificationDisplayItemOverride}"></aui:NotificationDisplay>
     </DockPanel>
 </Window>
