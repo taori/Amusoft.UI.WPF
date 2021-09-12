@@ -136,7 +136,9 @@ jobs:
       run: Remove-Item '/artifacts/nupkg/*' -Recurse -Include *.snupkg
       
     - name: Release
+      shell: pwsh
       if: ${{ needs.environment.outputs.publishRelease == 'True' }}
+      # Get-ChildItem /artifacts/nupkg/*.nupkg -Recurse | foreach { dotnet nuget push "$_.FullName" -k $env:NUGETKEY -s https://api.nuget.org/v3/index.json }
       run: dotnet nuget push "/artifacts/nupkg/*.nupkg" -k $env:NUGETKEY -s https://api.nuget.org/v3/index.json
       env:
         NUGETKEY: ${{ secrets.NUGET }}
