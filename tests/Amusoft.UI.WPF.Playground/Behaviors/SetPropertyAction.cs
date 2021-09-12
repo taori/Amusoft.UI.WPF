@@ -70,7 +70,7 @@ namespace Amusoft.UI.WPF.Playground.Behaviors
 				BindingFlags.Instance | BindingFlags.Public
 				| BindingFlags.NonPublic | BindingFlags.InvokeMethod);
 
-			propertyInfo.SetValue(target, PropertyValue);
+			propertyInfo?.SetValue(target, PropertyValue);
 		}
 	}
 }
