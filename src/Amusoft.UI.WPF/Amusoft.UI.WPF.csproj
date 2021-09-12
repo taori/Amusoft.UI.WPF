@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   	<PropertyGroup>
 		<TargetFrameworks>net461;net471;net5.0-windows</TargetFrameworks>
@@ -15,7 +15,7 @@
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/taori/Amusoft.UI.WPF.git</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/taori/Amusoft.UI.WPF</PackageProjectUrl>
-		<PackageTags>dotnet-new;templates;Amusoft</PackageTags>
+		<PackageTags>wpf;controls;notification;UI</PackageTags>
 		<PackageId>Amusoft.UI.WPF</PackageId>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<IsPackable>true</IsPackable>
