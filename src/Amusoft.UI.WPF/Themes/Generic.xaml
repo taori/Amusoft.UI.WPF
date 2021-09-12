@@ -22,7 +22,7 @@
 		<Setter Property="CloseTemplate">
 			<Setter.Value>
 				<DataTemplate>
-					<local:TintedImage Source="/Amusoft.UI.WPF;component/Resources/close.png" Height="24" Brush="DarkGray">
+					<local:TintedImage Source="pack://application:,,,/Amusoft.UI.WPF;component/Resources/close.png" Height="24" Brush="DarkGray">
 						<local:TintedImage.Style>
 							<Style TargetType="{x:Type local:TintedImage}">
 								<Style.Triggers>

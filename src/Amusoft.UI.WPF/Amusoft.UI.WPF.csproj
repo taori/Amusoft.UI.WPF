@@ -1,94 +1,48 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-	<PropertyGroup>
-		<TargetFrameworks>net45;net461;net471;netcoreapp3.0</TargetFrameworks>
-		<Platforms>AnyCPU;x64;x86</Platforms>
-		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  	<PropertyGroup>
+		<TargetFrameworks>net461;net471;net5.0-windows</TargetFrameworks>
+    	<UseWPF>true</UseWPF>
+	  	<UseWindowsForms>true</UseWindowsForms>
+
+		<Title>Amusoft.Templates</Title>
 		<Authors>Andreas Müller</Authors>
 		<Company>Andreas Müller</Company>
 		<Product>Amusoft.UI.WPF</Product>
 		<Description>Controls, converters and other useful classes for wpf.</Description>
-		<Copyright>2019</Copyright>
-		<PackageLicenseUrl>https://github.com/taori/Amusoft.UI.WPF/blob/master/LICENSE</PackageLicenseUrl>
-		<PackageProjectUrl>https://github.com/taori/Amusoft.UI.WPF</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/taori/Amusoft.UI.WPF.git</RepositoryUrl>
-		<AssemblyVersion>0.5.0.0</AssemblyVersion>
-		<FileVersion>0.5.0.0</FileVersion>
-		<VersionPrefix>0.5.0</VersionPrefix>
-		<VersionSuffix></VersionSuffix>
-		<PackageReleaseNotes />
+		<Copyright>Copyright © Andreas Müller 2019</Copyright>
+
 		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/taori/Amusoft.UI.WPF.git</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/taori/Amusoft.UI.WPF</PackageProjectUrl>
+		<PackageTags>dotnet-new;templates;Amusoft</PackageTags>
+		<PackageId>Amusoft.UI.WPF</PackageId>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<IsPackable>true</IsPackable>
+		<PackageIcon>packageIcon.png</PackageIcon>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReleaseNotes>new templates:
+			template-cheatsheet
+			dotnet-library-repo
+		</PackageReleaseNotes>
+		
+		<VersionPrefix>1.0.0</VersionPrefix>
+		<VersionSuffix>beta</VersionSuffix>
+
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<DisableImplicitFrameworkReferences Condition="'$(TargetFramework)' != 'netcoreapp3.0'">true</DisableImplicitFrameworkReferences>
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>portable</DebugType>
+		<NoWarn>1701;1702;NU5128</NoWarn>
 	</PropertyGroup>
 
-	<!-- SourceLink -->
-	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-		<!-- Optional: Declare that the Repository URL can be published to NuSpec -->
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
-		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-		<!-- Optional: Include PDB in the built .nupkg -->
-		<!-- <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder> -->
-		<!-- https://github.com/dotnet/sourcelink/blob/master/docs/README.md#embedallsources -->
-		<!-- <EmbedAllSources>true</EmbedAllSources> -->
-	</PropertyGroup>
-	<ItemGroup> 
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02" PrivateAssets="All" />
-	</ItemGroup> 
-
-	<!-- Set the reference for the other targets -->
-	<ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
-		<Reference Include="PresentationCore" />
-		<Reference Include="PresentationFramework" />
-		<Reference Include="System" />
-		<Reference Include="System.Core" />
-		<Reference Include="System.Xaml" />
-		<Reference Include="WindowsBase" />
-		<Reference Include="System.Windows.Forms" />
-		<Reference Include="System.Windows" />
-		<Reference Include="System.Drawing" />
+	<ItemGroup>
+		<None Include="packageIcon.png" Pack="true" PackagePath="\" />		
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Remove="Resources\close.png" />
-		<None Remove="Resources\done.png" />
-		<None Remove="Resources\error.png" />
-		<None Remove="Resources\info.png" />
-		<None Remove="Resources\warning.png" />
-		<None Remove="Themes\Generic.xaml" />
+	  <None Remove="Resources\*" />
+	  <Resource Include="Resources\*" />
 	</ItemGroup>
-	<ItemGroup>
-		<Resource Include="Resources\close.png" />
-		<Resource Include="Resources\done.png" />
-		<Resource Include="Resources\error.png" />
-		<Resource Include="Resources\info.png" />
-		<Resource Include="Resources\warning.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Update="Properties\Resources.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Resources.resx</DependentUpon>
-		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resources.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
-			<!-- <LogicalName>$(RootNamespace).g.resources</LogicalName> -->
-		</EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Page Include="Themes\Generic.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</Page>
-	</ItemGroup>
+	
+	<Import Project="..\..\build\SourceLink.props"/>	
 </Project>
