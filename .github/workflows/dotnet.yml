@@ -119,11 +119,11 @@ jobs:
     #- name: stop
     #  run: exit 1
     - name: Restore dependencies
-      run: dotnet restore src/Amusoft.UI.WPF.sln
+      run: dotnet restore src/Amusoft.UI.WPF.All.sln
     - name: Build
-      run: dotnet build src/Amusoft.UI.WPF.sln --verbosity $verbosity -c $configuration --no-restore 
+      run: dotnet build src/Amusoft.UI.WPF.All.sln --verbosity $verbosity -c $configuration --no-restore 
     - name: Test
-      run: dotnet test src/Amusoft.UI.WPF.sln --verbosity $verbosity -c $configuration --no-build 
+      run: dotnet test src/Amusoft.UI.WPF.All.sln --verbosity $verbosity -c $configuration --no-build 
       
     - name: Pack
       if: ${{ needs.environment.outputs.publishRelease == 'True' }}
