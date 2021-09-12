@@ -135,14 +135,6 @@ jobs:
       #run: find /artifacts/nupkg/ -name "*.snupkg" -type f -delete
       run: Remove-Item '/artifacts/nupkg/*' -Recurse -Include *.snupkg
       
-    - name: Release
-      shell: pwsh
-      if: ${{ needs.environment.outputs.publishRelease == 'True' }}
-      run: Get-ChildItem /artifacts/nupkg/*.nupkg -Recurse | foreach { dotnet nuget push "$_" -k $env:NUGETKEY -s https://api.nuget.org/v3/index.json }
-      #run: dotnet nuget push "/artifacts/nupkg/*.nupkg" -k $env:NUGETKEY -s https://api.nuget.org/v3/index.json
-      env:
-        NUGETKEY: ${{ secrets.NUGET }}
-      
     - name: Remove old prereleases 
       if: ${{ needs.environment.outputs.publishRelease == 'True' && github.event_name =='workflow_dispatch' && needs.environment.outputs.versionSuffix == ''}}
       id: defaults
@@ -153,4 +145,12 @@ jobs:
         & dotnet tool install --global NugetUnlister
         $packageVersion = Get-ChildItem -Recurse -Filter '*.nupkg' | select { $_.Name } -ExpandProperty Name -First 1 | Select-String -Pattern "\d[\d\w\.\+-]+(?=.nupkg)" | %{$_.Matches.Value}
         & nuget-unlist drop prereleasebefore "Amusoft.UI.WPF" "$packageVersion" "$env:NUGETKEY"
+      
+    - name: Release
+      shell: pwsh
+      if: ${{ needs.environment.outputs.publishRelease == 'True' }}
+      run: Get-ChildItem /artifacts/nupkg/*.nupkg -Recurse | foreach { dotnet nuget push "$_" -k $env:NUGETKEY -s https://api.nuget.org/v3/index.json }
+      #run: dotnet nuget push "/artifacts/nupkg/*.nupkg" -k $env:NUGETKEY -s https://api.nuget.org/v3/index.json
+      env:
+        NUGETKEY: ${{ secrets.NUGET }}
        
