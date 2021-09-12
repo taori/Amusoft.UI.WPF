@@ -131,7 +131,8 @@ jobs:
 
     - name: Remove snupkg
       if: ${{ needs.environment.outputs.publishRelease == 'True' }}
-      run: find artifacts/nupkg/ -name "*.snupkg" -type f -delete
+      run: rm **/*.snupkg
+      #run: find artifacts/nupkg/ -name "*.snupkg" -type f -delete
       
     - name: Release
       if: ${{ needs.environment.outputs.publishRelease == 'True' }}
