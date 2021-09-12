@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Amusoft.UI.Tests.Utilities;
 using Amusoft.UI.WPF.Notifications;
 using Shouldly;
@@ -22,7 +23,7 @@ namespace Amusoft.UI.Tests
         }
 
         [Fact]
-        public void DotNetPack_ManifestNames_Containts_G_Resources_Folder()
+        public async Task DotNetPack_ManifestNames_Containts_G_Resources_Folder()
         {
             /**
              * This test makes sure, that the resources are contained in the packaged nuget, which is not the case at all times for some reason.
@@ -39,17 +40,14 @@ namespace Amusoft.UI.Tests
                 buildCsproj = new Uri(buildCsproj).AbsolutePath;
                 File.Exists(buildCsproj).ShouldBeTrue();
 
-                using (var process = Process.Start($"dotnet build {buildCsproj} -c Release"))
-                {
-                    process.WaitForExit();
-                    process.ExitCode.ShouldBe(0, process.StandardError.ReadToEnd);
-                }
-
-                using (var process = Process.Start($"dotnet pack {buildCsproj} -o {tempFolder} --include-symbols -c Release"))
-                {
-                    process.WaitForExit();
-                    process.ExitCode.ShouldBe(0, process.StandardError.ReadToEnd);
-                }
+                using var buildRunner = new SimpleProcessRunner("dotnet", $"build {buildCsproj} -c Release");
+                await buildRunner.ExecuteAsync(TimeSpan.FromSeconds(15));
+                buildRunner.ExitCode.ShouldBe(0);
+                
+                
+                using var packRunner = new SimpleProcessRunner("dotnet", $"pack {buildCsproj} -o {tempFolder} -c Release");
+                await packRunner.ExecuteAsync(TimeSpan.FromSeconds(15));
+                packRunner.ExitCode.ShouldBe(0);
 
                 var nupkg = Directory.EnumerateFiles(tempFolder, "*.nupkg", SearchOption.AllDirectories).FirstOrDefault();
                 nupkg.ShouldNotBeNull();
@@ -57,7 +55,7 @@ namespace Amusoft.UI.Tests
                 var unzipTarget = FileUtil.GetNewTempFolder();
                 ZipFile.ExtractToDirectory(nupkg, unzipTarget);
 
-                var libDll = Directory.EnumerateFiles(tempFolder, "Amusoft.UI.WPF.dll", SearchOption.AllDirectories).FirstOrDefault();
+                var libDll = Directory.EnumerateFiles(unzipTarget + "\\lib", "Amusoft.UI.WPF.dll", SearchOption.AllDirectories).FirstOrDefault();
                 File.Exists(libDll).ShouldBeTrue();
 
                 var remoteAssembly = Assembly.LoadFile(libDll);
