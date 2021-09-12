@@ -44,5 +44,5 @@
 	  <Resource Include="Resources\*" />
 	</ItemGroup>
 	
-
+	<Import Project="..\..\build\SourceLink.props"/>	
 </Project>
