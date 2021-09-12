@@ -16,7 +16,7 @@
 		<RepositoryUrl>https://github.com/taori/Amusoft.UI.WPF.git</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/taori/Amusoft.UI.WPF</PackageProjectUrl>
 		<PackageTags>dotnet-new;templates;Amusoft</PackageTags>
-		<PackageId>Amusoft.Templates</PackageId>
+		<PackageId>Amusoft.UI.WPF</PackageId>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<IsPackable>true</IsPackable>
 		<PackageIcon>packageIcon.png</PackageIcon>
