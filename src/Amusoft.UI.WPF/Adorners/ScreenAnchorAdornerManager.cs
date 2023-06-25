@@ -16,18 +16,18 @@ namespace Amusoft.UI.WPF.Adorners
 		{
 		}
 
-		public static readonly ScreenAnchorAdornerManager Instance = new ScreenAnchorAdornerManager();
+		public static readonly ScreenAnchorAdornerManager Instance = new();
 
-		private static readonly Dictionary<Screen, Window> WindowByScreen = new Dictionary<Screen, Window>();
+		private static readonly Dictionary<Screen, Window> WindowByScreen = new();
 
-		private static readonly Dictionary<Screen, AnchorAdornerManager> ManagerByScreen = new Dictionary<Screen, AnchorAdornerManager>();
+		private static readonly Dictionary<Screen, AnchorAdornerManager> ManagerByScreen = new();
 
 		public AnchorAdornerManager this[Screen screen]
 		{
 			get
 			{
 				EnsureOverlaysExist();
-				return ManagerByScreen.TryGetValue(screen, out var val) ? val : null;
+				return ManagerByScreen[screen];
 			}
 		}
 
@@ -35,8 +35,7 @@ namespace Amusoft.UI.WPF.Adorners
 		{
 			if (WindowByScreen.Count > 0)
 				return;
-
-			Debug.WriteLine(nameof(EnsureOverlaysExist));
+			
 			foreach (var screen in Screen.AllScreens)
 			{
 				CreateAdornerWindow(screen);
@@ -68,10 +67,13 @@ namespace Amusoft.UI.WPF.Adorners
 			UpdateSizes(window, false);
 			window.Show();
 
-			var manager = new AnchorAdornerManager(window.Content as Visual);
+			if (window.Content is Visual visual)
+			{
+				var manager = new AnchorAdornerManager(visual);
 
-			WindowByScreen.Add(screen, window);
-			ManagerByScreen.Add(screen, manager);
+				WindowByScreen.Add(screen, window);
+				ManagerByScreen.Add(screen, manager);
+			}
 		}
 	}
 }

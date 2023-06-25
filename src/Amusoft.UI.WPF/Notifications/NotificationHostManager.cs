@@ -8,7 +8,7 @@ namespace Amusoft.UI.WPF.Notifications
 {
 	public class NotificationSettings
 	{
-		public Style Style { get; private set; }
+		public Style? Style { get; private set; }
 
 		public NotificationSettings WithStyle(Style value)
 		{
@@ -27,7 +27,7 @@ namespace Amusoft.UI.WPF.Notifications
 			element.SetValue(NotificationHostProperty, value);
 		}
 
-		internal static NotificationHost GetNotificationHost(Visual element)
+		internal static NotificationHost? GetNotificationHost(Visual element)
 		{
 			return (NotificationHost) element.GetValue(NotificationHostProperty);
 		}
@@ -36,10 +36,10 @@ namespace Amusoft.UI.WPF.Notifications
 		{
 		}
 
-		private static readonly object _hostByVisualLock = new object();
-		public static NotificationHost GetHostByVisual(Visual target, NotificationSettings settings = null)
+		private static readonly object HostByVisualLock = new();
+		public static NotificationHost GetHostByVisual(Visual target, NotificationSettings? settings = null)
 		{
-			lock (_hostByVisualLock)
+			lock (HostByVisualLock)
 			{
 				var oldHost = GetNotificationHost(target);
 				if (oldHost != null)
@@ -51,16 +51,16 @@ namespace Amusoft.UI.WPF.Notifications
 			}
 		}
 
-		private static NotificationHost CreateHostByVisual(Visual target, NotificationSettings settings = null)
+		private static NotificationHost CreateHostByVisual(Visual target, NotificationSettings? settings = null)
 		{
 			var manager = new AnchorAdornerManager(target);
 			var host = new NotificationHost(manager, settings);
 			return host;
 		}
 
-		private static readonly ConcurrentDictionary<Screen, NotificationHost> HostsByScreen = new ConcurrentDictionary<Screen, NotificationHost>();
+		private static readonly ConcurrentDictionary<Screen, NotificationHost> HostsByScreen = new();
 
-		public static NotificationHost GetHostByScreen(Screen screen, NotificationSettings settings = null)
+		public static NotificationHost GetHostByScreen(Screen screen, NotificationSettings? settings = null)
 		{
 			return HostsByScreen.GetOrAdd(screen, s =>
 			{

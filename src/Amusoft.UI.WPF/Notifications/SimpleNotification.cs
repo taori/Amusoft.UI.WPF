@@ -20,8 +20,8 @@ namespace Amusoft.UI.WPF.Notifications
 		/// <inheritdoc />
 		public SimpleNotification(string text, 
 			SimpleNotificationType type = SimpleNotificationType.Done, 
-			Action<SimpleNotification> selectedCallback = null, 
-			Action<SimpleNotification> closedCallback = null)
+			Action<SimpleNotification>? selectedCallback = null, 
+			Action<SimpleNotification>? closedCallback = null)
 		{
 			Type = type;
 			Text = text;
@@ -31,7 +31,7 @@ namespace Amusoft.UI.WPF.Notifications
 			SelectCommand = new ActionCommand(SelectExecute);
 		}
 
-		private void SelectExecute(object obj)
+		private void SelectExecute(object? obj)
 		{
 			SelectedCallback?.Invoke(this);
 
@@ -53,9 +53,9 @@ namespace Amusoft.UI.WPF.Notifications
 
 		public SimpleNotificationType Type { get; set; }
 
-		public Action<SimpleNotification> SelectedCallback { get; }
+		public Action<SimpleNotification>? SelectedCallback { get; }
 
-		public Action<SimpleNotification> ClosedCallback { get; }
+		public Action<SimpleNotification>? ClosedCallback { get; }
 
 		/// <inheritdoc />
 		public ICommand CloseCommand { get; set; }
@@ -64,10 +64,10 @@ namespace Amusoft.UI.WPF.Notifications
 		public ICommand SelectCommand { get; set; }
 
 		/// <inheritdoc />
-		public event EventHandler CloseRequested;
+		public event EventHandler? CloseRequested;
 
 		/// <inheritdoc />
-		public event EventHandler Displayed;
+		public event EventHandler? Displayed;
 
 		/// <inheritdoc />
 		public bool AutoClose { get; set; }
@@ -93,9 +93,9 @@ namespace Amusoft.UI.WPF.Notifications
 			this.CloseRequested?.Invoke(this, EventArgs.Empty);
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler? PropertyChanged;
 
-		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}

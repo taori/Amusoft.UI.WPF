@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using Amusoft.UI.WPF.Notifications;
 using Amusoft.UI.WPF.Utility;
@@ -47,7 +45,7 @@ namespace Amusoft.UI.WPF.Controls
 			}
 		}
 
-		private async void NewNotificationOnCloseRequested(object sender, EventArgs e)
+		private async void NewNotificationOnCloseRequested(object? sender, EventArgs e)
 		{
 			await CloseExecute(true);
 		}
@@ -115,7 +113,7 @@ namespace Amusoft.UI.WPF.Controls
 			set { SetValue(VerticalCloseAlignmentProperty, value); }
 		}
 
-		public FrameworkElement SelectControl { get; set; }
+		public FrameworkElement? SelectControl { get; set; }
 
 		/// <inheritdoc />
 		public override void OnApplyTemplate()
