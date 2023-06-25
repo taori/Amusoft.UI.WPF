@@ -4,7 +4,7 @@
 		<TargetFrameworks>net462;net471;net5.0-windows</TargetFrameworks>
     	<UseWPF>true</UseWPF>
 	  	<UseWindowsForms>true</UseWindowsForms>
-
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
 		<Title>Amusoft.Templates</Title>
 		<Authors>Andreas Müller</Authors>
 		<Company>Andreas Müller</Company>
