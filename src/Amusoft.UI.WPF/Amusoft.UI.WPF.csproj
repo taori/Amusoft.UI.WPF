@@ -28,6 +28,7 @@
 		<VersionPrefix>1.0.3</VersionPrefix>
 		<VersionSuffix>beta</VersionSuffix>
 
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -36,6 +37,10 @@
 
 	<ItemGroup>
 		<None Include="packageIcon.png" Pack="true" PackagePath="\" />		
+		<None Include="..\..\README.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup>
