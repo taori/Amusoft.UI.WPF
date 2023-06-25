@@ -2,12 +2,11 @@
 
   	<PropertyGroup>
 		<TargetFrameworks>net7.0-windows</TargetFrameworks>
-    	<UseWPF>true</UseWPF>
-	  	<UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+	  <UseWindowsForms>true</UseWindowsForms>
 		<LangVersion>latest</LangVersion>
-	    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-
-	    <Title>Amusoft.Templates</Title>
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+		<Title>Amusoft.Templates</Title>
 		<Authors>Andreas Müller</Authors>
 		<Company>Andreas Müller</Company>
 		<Product>Amusoft.UI.WPF</Product>
