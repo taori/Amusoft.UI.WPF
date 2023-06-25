@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   	<PropertyGroup>
-		<TargetFrameworks>net461;net471;net5.0-windows</TargetFrameworks>
+		<TargetFrameworks>net462;net471;net5.0-windows</TargetFrameworks>
     	<UseWPF>true</UseWPF>
 	  	<UseWindowsForms>true</UseWindowsForms>
 
@@ -26,7 +26,7 @@
 			dotnet-library-repo
 		</PackageReleaseNotes>
 		
-		<VersionPrefix>1.0.2</VersionPrefix>
+		<VersionPrefix>1.0.3</VersionPrefix>
 		<VersionSuffix>beta</VersionSuffix>
 
 	</PropertyGroup>
