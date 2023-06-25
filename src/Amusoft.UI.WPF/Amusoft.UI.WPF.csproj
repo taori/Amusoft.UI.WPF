@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   	<PropertyGroup>
-		<TargetFrameworks>net462;net471;net5.0-windows</TargetFrameworks>
-    	<UseWPF>true</UseWPF>
-	  	<UseWindowsForms>true</UseWindowsForms>
+		<TargetFrameworks>net7.0-windows</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+	  <UseWindowsForms>true</UseWindowsForms>
+		<LangVersion>latest</LangVersion>
 		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
 		<Title>Amusoft.Templates</Title>
 		<Authors>Andreas Müller</Authors>
@@ -25,14 +26,17 @@
 			await ThreadHelper.UI
 		</PackageReleaseNotes>
 		
-		<VersionPrefix>1.0.3</VersionPrefix>
+		<VersionPrefix>2.0.0</VersionPrefix>
 		<VersionSuffix>beta</VersionSuffix>
 
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<PropertyGroup>
+		<GenerateAssemblyInfo>False</GenerateAssemblyInfo>
 		<NoWarn>1701;1702;NU5128</NoWarn>
+		<WarningsAsErrors>CS8602;CS8600;CS8625;CS8603;CS8622;CS8618</WarningsAsErrors>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -48,5 +52,5 @@
 	  <Resource Include="Resources\*" />
 	</ItemGroup>
 	
-	<Import Project="..\..\build\SourceLink.props"/>	
+	<Import Project="..\..\build\SourceLink.props" />	
 </Project>

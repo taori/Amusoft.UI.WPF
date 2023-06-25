@@ -13,11 +13,11 @@ namespace Amusoft.UI.WPF.Notifications
 	{
 		private AnchorAdornerManager Manager { get; }
 
-		private NotificationSettings Settings { get; }
+		private NotificationSettings? Settings { get; }
 
 		private ConcurrentDictionary<Position, ObservableCollection<object>> ItemsByPosition { get; }
 
-		public NotificationHost(AnchorAdornerManager manager, NotificationSettings settings)
+		public NotificationHost(AnchorAdornerManager manager, NotificationSettings? settings)
 		{
 			Manager = manager;
 			Settings = settings;
@@ -65,7 +65,7 @@ namespace Amusoft.UI.WPF.Notifications
 				return;
 			
 			var display = new NotificationDisplay();
-			if (Settings?.Style is Style displayStyle)
+			if (Settings?.Style is {} displayStyle)
 				display.Style = displayStyle;
 
 			display.Position = position;
