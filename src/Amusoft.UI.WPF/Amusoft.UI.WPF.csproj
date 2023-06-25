@@ -21,9 +21,8 @@
 		<IsPackable>true</IsPackable>
 		<PackageIcon>packageIcon.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageReleaseNotes>new templates:
-			template-cheatsheet
-			dotnet-library-repo
+		<PackageReleaseNotes>
+			await ThreadHelper.UI
 		</PackageReleaseNotes>
 		
 		<VersionPrefix>1.0.3</VersionPrefix>
