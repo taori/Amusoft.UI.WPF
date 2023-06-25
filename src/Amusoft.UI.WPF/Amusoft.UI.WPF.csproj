@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   	<PropertyGroup>
-		<TargetFrameworks>net461;net471;net5.0-windows</TargetFrameworks>
+		<TargetFrameworks>net461;net471;net7.0-windows</TargetFrameworks>
     	<UseWPF>true</UseWPF>
 	  	<UseWindowsForms>true</UseWindowsForms>
 
