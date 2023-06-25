@@ -15,6 +15,7 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 	{
 		public MainViewModel()
 		{
+			Commands.Add(new TextCommandViewModel(new ActionCommand(DisplayAwaitUiThread), "await UI.Thread"));
 			Commands.Add(new TextCommandViewModel(new ActionCommand(DisplayGlobalNotifactionsExecute), "Display global notifications"));
 			Commands.Add(new TextCommandViewModel(new ActionCommand(DisplayWindowNotifactionsExecute), "Display window notifications"));
 			Commands.Add(new TextCommandViewModel(new ActionCommand(DisplayAlignmentTestWindowExecute), "Display alignment test window"));
@@ -43,6 +44,12 @@ namespace Amusoft.UI.WPF.Playground.ViewModels
 		{
 			get => _anchorPosition;
 			set => SetValue(ref _anchorPosition, value, nameof(AnchorPosition));
+		}
+
+		private void DisplayAwaitUiThread()
+		{
+			var testWindow = new BackgroundThreadAwait();
+			testWindow.Show();
 		}
 
 		private void DisplayAlignmentTestWindowExecute()

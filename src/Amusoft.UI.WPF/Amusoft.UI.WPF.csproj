@@ -21,14 +21,14 @@
 		<IsPackable>true</IsPackable>
 		<PackageIcon>packageIcon.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageReleaseNotes>new templates:
-			template-cheatsheet
-			dotnet-library-repo
+		<PackageReleaseNotes>
+			await ThreadHelper.UI
 		</PackageReleaseNotes>
 		
-		<VersionPrefix>1.0.2</VersionPrefix>
+		<VersionPrefix>1.0.3</VersionPrefix>
 		<VersionSuffix>beta</VersionSuffix>
 
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -37,6 +37,10 @@
 
 	<ItemGroup>
 		<None Include="packageIcon.png" Pack="true" PackagePath="\" />		
+		<None Include="..\..\README.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup>
